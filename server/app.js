@@ -1,8 +1,10 @@
 const express = require("express");
 const cors = require("cors");
+const {db} = require('./database/index.js')
 const uploadImage = require("./uploadImage.js");
 const app = express();
 const port = 5000;
+
 
 app.use(cors());
 app.use(express.json({ limit: "25mb" }));
