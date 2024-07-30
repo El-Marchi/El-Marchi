@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import assets from "../assets/assets.gif";
 import axios from "axios";
 
 export default function UploadImage() {
