@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const {whishListRouter} = require('./Router/whislistRouter/whishlistRouter.js')
+const routerproduct=require('./Router/productrouter/productrouters.js')
 const uploadImage = require("./uploadImage.js");
 const app = express();
 const port = 5000;
@@ -15,6 +16,7 @@ app.use((req, res, next) => {
 });
 
 app.use("api/WhishList",whishListRouter)
+app.use("/api/product", routerproduct)
 
 app.post("/uploadImage", (req, res) => {
   uploadImage(req.body.image)
