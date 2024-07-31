@@ -90,23 +90,25 @@ const deleteuser = async (req,res) => {
 const updatepassword=async(req,res)=>{
    
    
-    const {email,password}=req.body;
-     const test=await db.User.findOne({where:{email}})
-    if(!test)return res.send('email not exist');
-    const testpassword=await bcrypt.compare(password,test.password)
+    const {email,password,newpassword}=req.body;
+     const user=await db.User.findOne({where:{email}})
+    if(!user)return res.send('email not exist');
+
+    const testpassword=await bcrypt.compare(password,user.password)
     if(!testpassword) return res.send('not valide')
 
-        else {
-            const token=jwt.sign({userid:test.userid,email:test.email,firstName:test.firstName},'loginuser')
-            res.send(token)
+
+
+    //  else {
+    // const token=jwt.sign({userid:user.userid,email:user.email,firstName:user.firstName},'loginuser')
+    //      res.send(token)
             
-                }
+    //     }
                 
  
    let id=req.params.userid
-    
-    const up=await db.User.update(req.body,{where:{userid: id}})
-    res.status(200).send(up)
+    const up=await db.User.update({password:await bcrypt.hash(newpassword,15)},{where:{userid: id}})
+    res.send(up)
 }
 
 
