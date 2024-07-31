@@ -1,6 +1,6 @@
-import Roadmap from "../components/Roadmap";
-import Content from "../components/Content";
-import Related from "../components/Related";
+import Roadmap from "../components/ProductDetailComponents/Roadmap";
+import Content from "../components/ProductDetailComponents/Content";
+import Related from "../components/ProductDetailComponents/Related";
 
 const ProductDetailsPage = () => {
   return (
