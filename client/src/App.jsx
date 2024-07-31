@@ -1,11 +1,19 @@
-import UploadImage from "./components/UploadImage";
+import {
+  Routes,
+  Route,
+} from "react-router-dom";
+import ProductDetailsPage from "./pages/ProductDetailsPage";
+
 
 function App() {
+
+
+
+
   return (
-    <div>
-      <UploadImage />
-    </div>
+    <Routes>
+      <Route path="/" element={<ProductDetailsPage />} />
+    </Routes>
   );
 }
-
 export default App;
