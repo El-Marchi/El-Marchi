@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
+import { FaStar, FaHeart } from 'react-icons/fa';
 
 const ProductDetailsPage = () => {
   const [quantity, setQuantity] = useState(1);
+  const [rating, setRating] = useState(0);
+  const [hover, setHover] = useState(null);
 
   const handleIncrement = () => {
     setQuantity(prevQuantity => prevQuantity + 1);
@@ -14,6 +16,10 @@ const ProductDetailsPage = () => {
     }
   };
 
+  const handleRating = (rate) => {
+    setRating(rate);
+  };
+console.log(rating);
   return (
     <div className="ProductDetailsPage container mx-auto p-4">
       {/* Roadmap */}
@@ -29,22 +35,22 @@ const ProductDetailsPage = () => {
         {/* Smaller Images */}
         <div className="flex flex-col gap-4">
           <div className="Frame895 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center">
-            <img className="Image57 w-32 h-28" src="https://via.placeholder.com/121x114" alt="Thumbnail 1" />
+            <img className="Image57 w-32 h-28" src="https://www.shutterstock.com/image-photo/japan-june-11-2020-presentation-260nw-1757485868.jpg" alt="Thumbnail 1" />
           </div>
           <div className="Frame896 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center">
-            <img className="Image58 w-28 h-24" src="https://via.placeholder.com/112x97" alt="Thumbnail 2" />
+            <img className="Image58 w-28 h-24" src="https://www.shutterstock.com/image-photo/japan-june-11-2020-presentation-260nw-1757485868.jpg" alt="Thumbnail 2" />
           </div>
           <div className="Frame897 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center">
-            <img className="Image61 w-32 h-24" src="https://via.placeholder.com/134x94" alt="Thumbnail 3" />
+            <img className="Image61 w-32 h-24" src="https://www.shutterstock.com/image-photo/japan-june-11-2020-presentation-260nw-1757485868.jpg" alt="Thumbnail 3" />
           </div>
           <div className="Frame919 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center">
-            <img className="Image59 w-32 h-28" src="https://via.placeholder.com/122x106" alt="Thumbnail 4" />
+            <img className="Image59 w-32 h-28" src="https://www.shutterstock.com/image-photo/japan-june-11-2020-presentation-260nw-1757485868.jpg" alt="Thumbnail 4" />
           </div>
         </div>
 
         {/* Main Image */}
         <div className="Frame894 flex-1 bg-neutral-100 rounded flex justify-center items-center mx-4">
-          <img className="Image63 w-96 h-80" src="https://via.placeholder.com/446x315" alt="Product" />
+          <img className="Image63 w-96 h-80" src="https://www.shutterstock.com/image-photo/japan-june-11-2020-presentation-260nw-1757485868.jpg" alt="Product" />
         </div>
 
         {/* Product Details */}
@@ -53,11 +59,27 @@ const ProductDetailsPage = () => {
           <div className="flex items-center gap-2 mt-2">
             <div className="FourStar flex items-center">
               {/* Rating Div */}
-              <FaStar className="text-yellow-500" />
-              <FaStar className="text-yellow-500" />
-              <FaStar className="text-yellow-500" />
-              <FaStar className="text-yellow-500" />
-              <FaRegStar className="text-yellow-500" />
+              {[...Array(5)].map((star, index) => {
+                const ratingValue = index + 1;
+                return (
+                  <label key={index}>
+                    <input
+                      type="radio"
+                      name="rating"
+                      value={rating}
+                      onClick={() => handleRating(ratingValue)}
+                      className="hidden"
+                    />
+                    <FaStar
+                      className="text-yellow-500 cursor-pointer"
+                      size={20}
+                      onMouseEnter={() => setHover(ratingValue)}
+                      onMouseLeave={() => setHover(null)}
+                      color={ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9"}
+                    />
+                  </label>
+                );
+              })}
             </div>
             <div className="150Reviews opacity-50 text-black text-sm font-normal font-['Poppins'] leading-tight">(150 Reviews)</div>
             <div className="Line17 w-4 h-px origin-top-left rotate-90 opacity-50 border border-black mx-2"></div>
@@ -84,11 +106,12 @@ const ProductDetailsPage = () => {
             </div>
           </div>
 
-          {/* Buy Now Button */}
-          <div className="flex items-center mt-4">
+          {/* Buy Now, Add to Cart, and Add to Wishlist Buttons */}
+          <div className="flex items-center mt-4" >
             <div className="Button px-12 py-2.5 bg-red-500 rounded text-neutral-50 text-base font-medium font-['Poppins'] leading-normal cursor-pointer">Buy Now</div>
-            <div className="Frame904 w-10 h-10 p-1 ml-4 rounded border border-black/50 flex justify-center items-center cursor-pointer">
-              <div className="Wishlist grow shrink basis-0 self-stretch px-1.5 pt-1.5 pb-2 justify-center items-center inline-flex" />
+            <div className="Button px-12 py-2.5 bg-blue-500 rounded text-neutral-50 text-base font-medium font-['Poppins'] leading-normal cursor-pointer ml-4">Add to Cart</div>
+            <div className="Button px-4 py-2.5 bg-gray-500 rounded text-neutral-50 text-base font-medium font-['Poppins'] leading-normal cursor-pointer ml-4 flex items-center" style={{color:'black',height:'100px'}}>
+              <FaHeart style={{backgroundColor:'transparent'}} className="mr-2" /> Add to Wishlist
             </div>
           </div>
 
@@ -122,18 +145,19 @@ const ProductDetailsPage = () => {
           <div className="RelatedItems text-black text-2xl font-semibold font-['Inter'] leading-normal tracking-wide">Related Items</div>
         </div>
         <div className="flex gap-6">
-          <div className="Frame897 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center">
-            <img className="Image59 w-32 h-28" src="https://via.placeholder.com/122x106" alt="Related Item 1" />
-          </div>
-          <div className="Frame897 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center">
-            <img className="Image60 w-32 h-28" src="https://via.placeholder.com/121x114" alt="Related Item 2" />
-          </div>
-          <div className="Frame898 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center">
-            <img className="Image61 w-32 h-28" src="https://via.placeholder.com/134x94" alt="Related Item 3" />
-          </div>
-          <div className="Frame899 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center">
-            <img className="Image62 w-32 h-28" src="https://via.placeholder.com/122x106" alt="Related Item 4" />
-          </div>
+          {[
+            'https://www.shutterstock.com/image-photo/japan-june-11-2020-presentation-260nw-1757485868.jpg',
+            'https://www.shutterstock.com/image-photo/japan-june-11-2020-presentation-260nw-1757485868.jpg',
+            'https://www.shutterstock.com/image-photo/japan-june-11-2020-presentation-260nw-1757485868.jpg',
+            'https://www.shutterstock.com/image-photo/japan-june-11-2020-presentation-260nw-1757485868.jpg'
+          ].map((src, index) => (
+            <div key={index} className="Frame897 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center relative group">
+              <img className="Image59 w-32 h-28" src={src} alt={`Related Item ${index + 1}`} />
+              <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <button className="px-4 py-2 bg-red-500 text-white rounded">Add to Cart</button>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
