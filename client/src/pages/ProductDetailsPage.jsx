@@ -1,6 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
 
 const ProductDetailsPage = () => {
+  const [quantity, setQuantity] = useState(1);
+
+  const handleIncrement = () => {
+    setQuantity(prevQuantity => prevQuantity + 1);
+  };
+
+  const handleDecrement = () => {
+    if (quantity > 1) {
+      setQuantity(prevQuantity => prevQuantity - 1);
+    }
+  };
+
   return (
     <div className="ProductDetailsPage container mx-auto p-4">
       {/* Roadmap */}
@@ -39,7 +52,12 @@ const ProductDetailsPage = () => {
           <div className="HavicHvG92Gamepad text-black text-2xl font-semibold font-['Inter'] leading-normal tracking-wide">Havic HV G-92 Gamepad</div>
           <div className="flex items-center gap-2 mt-2">
             <div className="FourStar flex items-center">
-              {/* Add star icons here */}
+              {/* Rating Div */}
+              <FaStar className="text-yellow-500" />
+              <FaStar className="text-yellow-500" />
+              <FaStar className="text-yellow-500" />
+              <FaStar className="text-yellow-500" />
+              <FaRegStar className="text-yellow-500" />
             </div>
             <div className="150Reviews opacity-50 text-black text-sm font-normal font-['Poppins'] leading-tight">(150 Reviews)</div>
             <div className="Line17 w-4 h-px origin-top-left rotate-90 opacity-50 border border-black mx-2"></div>
@@ -55,14 +73,14 @@ const ProductDetailsPage = () => {
 
           {/* Quantity Selector */}
           <div className="Frame926 flex items-center mt-4">
-            <div className="Frame906 w-10 h-11 px-2 py-2.5 rounded-tl rounded-bl border border-black/50 flex justify-center items-center">
-              <div className="IconMinus self-stretch grow shrink basis-0 px-1 justify-center items-center inline-flex" />
+            <div className="Frame906 w-10 h-11 px-2 py-2.5 rounded-tl rounded-bl border border-black/50 flex justify-center items-center cursor-pointer" onClick={handleDecrement}>
+              <div className="IconMinus self-stretch grow shrink basis-0 px-1 justify-center items-center inline-flex">-</div>
             </div>
             <div className="Frame908 h-11 py-2 border-t border-b border-black/50 flex justify-center items-center">
-              <div className="text-black text-xl font-medium font-['Poppins'] leading-7">2</div>
+              <div className="text-black text-xl font-medium font-['Poppins'] leading-7">{quantity}</div>
             </div>
-            <div className="Frame907 w-10 h-11 px-2 py-2.5 bg-red-500 rounded-tr rounded-br flex justify-center items-center">
-              <div className="IconPlus self-stretch grow shrink basis-0 p-1 justify-center items-center inline-flex" />
+            <div className="Frame907 w-10 h-11 px-2 py-2.5 bg-red-500 rounded-tr rounded-br flex justify-center items-center cursor-pointer" onClick={handleIncrement}>
+              <div className="IconPlus self-stretch grow shrink basis-0 p-1 justify-center items-center inline-flex">+</div>
             </div>
           </div>
 
