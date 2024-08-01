@@ -1,12 +1,9 @@
 const { db } = require('../../database/index')
 
 async function getWishlistProducts(req, res) {
+  console.log("test");
   try {
     const user = req.params.userid;
-
-    if (!user) {
-      return res.status(400).send({ error: 'User ID is required' });
-    }
 
     const wishlistItems = await db.Wishlist.findAll({
       where: {
@@ -15,7 +12,10 @@ async function getWishlistProducts(req, res) {
       include: [
         {
           model: db.Product,
-          attributes: ['name', 'price', 'description', 'productid', 'stock', 'categories']
+            include:{
+              model:db.Image,
+             
+            }
         },
         {
           model: db.User,
@@ -23,10 +23,10 @@ async function getWishlistProducts(req, res) {
         }
       ]
     });
-
+console.log(wishlistItems)
     res.send(wishlistItems);
   } catch (error) {
-    console.error('Error fetching WishList products:', error);
+    console.error('Error fetching WishList products:',error);
     res.status(500).send({ error: 'An error occurred while fetching Wishlist products' });
   }
 }

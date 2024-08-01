@@ -24,7 +24,7 @@ const About = () => {
 
         {/* Image */}
         <div className="w-full md:w-1/2 mt-8 md:mt-0">
-          <img className="w-full h-auto rounded-lg shadow-lg" src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f" alt="Our Story" />
+          {/* <img className="w-full h-auto rounded-lg shadow-lg" src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f" alt="Our Story" /> */}
         </div>
       </div>
 
