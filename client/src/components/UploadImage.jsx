@@ -1,10 +1,10 @@
-import React from "react";
-import { useState } from "react";
-import axios from "axios";
+import React, { useState } from 'react';
+import axios from 'axios';
 
 export default function UploadImage() {
   const [loading, setLoading] = useState(false);
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState('');
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const convertBase64 = (file) => {
     return new Promise((resolve, reject) => {
@@ -21,29 +21,31 @@ export default function UploadImage() {
     });
   };
 
-  function uploadSingleImage(base64) {
+  const uploadSingleImage = async (base64) => {
     setLoading(true);
-    axios
-      .post("http://localhost:5000/uploadImage", { image: base64 })
-      .then((res) => {
-        setUrl(res.data);
-        alert("Image uploaded Succesfully");
-      })
-      .then(() => setLoading(false))
-      .catch(console.log);
-  }
+    try {
+      const res = await axios.post('http://localhost:5000/uploadImage', { image: base64 });
+      setUrl(res.data.url); // Assuming the backend returns the URL of the uploaded image
+      alert('Image uploaded successfully');
+    } catch (error) {
+      console.error('Error uploading image:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  function uploadMultipleImages(images) {
+  const uploadMultipleImages = async (images) => {
     setLoading(true);
-    axios
-      .post("http://localhost:5000/uploadMultipleImages", { images })
-      .then((res) => {
-        setUrl(res.data);
-        alert("Image uploaded Succesfully");
-      })
-      .then(() => setLoading(false))
-      .catch(console.log);
-  }
+    try {
+      const res = await axios.post('http://localhost:5000/uploadMultipleImages', { images });
+      setUrl(res.data.url); // Assuming the backend returns the URL of the uploaded images
+      alert('Images uploaded successfully');
+    } catch (error) {
+      console.error('Error uploading images:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const uploadImage = async (event) => {
     const files = event.target.files;
@@ -56,8 +58,8 @@ export default function UploadImage() {
     }
 
     const base64s = [];
-    for (var i = 0; i < files.length; i++) {
-      var base = await convertBase64(files[i]);
+    for (let i = 0; i < files.length; i++) {
+      const base = await convertBase64(files[i]);
       base64s.push(base);
     }
     uploadMultipleImages(base64s);
@@ -87,20 +89,11 @@ export default function UploadImage() {
               ></path>
             </svg>
             <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-              <span className="font-semibold">Click to upload</span> or drag and
-              drop
+              <span className="font-semibold">Click to upload</span> or drag and drop
             </p>
-            <p className="text-xs text-gray-500 dark:text-gray-400">
-              SVG, PNG, JPG or GIF (MAX. 800x400px)
-            </p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
           </div>
-          <input
-            onChange={uploadImage}
-            id="dropzone-file"
-            type="file"
-            className="hidden"
-            multiple
-          />
+          <input onChange={uploadImage} id="dropzone-file" type="file" className="hidden" multiple />
         </label>
       </div>
     );
@@ -109,14 +102,12 @@ export default function UploadImage() {
   return (
     <div className="flex justify-center flex-col m-8 ">
       <div>
-        <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">
-          Upload Photo
-        </h2>
+        <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">Upload Photo</h2>
       </div>
       <div>
         {url && (
           <div>
-            Access you file at{" "}
+            Access your file at{' '}
             <a href={url} target="_blank" rel="noopener noreferrer">
               {url}
             </a>
@@ -126,7 +117,7 @@ export default function UploadImage() {
       <div>
         {loading ? (
           <div className="flex items-center justify-center">
-            <img src={assets} />{" "}
+            <img src="/path/to/loading/spinner.gif" alt="Loading..." /> {/* Define the path to your loading spinner */}
           </div>
         ) : (
           <UploadInput />

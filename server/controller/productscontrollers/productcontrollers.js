@@ -1,4 +1,5 @@
 const { db } =require('../../database/index.js')
+const uploadImage =require('../../uploadImage.js')
 
 const Product = db.Product; 
 const Image = db.Image;
@@ -202,7 +203,34 @@ const deleteImage = async (req, res) => {
         res.status(500).json({ message: 'Error deleting image', err: err.message });
     }
 };
+const addImagebyProductId = async (req, res) => {
+    const { productid } = req.params;
+    const { image } = req.body.imageurl; 
 
+    if (!productid) {
+        return res.status(400).json({ message: 'Product ID is required' });
+    }
+
+    if (!image) {
+        return res.status(400).json({ message: 'Image data is required' });
+    }
+
+    try {
+        
+        const imageUrl = await uploadImage(image);
+
+        // Save the image URL and product ID to the database
+        const newImage = await Image.create({
+            imageurl: imageUrl,
+            productid
+        });
+
+        res.status(201).json({ message: 'Image added successfully', image: newImage });
+    } catch (error) {
+        console.error('Error adding image:', error);
+        res.status(500).json({ message: 'Error adding image', error: error.message });
+    }
+};
 
 module.exports = {
     getAllProducts,  
@@ -213,4 +241,5 @@ module.exports = {
     deleteProduct,
     getImageByProductId,
     UpdateImages,
-    deleteImage}
+    deleteImage,
+    addImagebyProductId}

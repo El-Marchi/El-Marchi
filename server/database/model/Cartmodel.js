@@ -25,8 +25,14 @@ module.exports=(sequelize,DataTypes)=>{
         foreignKey:true,
         allowNull:false
         
-
+       }, 
+       imageid:{
+        type:DataTypes.INTEGER,
+        foreignKey:true,
+        allowNull:false
+        
        }
+
 
 
 

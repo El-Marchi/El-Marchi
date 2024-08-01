@@ -8,7 +8,8 @@ const {
     deleteProduct,
     getImageByProductId,
     UpdateImages,
-    deleteImage}= require('../../controller/productscontrollers/productcontrollers.js')
+    deleteImage,
+    addImagebyProductId}= require('../../controller/productscontrollers/productcontrollers.js')
 
 
 routerproduct.get('/getall', getAllProducts);
@@ -20,7 +21,7 @@ routerproduct.put('/up/:productid', updateProduct);
 routerproduct.put('/images/:imageid', UpdateImages);
 routerproduct.delete('/delete/:productid', deleteProduct);
 routerproduct.delete('/images/:imageid',deleteImage)
-
+routerproduct.post('/:productid/images', addImagebyProductId);
 
 
 
