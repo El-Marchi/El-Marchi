@@ -5,6 +5,7 @@ const ProductDetailsPage = () => {
   const [quantity, setQuantity] = useState(1);
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(null);
+  const [image,setImage]=useState("https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp")
 
   const handleIncrement = () => {
     setQuantity(prevQuantity => prevQuantity + 1);
@@ -35,22 +36,22 @@ console.log(rating);
         {/* Smaller Images */}
         <div className="flex flex-col gap-4">
           <div className="Frame895 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center">
-            <img className="Image57 w-32 h-28" src="https://www.shutterstock.com/image-photo/japan-june-11-2020-presentation-260nw-1757485868.jpg" alt="Thumbnail 1" />
+            <img className="Image57 w-32 h-28" src="https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp" alt="Thumbnail 1" onClick={()=>setImage("https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp")} />
           </div>
           <div className="Frame896 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center">
-            <img className="Image58 w-28 h-24" src="https://www.shutterstock.com/image-photo/japan-june-11-2020-presentation-260nw-1757485868.jpg" alt="Thumbnail 2" />
+            <img className="Image58 w-28 h-24" src="https://cdn.pixabay.com/photo/2024/05/26/10/15/bird-8788491_1280.jpg" alt="Thumbnail 2" onClick={()=>setImage("https://cdn.pixabay.com/photo/2024/05/26/10/15/bird-8788491_1280.jpg")} />
           </div>
           <div className="Frame897 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center">
-            <img className="Image61 w-32 h-24" src="https://www.shutterstock.com/image-photo/japan-june-11-2020-presentation-260nw-1757485868.jpg" alt="Thumbnail 3" />
+            <img className="Image61 w-32 h-24" src="https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg" alt="Thumbnail 3" onClick={()=>setImage("https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg")} />
           </div>
           <div className="Frame919 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center">
-            <img className="Image59 w-32 h-28" src="https://www.shutterstock.com/image-photo/japan-june-11-2020-presentation-260nw-1757485868.jpg" alt="Thumbnail 4" />
+            <img className="Image59 w-32 h-28" src="https://gratisography.com/wp-content/uploads/2024/01/gratisography-cyber-kitty-800x525.jpg" alt="Thumbnail 4" onClick={()=>setImage("https://gratisography.com/wp-content/uploads/2024/01/gratisography-cyber-kitty-800x525.jpg")} />
           </div>
         </div>
 
         {/* Main Image */}
         <div className="Frame894 flex-1 bg-neutral-100 rounded flex justify-center items-center mx-4">
-          <img className="Image63 w-96 h-80" src="https://www.shutterstock.com/image-photo/japan-june-11-2020-presentation-260nw-1757485868.jpg" alt="Product" />
+          <img className="Image63 w-96 h-80" src={image} alt="Product" />
         </div>
 
         {/* Product Details */}

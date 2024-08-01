@@ -8,7 +8,7 @@ const signUp=async(req,res)=>{
  
 
     try{
-        const {firstName,lastName,email,role,password}=req.body;
+        const {firstName,email,role,password}=req.body;
 
         const test=await db.User.findOne({where:{email}})
         
@@ -19,7 +19,7 @@ const signUp=async(req,res)=>{
        else if (!test) {
          var y ={
             firstName,
-            lastName,
+            lastName:"lastname",
             email,
             role,
             password:await bcrypt.hash(password,15),

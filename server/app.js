@@ -21,7 +21,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("api/WhishList",whishListRouter)
+app.use("/api/WhishList",whishListRouter)
 app.use('/api/user',userRouter)
 
 app.use("api/CartRouter",CartRouter)
