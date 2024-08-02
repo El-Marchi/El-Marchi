@@ -3,35 +3,49 @@ import { FiPhone, FiMonitor, FiWatch, FiCamera, FiHeadphones } from 'react-icons
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import Footer from './Footer';
 import Navbar from './Navbar';
-import Photo from './photo.jsx'; // Make sure to import the Photo component
+import Photo from './photo.jsx';
+import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
+  const [isNavOpen, setIsNavOpen] = useState(false);
+
   return (
-    <div className="e-commerce-homepage bg-white">
+    <div className="e-commerce-homepage bg-white max-w-full overflow-x-hidden">
       <Navbar />
-      <Navigation />
-      <div className="ml-0 md:ml-64 p-4">
-        <HeroCarousel />
-        <CategoriesSection />
-        <BestSellingProductsSection />
-        <Photo /> {/* Add the Photo component here */}
-       
-        <ExploreProductsSection />
-        <NewArrivalSection />
-        <ServiceFeaturesSection />
-        <Footer className="py-1" /> {/* Adjusted padding */}
+      <div className="flex flex-col md:flex-row">
+        <Navigation isOpen={isNavOpen} setIsOpen={setIsNavOpen} />
+        <div className="flex-1 p-4 overflow-x-hidden">
+          <HeroCarousel />
+          <CategoriesSection />
+          <BestSellingProductsSection />
+          <Photo />
+          <ExploreProductsSection />
+          <NewArrivalSection />
+          <ServiceFeaturesSection />
+        </div>
       </div>
+      <Footer className="py-1" />
     </div>
   );
 };
 
 const Navigation = () => (
-  <nav className="fixed left-0 top-0 h-full w-64 bg-white border-r p-4 hidden md:block">
+  <nav className="w-64 bg-white border-r p-4">
     <ul className="space-y-2">
-      {['Woman\'s Fashion', 'Men\'s Fashion', 'Electronics', 'Home & Lifestyle', 'Medicine', 'Sports & Outdoor', 'Baby\'s & Toys', 'Groceries & Pets', 'Health & Beauty'].map((item, index) => (
+      {[
+        "Woman's Fashion",
+        "Men's Fashion",
+        "Electronics",
+        "Home & Lifestyle",
+        "Medicine",
+        "Sports & Outdoor",
+        "Baby's & Toys",
+        "Groceries & Pets",
+        "Health & Beauty"
+      ].map((item, index) => (
         <li key={index} className="flex items-center justify-between hover:bg-gray-100 p-2 rounded-md transition duration-300">
           <span className="text-gray-700 hover:text-black">{item}</span>
-          {index < 2 && <span className="text-gray-400">›</span>}
+          <span className="text-gray-400">›</span>
         </li>
       ))}
     </ul>
@@ -58,14 +72,14 @@ const HeroCarousel = () => {
       <div className="flex transition-transform duration-500 ease-in-out" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
         {slides.map((slide, index) => (
           <div key={index} className="w-full flex-shrink-0">
-            <div className="flex justify-between items-center p-8">
-              <div className="w-1/2">
+            <div className="flex flex-col md:flex-row justify-between items-center p-4 md:p-8">
+              <div className="w-full md:w-1/2 mb-4 md:mb-0">
                 <img src="https://cdn.wallpapersafari.com/85/37/g2SpCY.jpg" alt='Apple entertainment' className="w-8 h-8 mb-2" />
-                <h2 className="text-2xl font-semibold mb-2">{slide.title}</h2>
-                <h1 className="text-4xl font-bold mb-4">{slide.description}</h1>
-                <button className="bg-white text-black px-6 py-2 rounded-full hover:bg-gray-200 transition duration-300">Shop Now</button>
+                <h2 className="text-xl md:text-2xl font-semibold mb-2">{slide.title}</h2>
+                <h1 className="text-2xl md:text-4xl font-bold mb-4">{slide.description}</h1>
+                <button className="bg-white text-black px-4 py-2 rounded-full hover:bg-gray-200 transition duration-300">Shop Now</button>
               </div>
-              <img src={slide.image} alt={slide.title} className="w-1/2 object-cover" />
+              <img src={slide.image} alt={slide.title} className="w-full md:w-1/2 object-cover" />
             </div>
           </div>
         ))}
@@ -90,31 +104,19 @@ const CategoriesSection = () => {
   ];
 
   return (
-    <section className="my-8 border border-gray-200 rounded-lg p-6">
+    <section className="my-8 border border-gray-200 rounded-lg p-4 md:p-6">
       <div className="flex items-center mb-4">
         <div className="w-1 h-10 bg-red-500 mr-2"></div>
         <span className="text-red-500 font-semibold">Categories</span>
       </div>
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold">Browse By Category</h2>
-        <div className="flex space-x-2">
-          <button className="p-2 border border-gray-300 rounded-full hover:bg-gray-100 transition duration-300">
-            <FaChevronLeft className="text-gray-500" />
-          </button>
-          <button className="p-2 border border-gray-300 rounded-full hover:bg-gray-100 transition duration-300">
-            <FaChevronRight className="text-gray-500" />
-          </button>
-        </div>
-      </div>
-      <div className="grid grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 md:gap-4">
         {categories.map((category, i) => (
           <div 
             key={i} 
-            className={`p-4 text-center rounded-lg transition duration-300 flex flex-col items-center justify-center
-              ${i === 3 ? 'bg-red-500 text-white' : 'border border-gray-200 hover:border-red-500'}`}
+            className="p-2 md:p-4 text-center rounded-lg transition duration-300 flex flex-col items-center justify-center border border-gray-200 hover:border-red-500 hover:bg-red-50 group"
           >
-            <category.icon className={`w-10 h-10 mb-2 ${i === 3 ? 'text-white' : 'text-gray-600'}`} />
-            <span className="text-sm font-medium">{category.name}</span>
+            <category.icon className="w-6 h-6 md:w-10 md:h-10 mb-1 md:mb-2 text-gray-600 group-hover:text-red-500 transition duration-300" />
+            <span className="text-xs md:text-sm font-medium group-hover:text-red-500 transition duration-300">{category.name}</span>
           </div>
         ))}
       </div>
@@ -126,7 +128,9 @@ const BestSellingProductsSection = () => (
   <section className="mb-8">
     <div className="flex justify-between items-center mb-4">
       <h2 className="text-2xl font-bold">Best Selling Products</h2>
-      <button className="bg-red-500 text-white px-4 py-2 rounded">View All</button>
+      <button className="bg-red-500 text-white px-4 py-2 rounded transition duration-300 ease-in-out hover:bg-red-600 hover:shadow-lg">
+        View All
+      </button>
     </div>
     <div className="grid grid-cols-4 gap-4">
       {['The north coat', 'Gucci duffle bag', 'RGB liquid CPU cooler', 'Small bookshelf'].map((product, i) => (
@@ -147,56 +151,67 @@ const BestSellingProductsSection = () => (
 );
 
 
- 
+const ExploreProductsSection = () => {
+  const navigate = useNavigate();
 
-const ExploreProductsSection = () => (
-  <section className="mb-8">
-    <h2 className="text-2xl font-bold mb-4">Explore Our Products</h2>
-    <div className="grid grid-cols-4 gap-4">
-      {[...Array(8)].map((_, i) => (
-        <div key={i} className="border rounded-lg p-4">
-          <div className="bg-gray-200 h-48 mb-2 rounded"></div>
-          <h3 className="font-semibold">Product Name</h3>
-          <div className="flex justify-between items-center">
-            <span className="text-red-500">$100</span>
-            <div className="flex items-center">
-              <span className="text-yellow-500">★★★★☆</span>
-              <span className="text-gray-500 text-sm">(65)</span>
+  const handleViewAllProducts = () => {
+    navigate('/all-products');
+  };
+
+  return (
+    <section className="mb-8">
+      <h2 className="text-2xl font-bold mb-4">Explore Our Products</h2>
+      <div className="grid grid-cols-4 gap-4">
+        {[...Array(8)].map((_, i) => (
+          <div key={i} className="border rounded-lg p-4">
+            <div className="bg-gray-200 h-48 mb-2 rounded"></div>
+            <h3 className="font-semibold">Product Name</h3>
+            <div className="flex justify-between items-center">
+              <span className="text-red-500">$100</span>
+              <div className="flex items-center">
+                <span className="text-yellow-500">★★★★☆</span>
+                <span className="text-gray-500 text-sm">(65)</span>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
-    </div>
-    <div className="text-center mt-4">
-      <button className="bg-red-500 text-white px-4 py-2 rounded">View All Products</button>
-    </div>
-  </section>
-);
+        ))}
+      </div>
+      <div className="text-center mt-4">
+        <button 
+          onClick={handleViewAllProducts}
+          className="bg-red-500 text-white px-4 py-2 rounded transition duration-300 ease-in-out hover:bg-red-600 hover:shadow-lg"
+        >
+          View All Products
+        </button>
+      </div>
+    </section>
+  );
+};
 
 const NewArrivalSection = () => (
   <section className="mb-8">
     <h2 className="text-2xl font-bold mb-4">New Arrival</h2>
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div className="bg-black text-white p-4 rounded-lg">
         <h3 className="text-xl font-bold mb-2">PlayStation 5</h3>
-        <p>Black and White version of the PS5 coming out on sale.</p>
-        <button className="mt-2 underline">Shop Now</button>
+        <p className="text-sm">Black and White version of the PS5 coming out on sale.</p>
+        <button className="mt-2 underline text-sm">Shop Now</button>
       </div>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="bg-gray-200 p-4 rounded-lg">
-          <h3 className="text-xl font-bold mb-2">Women's Collections</h3>
-          <p>Featured woman collections that give you another vibe.</p>
-          <button className="mt-2 underline">Shop Now</button>
+          <h3 className="text-lg font-bold mb-2">Women's Collections</h3>
+          <p className="text-xs">Featured woman collections that give you another vibe.</p>
+          <button className="mt-2 underline text-sm">Shop Now</button>
         </div>
         <div className="bg-gray-200 p-4 rounded-lg">
-          <h3 className="text-xl font-bold mb-2">Speakers</h3>
-          <p>Amazon wireless speakers</p>
-          <button className="mt-2 underline">Shop Now</button>
+          <h3 className="text-lg font-bold mb-2">Speakers</h3>
+          <p className="text-xs">Amazon wireless speakers</p>
+          <button className="mt-2 underline text-sm">Shop Now</button>
         </div>
-        <div className="bg-gray-200 p-4 rounded-lg col-span-2">
-          <h3 className="text-xl font-bold mb-2">Perfume</h3>
-          <p>GUCCI INTENSE OUD EDP</p>
-          <button className="mt-2 underline">Shop Now</button>
+        <div className="bg-gray-200 p-4 rounded-lg col-span-full">
+          <h3 className="text-lg font-bold mb-2">Perfume</h3>
+          <p className="text-xs">GUCCI INTENSE OUD EDP</p>
+          <button className="mt-2 underline text-sm">Shop Now</button>
         </div>
       </div>
     </div>
