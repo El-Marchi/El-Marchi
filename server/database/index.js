@@ -51,11 +51,8 @@ db.Image.belongsTo(db.Product,{foreignKey:'productid'})
 db.Product.hasMany(db.Wishlist,{foreignKey:'productid'})
 db.Wishlist.belongsTo(db.Product,{foreignKey:'productid'})
 
-db.Cart.hasMany(db.Image,{foreignKey: 'imageid'})
-db.Image.belongsTo(db.Cart,{foreignKey:'imageid'})
 
-db.Wishlist.hasMany(db.Image,{foreignKey:'imageid'})
-db.Image.belongsTo(db.Wishlist,{foreignKey:'imagid'})
+
 
 
 

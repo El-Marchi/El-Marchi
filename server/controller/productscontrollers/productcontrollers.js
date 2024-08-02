@@ -1,15 +1,12 @@
 const { db } =require('../../database/index.js')
-const uploadImage =require('../../uploadImage.js')
 
 const Product = db.Product; 
 const Image = db.Image;
 
 const getAllProducts = async (req, res) => {
     try {
-        if (!Product || !Product.findAll) {
-            return res.status(500).send({ message: 'Product model is not correctly initialized' });
-        }
-        const products = await Product.findAll();
+       
+        const products = await Product.findAll({include:{model:Image}});
         res.status(200).json({ products });
     } catch (err) {
         console.error(err);
@@ -35,7 +32,7 @@ const getProductByCriteria = async (req, res) => {
 
     try {
       
-        const product = await Product.findOne({ where: queryConditions });
+        const product = await Product.findOne({ where: queryConditions,include:{model:Image}});
 
         if (!product) {
             return res.status(404).send("Product not found");
@@ -52,17 +49,9 @@ const getProductByCriteria = async (req, res) => {
 const getAllProductsByUserId = async (req, res) => {
     const userId = req.params.userid;
 
-    if (!userId) {
-        return res.status(400).json({ message: 'User ID is required' });
-    }
-
     try {
         // Assuming Product is your Sequelize model
-        const products = await Product.findAll({ where: { userid: userId } });
-
-        if (products.length === 0) {
-            return res.status(404).json({ message: 'No products found for this user' });
-        }
+        const products = await Product.findAll({ where: { userid: userId },include:{model:Image}});
 
         res.status(200).json({ products });
     } catch (err) {
@@ -76,9 +65,7 @@ const createProduct = async (req, res) => {
 
     console.log('Request body:', req.body);
 
-    if (!name || !description || !price || !stock || !categorie || userid === undefined || userid === null) {
-        return res.status(400).json({ message: 'All fields are required, including userid' });
-    }
+   
 
     const parsedPrice = parseFloat(price);
     const parsedStock = parseInt(stock, 10);
@@ -110,10 +97,6 @@ const updateProduct = async (req, res) => {
     const id = req.params.productid; 
     const updatedFields = req.body; 
 
-    if (!id) {
-        return res.status(400).json({ message: 'Product ID is required' });
-    }
-
     try {
        
         const product = await Product.findByPk(id);
@@ -140,7 +123,7 @@ const deleteProduct = async (req, res) => {
     try {
         const result = await Product.destroy({ where: { productid: id } });
 
-        res.status(200).send( 'Product deleted successfully'+ id);
+        res.status(200).send( 'Product deleted successfully');
     } catch (error) {
         console.error('Error deleting product:', error);
         res.status(500).json({ message: 'Error deleting product', error: error.message });
@@ -163,6 +146,20 @@ const getImageByProductId = async (req,res)=>{
         res.status(500).send("err geting images")
     }
 };
+const getImageByUserId = async (req,res)=>{
+    const ID =req.params.userid
+
+    try {
+        const images = await Image.findAll({where: {userid:ID }})
+        if(images.length===0){
+            return res.status(404).send("images not found")
+        }
+        res.status(200).json({images})
+    } catch (err){
+        console.error(err);
+        res.status(500).send("err geting images")
+    }
+};
 // update image
 const UpdateImages = async (req, res) => {
     try {
@@ -171,18 +168,10 @@ const UpdateImages = async (req, res) => {
       
         const { imageid } = req.params;
         const { newImageData } = req.body;
-
-        if (!imageid || !newImageData) {
-            return res.status(400).json({ message: 'Image ID and new image data are required' });
-        }
-        const image = await Image.findByPk(imageid);
-        if (!image) {
-            return res.status(404).json({ message: 'Image not found' });
-        }
         
-        await image.update(newImageData);
+        await Image.update(newImageData,{where:{imageid}});
 
-        return res.status(200).json({ message: 'Image updated successfully', image });
+        return res.status(200).json({ message: 'Image updated successfully' });
 
     } catch (error) {
         console.error(error); 
@@ -202,44 +191,36 @@ const deleteImage = async (req, res) => {
         console.error('Error deleting image:', err);
         res.status(500).json({ message: 'Error deleting image', err: err.message });
     }
-};
+
+   
+}
 const addImagebyProductId = async (req, res) => {
     const { productid } = req.params;
-    const { image } = req.body.imageurl; 
-
-    if (!productid) {
-        return res.status(400).json({ message: 'Product ID is required' });
-    }
-
-    if (!image) {
-        return res.status(400).json({ message: 'Image data is required' });
-    }
+    const { image } = req.body.imageurl;
 
     try {
-        
-        const imageUrl = await uploadImage(image);
-
-        // Save the image URL and product ID to the database
-        const newImage = await Image.create({
-            imageurl: imageUrl,
+ 
+       await Image.create({
+            imageurl: image,
             productid
         });
-
-        res.status(201).json({ message: 'Image added successfully', image: newImage });
+        res.status(201).json({ message: 'Image added successfully' });
     } catch (error) {
         console.error('Error adding image:', error);
         res.status(500).json({ message: 'Error adding image', error: error.message });
     }
 };
 
+
 module.exports = {
     getAllProducts,  
     getProductByCriteria,
     getAllProductsByUserId,
+    addImagebyProductId,
     createProduct,
     updateProduct,
     deleteProduct,
     getImageByProductId,
+    getImageByUserId,
     UpdateImages,
-    deleteImage,
-    addImagebyProductId}
+    deleteImage}

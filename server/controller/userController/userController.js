@@ -3,14 +3,14 @@ const {db}=require('../../database/index')
 const bcrypt=require('bcrypt');
 const jwt=require('jsonwebtoken')
 
-const User= db.User
+
 const signUp=async(req,res)=>{
  
 
     try{
         const {firstName,email,role,password}=req.body;
 
-        const test=await User.findOne({where:{email}})
+        const test=await db.User.findOne({where:{email}})
         
         if(test) {
              res.send('email already inuse')
@@ -19,7 +19,7 @@ const signUp=async(req,res)=>{
        else if (!test) {
          var y ={
             firstName,
-            lastName:'lastName',
+            lastName:"lastname",
             email,
             role,
             password:await bcrypt.hash(password,15),

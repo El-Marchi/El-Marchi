@@ -2,13 +2,11 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import Navbar from './components/Navbar'
-import UploadImage from './components/UploadImage';
-import AllProducts from './comps/Allproducts.jsx'
-import AddProd from "./comps/Addprod.jsx";
 
-
-
+import AllProducts from "./comps/Allproducts";
+import AddProduct from "./comps/Addprod";
+import Errorpage from "./comps/Erorpage";
+import Cart from "./comps/Cart.jsx"
 function App() {
 
 
@@ -16,11 +14,9 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<UploadImage />} />
-      <Route path="/products" element={<AllProducts />} />
-      <Route path="/add" element={<AddProd />} />
-    
-      //helloo again
+      
+      <Route path="/" element={<Cart />} />
+//helloo again
     </Routes>
   );
 }

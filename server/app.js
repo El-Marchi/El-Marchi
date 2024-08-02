@@ -21,13 +21,12 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("api/WhishList",whishListRouter)
+app.use("/api/WhishList",whishListRouter)
 app.use('/api/user',userRouter)
+
 app.use("api/CartRouter",CartRouter)
 app.use("api/RatingRouter",RatingRouter)
 app.use("/api/product", routerproduct)
-
-
 
 app.post("/uploadImage", (req, res) => {
   uploadImage(req.body.image)

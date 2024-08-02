@@ -1,6 +1,9 @@
-import React from 'react'
+ import React,{useState} from 'react'
+import axios from 'axios'
 
-const Helperfunction = () =>{
+ const Helperfunc = () =>{
+    const [url, setUrl] = useState('');
+
 const convertBase64 = (file) => {
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
@@ -20,7 +23,7 @@ const convertBase64 = (file) => {
     setLoading(true);
     try {
       const res = await axios.post('http://localhost:5000/uploadImage', { image: base64 });
-      setUrl(res.data.url); // Assuming the backend returns the URL of the uploaded image
+      setUrl(res.data.url); 
       alert('Image uploaded successfully');
     } catch (error) {
       console.error('Error uploading image:', error);
@@ -33,7 +36,7 @@ const convertBase64 = (file) => {
     setLoading(true);
     try {
       const res = await axios.post('http://localhost:5000/uploadMultipleImages', { images });
-      setUrl(res.data.url); // Assuming the backend returns the URL of the uploaded images
+      setUrl(res.data.url);
       alert('Images uploaded successfully');
     } catch (error) {
       console.error('Error uploading images:', error);
@@ -59,5 +62,5 @@ const convertBase64 = (file) => {
     }
     uploadMultipleImages(base64s);
   };
-}
-export default Helperfunction
+ }
+  export default Helperfunc
