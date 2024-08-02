@@ -1,5 +1,5 @@
 const { Sequelize,DataTypes } = require('sequelize');
-const sequelize=new Sequelize('el_marchi',"root","root",{host:'localhost',dialect:'mysql'})
+const sequelize=new Sequelize('el_marchi',"root","root",{host:'localhost',dialect:'mysql',module_dialect:'mysql2'})
 
 
 const db={}
@@ -50,6 +50,8 @@ db.Image.belongsTo(db.Product,{foreignKey:'productid'})
 
 db.Product.hasMany(db.Wishlist,{foreignKey:'productid'})
 db.Wishlist.belongsTo(db.Product,{foreignKey:'productid'})
+
+
 
 
 

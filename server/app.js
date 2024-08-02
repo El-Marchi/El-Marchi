@@ -1,7 +1,12 @@
 const express = require("express");
 const cors = require("cors");
-const {db} = require('./database/index.js')
+const {whishListRouter} = require('./Router/whislistRouter/whishlistRouter.js')
+const{CartRouter}=require('./Router/whislistRouter/CartRouter.js')
+const{RatingRouter}=require('./Router/ratingRoot.js')
+const routerproduct=require('./Router/productrouter/productrouters.js')
 const uploadImage = require("./uploadImage.js");
+const userRouter=require('./Router/userRouter/userRouter.js')
+
 const app = express();
 const port = 5000;
 
@@ -9,10 +14,19 @@ const port = 5000;
 app.use(cors());
 app.use(express.json({ limit: "25mb" }));
 app.use(express.urlencoded({ limit: "25mb" }));
+
+
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   next();
 });
+
+app.use("/api/WhishList",whishListRouter)
+app.use('/api/user',userRouter)
+
+app.use("api/CartRouter",CartRouter)
+app.use("api/RatingRouter",RatingRouter)
+app.use("/api/product", routerproduct)
 
 app.post("/uploadImage", (req, res) => {
   uploadImage(req.body.image)
