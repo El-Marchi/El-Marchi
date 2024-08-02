@@ -6,7 +6,7 @@ router.post('/signUp',signUp)
 router.post('/logIn',logIn)
 router.delete('/:id',deleteuser)
 router.put('/:userid',updateUser)
-router.put('/:userid',updatepassword)
+router.put('/updatePassword/:userid',updatepassword)
 
 
 

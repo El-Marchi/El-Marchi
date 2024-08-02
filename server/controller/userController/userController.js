@@ -6,9 +6,6 @@ const jwt=require('jsonwebtoken')
 const signUp = async (req, res) => {
     try {
         const { firstName, lastName, email, role, password } = req.body;
-
-        const test = await db.User.findOne({ where: { email } });
-
       
         const isPasswordValid = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[^_\s]{6,}$/.test(password);
 
@@ -21,7 +18,7 @@ const signUp = async (req, res) => {
         } else {
             var y = {
                 firstName,
-                lastName,
+                lastName:'lastname',
                 email,
                 role,
                 password: await bcrypt.hash(password, 15),
@@ -94,25 +91,30 @@ const deleteuser = async (req,res) => {
 }
 
 const updatepassword = async (req, res) => {
-    const { email, password } = req.body;
-    const test = await db.User.findOne({ where: { email } });
-    if (!test) return res.send('email not exist');
 
-   
+    const {email,password,newpassword}=req.body;
+     const user=await db.User.findOne({where:{email}})
+    if(!user)return res.send('email not exist');
     const isPasswordValid = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[^_\s]{6,}$/.test(password);
     if (!isPasswordValid) return res.send('Password does not meet the criteria');
+    const testpassword=await bcrypt.compare(password,user.password)
+    if(!testpassword) return res.send('not valide')
 
-    const testpassword = await bcrypt.compare(password, test.password);
-    if (!testpassword) return res.send('not valid');
-    else {
-        const token = jwt.sign({ userid: test.userid, email: test.email, firstName: test.firstName }, 'loginuser');
-        res.send(token);
-    }
 
-    let id = req.params.userid;
-    const up = await db.User.update(req.body, { where: { userid: id } });
-    res.status(200).send(up);
-};
+
+    //  else {
+    // const token=jwt.sign({userid:user.userid,email:user.email,firstName:user.firstName},'loginuser')
+    //      res.send(token)
+            
+    //     }
+                
+ 
+   let id=req.params.userid
+    const up=await db.User.update({password:await bcrypt.hash(newpassword,15)},{where:{userid: id}})
+    res.send(up)
+}
+   
+
 
 
 

@@ -1,7 +1,14 @@
 import React from 'react';
-
+import logo from "../images/jbl-boombox-loudspeaker-wireless-speaker-audio-boombox-removebg-preview.png"
 
 const Photo = () => {
+  const timeUnits = [
+    { label: 'Days', value: '05' },
+    { label: 'Hours', value: '23' },
+    { label: 'Minutes', value: '59' },
+    { label: 'Seconds', value: '35' },
+  ];
+
   return (
     <div className="relative overflow-hidden bg-gradient-to-br from-gray-900 to-black text-white p-8 rounded-3xl flex items-center justify-between">
       {/* Modern background effect */}
@@ -11,26 +18,23 @@ const Photo = () => {
       <div className="relative z-10 flex flex-col gap-4">
         <p className="text-green-500 text-sm font-semibold">Enhance Your</p>
         <h2 className="text-2xl font-bold">Music Experience</h2>
-        <div className="flex gap-2">
-          {['23', '05', '59', '35'].map((num, index) => (
-            <div key={index} className="w-10 h-10 bg-white rounded-full flex items-center justify-center text-black font-bold text-sm">
-              {num}
+        <div className="flex gap-4">
+          {timeUnits.map((unit, index) => (
+            <div key={index} className="w-14 h-20 bg-white rounded-full flex flex-col items-center justify-center text-black">
+              <div className="font-bold text-lg">{unit.value}</div>
+              <span className="text-xs">{unit.label}</span>
             </div>
           ))}
         </div>
-        <button className="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-semibold w-max">
-          Buy Now!
-        </button>
+        <button className="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-semibold w-max transition duration-300 ease-in-out hover:bg-green-600 hover:shadow-lg">
+  Buy Now!
+</button>
       </div>
       <div className="relative z-10 w-64 h-48">
-        {/* Speaker design */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-black rounded-full shadow-lg"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.1),transparent_70%)] rounded-full"></div>
-        <div className="absolute inset-0 border border-gray-700 opacity-50 rounded-full"></div>
         <img
-          src=""
-          alt="JBL Speaker"
-          className="w-full h-full object-contain p-4 relative z-10"
+          src={logo}
+          alt="JBL Boombox Speaker"
+          className="w-full h-full object-contain"
         />
       </div>
     </div>
