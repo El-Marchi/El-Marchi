@@ -1,6 +1,6 @@
 const router=require('express').Router()
 
-const {signUp,logIn,deleteuser,updateUser,updatepassword}=require('../../controller/userController/userController')
+const {signUp,logIn,deleteuser,updateUser,updatepassword,}=require('../../controller/userController/userController')
 
 router.post('/signUp',signUp)
 router.post('/logIn',logIn)

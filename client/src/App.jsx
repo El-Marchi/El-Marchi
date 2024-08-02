@@ -19,8 +19,12 @@ function App() {
       {/* <Navbar /> */}
       <main className="flex-grow">
         <Routes>
+
+       
+
           <Route path="/" element={<Homepage />} />
           <Route path="/about" element={<About />} />
+
           <Route path="/product" element={<ProductDetailsPage />} />
           <Route path="/contact" element={<ContactForm />} />
           <Route path="/Dashboard" element={<DashboardAdmin />} />
