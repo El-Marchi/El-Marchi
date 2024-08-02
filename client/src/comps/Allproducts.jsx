@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { FaHeart, FaEye } from 'react-icons/fa';
-import OneProduct  from './OneProduct.jsx';
+import { FaHeart, FaEye,FaArrowRight,FaArrowLeft } from 'react-icons/fa';
+import OneProduct from './OneProduct.jsx';
 
 const AllProducts = () => {
   const [products, setProducts] = useState([]);
@@ -11,7 +11,6 @@ const AllProducts = () => {
   const fetchProducts = async () => {
     try {
       const response = await axios.get('http://localhost:5000/api/product/getall');
-      console.log(response.data.products);
       setProducts(response.data.products);
     } catch (error) {
       console.error('Error fetching products:', error);
@@ -30,6 +29,27 @@ const AllProducts = () => {
     setSelectedProduct(product);
   };
 
+  const handleAddToCart = (product) => {
+    // Implement add to cart functionality here
+    console.log(`Added ${product.name} to cart`);
+  };
+
+  const handleProductUpdate = (updatedProduct) => {
+    setProducts(products.map(p => p.productid === updatedProduct.productid ? updatedProduct : p));
+  };
+
+  const handleProductDelete = (productId) => {
+    setProducts(products.filter(p => p.productid !== productId));
+  };
+
+  const toggleProductDetails = (product) => {
+    if (selectedProduct && selectedProduct.productid === product.productid) {
+      setSelectedProduct(null);
+    } else {
+      setSelectedProduct(product);
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col items-center bg-gray-50">
       <div className="w-full p-6">
@@ -43,10 +63,10 @@ const AllProducts = () => {
           </div>
           <div className="flex gap-4 mt-4 lg:mt-0">
             <div className="w-12 h-12 bg-neutral-200 rounded-full flex items-center justify-center">
-              <div className="w-6 h-6 bg-gray-300 rounded-full"></div>
+              <FaArrowLeft className="text-gray-600 w-5 h-5" />
             </div>
             <div className="w-12 h-12 bg-neutral-200 rounded-full flex items-center justify-center">
-              <div className="w-6 h-6 bg-gray-300 rounded-full"></div>
+              <FaArrowRight className="text-gray-600 w-5 h-5" />
             </div>
           </div>
         </div>
@@ -54,45 +74,67 @@ const AllProducts = () => {
           <div className="overflow-y-auto h-[calc(100vh-200px)] w-full max-w-6xl">
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
               {products.slice(0, visibleProducts).map((product) => (
-                <div key={product.id} className="flex flex-col items-start bg-white rounded-lg shadow-lg p-2">
-                  <div className="relative w-full h-32 bg-neutral-100 rounded-lg overflow-hidden">
+                <div key={product.productid} className="relative flex flex-col items-start bg-white rounded-lg shadow-lg overflow-hidden">
+                  <div className="relative w-full h-64 bg-neutral-100 rounded">
+                    <img 
+                      className="w-full h-full object-cover cursor-pointer" 
+                      src={product.images && product.images[0] ? product.images[0].imageurl : 'https://via.placeholder.com/150x150'} 
+                      alt={product.name} 
+                      onClick={() => handleImageClick(product)} 
+                    />
+                    <div className="absolute inset-0 flex items-end justify-center bg-black bg-opacity-50 transition-opacity duration-300 opacity-0 hover:opacity-100">
+                      <button 
+                        onClick={() => handleAddToCart(product)} 
+                        className="text-white text-base font-medium font-['Poppins'] p-2 bg-black rounded-full hover:bg-gray-800 transition-colors">
+                        Add To Cart
+                      </button>
+                    </div>
                     <div className="absolute top-2 right-2 flex gap-2">
-                      <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center shadow-md">
-                        <FaHeart className="text-red-500 text-xs" />
+                      <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md">
+                        <FaHeart className="text-black" />
                       </div>
-                      <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center shadow-md">
-                        <FaEye className="text-blue-500 text-xs" />
+                      <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md">
+                        <FaEye className="text-black" />
                       </div>
-                    </div>
-                    <div className="flex justify-center items-center h-full">
-                      <img className="w-full h-full object-cover rounded-lg" src={product.images && product.images[0] ? product.images[0].imageurl : 'https://via.placeholder.com/150x150'} alt={product.name} onClick={() => handleImageClick(product)} />
                     </div>
                   </div>
-                  <div className="flex flex-col items-start gap-2 mt-2">
-                    <div className="text-black text-sm font-medium">{product.name}</div>
+                  <div className="flex flex-col p-4 gap-2 w-full">
+                    <div 
+                      className="text-black text-sm font-medium cursor-pointer hover:text-red-500"
+                      onClick={() => toggleProductDetails(product)}
+                    >
+                      {product.name}
+                    </div>
                     <div className="flex items-center gap-2">
-                      <div className="text-red-500 text-sm font-semibold">${product.price}</div>
-                      <div className="text-gray-600 text-xs">({product.reviewsCount || 0} reviews)</div>
+                      <div className="text-red-500 text-base font-medium">${product.price}</div>
+                      <div className="text-gray-600 text-sm">({product.reviewsCount || 0})</div>
                     </div>
+                    {selectedProduct && selectedProduct.productid === product.productid && (
+                      <div className="mt-2 text-sm text-gray-600">
+                        <p><strong>Description:</strong> {product.description}</p>
+                        <p><strong>Category:</strong> {product.categorie}</p>
+                        <p><strong>Stock:</strong> {product.stock}</p>
+                      </div>
+                    )}
                   </div>
-                  <OneProduct el={product}/>
+                  <OneProduct 
+                    el={product} 
+                    onUpdate={handleProductUpdate} 
+                    onDelete={handleProductDelete}
+                  />
                 </div>
-
               ))}
             </div>
           </div>
         </div>
-        {selectedProduct && (
-          <div className="mt-6 p-4 bg-white rounded-lg shadow-lg w-full max-w-4xl">
-            <h2 className="text-2xl font-semibold mb-4">{selectedProduct.name}</h2>
-            <p className="text-gray-700 mb-2"><strong>Description:</strong> {selectedProduct.description}</p>
-            <p className="text-gray-700 mb-2"><strong>Category:</strong> {selectedProduct.categorie}</p>
-            <p className="text-gray-700 mb-2"><strong>Stock:</strong> {selectedProduct.stock}</p>
-          </div>
-        )}
       </div>
-      <div className="px-12 py-4 bg-red-600 rounded-full flex justify-center items-center gap-2.5 mt-8 shadow-md">
-        <button className="text-neutral-50 text-base font-medium font-['Poppins'] leading-normal" onClick={handleViewAll}>View All Products</button>
+      <div className="mt-8">
+        <button 
+          className="bg-red-500 hover:bg-red-600 text-white font-medium py-3 px-8 rounded-full shadow-md transition duration-300 ease-in-out transform hover:scale-105"
+          onClick={handleViewAll}
+        >
+          View All Products
+        </button>
       </div>
     </div>
   );

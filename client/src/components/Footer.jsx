@@ -1,25 +1,32 @@
 import React from 'react';
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaArrowRight } from 'react-icons/fa';
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaArrowRight, FaGooglePlay, FaQrcode } from 'react-icons/fa';
+import { IoLogoAppleAppstore } from 'react-icons/io5';
 
 const Footer = () => {
   return (
-    <footer className="bg-black text-white py-12 px-4">
+    <footer className="bg-custom-black text-text-secondary py-6 px-4">
       <div className="container mx-auto">
-        <div className="flex flex-wrap justify-between">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-4 text-sm">
           {/* Exclusive Column */}
-          <div className="w-full md:w-1/5 mb-8 md:mb-0">
-            <h2 className="text-xl font-bold mb-4">Exclusive</h2>
-            <p className="mb-2">Subscribe</p>
-            <p className="mb-4">Get 10% off your first order</p>
+          <div>
+            <h2 className="text-base font-bold mb-2">Exclusive</h2>
+            <p className="mb-1">Subscribe</p>
+            <p className="mb-2">Get 10% off your first order</p>
             <div className="flex">
-              <input type="email" placeholder="Enter your email" className="bg-transparent border-b p-2 flex-grow" />
-              <button className="ml-2"><FaArrowRight /></button>
+              <input 
+                type="email" 
+                placeholder="Enter your email" 
+                className="bg-neutral-800 border border-neutral-700 rounded-l-md py-1 px-2 w-full focus:outline-none"
+              />
+              <button className="bg-neutral-700 px-2 rounded-r-md hover:bg-neutral-600">
+                <FaArrowRight className="text-xs" />
+              </button>
             </div>
           </div>
 
           {/* Support Column */}
-          <div className="w-full md:w-1/5 mb-8 md:mb-0">
-            <h2 className="text-xl font-bold mb-4">Support</h2>
+          <div>
+            <h2 className="text-base font-bold mb-2">Support</h2>
             <p>111 Bijoy sarani, Dhaka,</p>
             <p>DH 1515, Bangladesh.</p>
             <p>exclusive@gmail.com</p>
@@ -27,55 +34,60 @@ const Footer = () => {
           </div>
 
           {/* Account Column */}
-          <div className="w-full md:w-1/5 mb-8 md:mb-0">
-            <h2 className="text-xl font-bold mb-4">Account</h2>
+          <div>
+            <h2 className="text-base font-bold mb-2">Account</h2>
             <ul>
-              <li className="mb-2">My Account</li>
-              <li className="mb-2">Login / Register</li>
-              <li className="mb-2">Cart</li>
-              <li className="mb-2">Wishlist</li>
-              <li className="mb-2">Shop</li>
+              <li>My Account</li>
+              <li>Login / Register</li>
+              <li>Cart</li>
+              <li>Wishlist</li>
+              <li>Shop</li>
             </ul>
           </div>
 
           {/* Quick Link Column */}
-          <div className="w-full md:w-1/5 mb-8 md:mb-0">
-            <h2 className="text-xl font-bold mb-4">Quick Link</h2>
+          <div>
+            <h2 className="text-base font-bold mb-2">Quick Link</h2>
             <ul>
-              <li className="mb-2">Privacy Policy</li>
-              <li className="mb-2">Terms Of Use</li>
-              <li className="mb-2">FAQ</li>
-              <li className="mb-2">Contact</li>
+              <li>Privacy Policy</li>
+              <li>Terms Of Use</li>
+              <li>FAQ</li>
+              <li>Contact</li>
             </ul>
           </div>
 
           {/* Download App Column */}
-          <div className="w-full md:w-1/5 mb-8 md:mb-0">
-            <h2 className="text-xl font-bold mb-4">Download App</h2>
+          <div>
+            <h2 className="text-base font-bold mb-2">Download App</h2>
             <p className="mb-2">Save $3 with App New User Only</p>
-            <div className="flex space-x-4 mb-4">
-              <div className="w-24 h-24 bg-gray-300 flex items-center justify-center">
-                {/* Placeholder for QR Code */}
-                <p className="text-black text-center">QR Code</p>
+            <div className="flex space-x-2">
+              <div className="w-16 h-16 bg-gradient-to-br from-neutral-700 to-neutral-900 rounded-lg flex items-center justify-center">
+                <FaQrcode className="text-3xl" />
               </div>
-              <div className="space-y-2">
-                <img src="/path-to-google-play-badge.png" alt="Google Play" className="h-10" />
-                <img src="/path-to-app-store-badge.png" alt="App Store" className="h-10" />
+              <div className="flex flex-col justify-center space-y-1">
+                <a href="#" className="flex items-center space-x-1 bg-custom-black px-2 py-1 rounded-md hover:bg-neutral-800">
+                  <FaGooglePlay className="text-sm text-accent-2" />
+                  <span className="text-xs">Google Play</span>
+                </a>
+                <a href="#" className="flex items-center space-x-1 bg-custom-black px-2 py-1 rounded-md hover:bg-neutral-800">
+                  <IoLogoAppleAppstore className="text-sm text-sky-100" />
+                  <span className="text-xs">App Store</span>
+                </a>
               </div>
             </div>
           </div>
         </div>
 
         {/* Social Media Icons */}
-        <div className="flex justify-center space-x-4 mt-8">
-          <FaFacebook className="text-2xl" />
-          <FaTwitter className="text-2xl" />
-          <FaInstagram className="text-2xl" />
-          <FaLinkedin className="text-2xl" />
+        <div className="flex justify-center space-x-4 mt-4">
+          <FaFacebook className="text-lg hover:text-indigo-500 cursor-pointer" />
+          <FaTwitter className="text-lg hover:text-sky-100 cursor-pointer" />
+          <FaInstagram className="text-lg hover:text-accent-1 cursor-pointer" />
+          <FaLinkedin className="text-lg hover:text-indigo-600 cursor-pointer" />
         </div>
 
         {/* Copyright */}
-        <div className="text-center mt-8">
+        <div className="text-center mt-4 text-xs text-neutral-400">
           <p>© Copyright Rimel 2022. All right reserved</p>
         </div>
       </div>
