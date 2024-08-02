@@ -2,6 +2,13 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+import 'tailwindcss/tailwind.css'
+import ProductDetailsPage from "./pages/ProductDetailsPage";
+import About from "./pages/About";
+import ContactForm from "./pages/ContactForm";
+
+
+
 
 import AllProducts from "./comps/Allproducts";
 import AddProduct from "./comps/Addprod";
@@ -15,8 +22,7 @@ function App() {
   return (
     <Routes>
       
-      <Route path="/" element={<Cart />} />
-//helloo again
+      <Route path="/" element={< About/>} />
     </Routes>
   );
 }

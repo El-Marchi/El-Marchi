@@ -6,6 +6,7 @@ const{RatingRouter}=require('./Router/ratingRoot.js')
 const routerproduct=require('./Router/productrouter/productrouters.js')
 const uploadImage = require("./uploadImage.js");
 const userRouter=require('./Router/userRouter/userRouter.js')
+const { mailerRouter } = require('./Router/nodemailRouter.js/nodeMailRouter.js');
 
 const app = express();
 const port = 5000;
@@ -27,6 +28,7 @@ app.use('/api/user',userRouter)
 app.use("api/CartRouter",CartRouter)
 app.use("api/RatingRouter",RatingRouter)
 app.use("/api/product", routerproduct)
+app.use(mailerRouter)
 
 app.post("/uploadImage", (req, res) => {
   uploadImage(req.body.image)
