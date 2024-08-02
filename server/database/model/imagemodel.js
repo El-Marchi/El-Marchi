@@ -16,7 +16,8 @@ module.exports=(sequelize,DataTypes)=>{
         },
         imageurl:{
             type:DataTypes.STRING,
-            Generatedcolumn:true
+            allowNull:false,
+           
 
         },
         productid:{

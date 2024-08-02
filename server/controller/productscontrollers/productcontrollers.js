@@ -196,12 +196,12 @@ const deleteImage = async (req, res) => {
 }
 const addImagebyProductId = async (req, res) => {
     const { productid } = req.params;
-    const { image } = req.body.imageurl;
+    const { imageurl } = req.body;
 
     try {
  
        await Image.create({
-            imageurl: image,
+            imageurl,
             productid
         });
         res.status(201).json({ message: 'Image added successfully' });
