@@ -39,12 +39,7 @@ module.exports = {
           500: '#ef4444', // Button color
           600: '#dc2626', // Button hover color
         },
-        'gray-100': '#f7fafc',
-        'gray-600': '#718096',
-        'gray-700': '#4a5568',
-        'blue-600': '#3182ce',
-        'red-500': '#f56565',
-        'red-600': '#e53e3e',
+        'input-bg': '#F5F5F5', // for form input backgrounds
       },
       fontFamily: {
         'poppins': ['Poppins', 'sans-serif'],
@@ -80,12 +75,17 @@ module.exports = {
         'md': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
         'lg': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
         'xl': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+        'lg': '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
       },
       gridTemplateColumns: {
         'auto-fit': 'repeat(auto-fit, minmax(250px, 1fr))',
       },
-      backgroundImage: {
-        'login-image': "url('https://via.placeholder.com/919x706')",
+      textColor: {
+        'body': '#666666', // for regular text
+        'heading': '#000000', // for headings
+      },
+      maxWidth: {
+        '7xl': '80rem',
       },
     },
     screens: {
