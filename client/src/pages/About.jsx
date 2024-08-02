@@ -33,11 +33,14 @@ const About = () => {
       <section className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-16">
         {[
           { number: "10.5k", text: "Sellers active our site", icon: "store" },
-          { number: "33k", text: "Monthly Product Sale", icon: "trending_up", highlight: true },
+          { number: "33k", text: "Monthly Product Sale", icon: "trending_up" },
           { number: "45.5k", text: "Customer active in our site", icon: "groups" },
           { number: "25k", text: "Annual gross sale in our site", icon: "attach_money" }
         ].map((stat, index) => (
-          <div key={index} className={`p-6 rounded-lg ${stat.highlight ? 'bg-red-500 text-white' : 'bg-white border border-gray-200'}`}>
+          <div 
+            key={index} 
+            className="p-6 rounded-lg bg-white border border-gray-200 hover:bg-red-500 hover:text-white transition-colors duration-300 cursor-pointer"
+          >
             <div className="w-16 h-16 bg-black rounded-full flex items-center justify-center mb-4">
               <span className="material-icons text-white text-2xl">{stat.icon}</span>
             </div>

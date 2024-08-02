@@ -13,19 +13,14 @@ import AllProducts from "./comps/Allproducts";
 import AddProduct from "./comps/Addprod";
 import Errorpage from "./comps/Erorpage";
 import Cart from "./comps/Cart.jsx"
-//  import { Update } from '@mui/icons-material';
-import DashboardAdmin from './components/dashboardadmin.jsx';
+
 function App() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* <Navbar /> */}
       <main className="flex-grow">
         <Routes>
-          <Route path="/" element={<SignUp />} />
-          {/* <Route path="/login" element={<Login />} /> */}
-          <Route path="/update" element={<Update />} />
-          <Route path="/" element={<Homepage />} />
-          <Route path="/about" element={<About />} />
+
 
           <Route path="/product" element={<ProductDetailsPage />} />
           <Route path="/contact" element={<ContactForm />} />
