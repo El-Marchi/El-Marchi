@@ -5,11 +5,18 @@ import {
 } from "react-router-dom";
 // import Navbar from './components/Navbar.jsx'
 // import Footer from './components/Footer';
-import { Homepage } from './components/Homepage.jsx';
+import Homepage from './components/Homepage.jsx';
 // import { NewArrival } from './components/newarrival.jsx';
 // import FashionComponent from './components/category.jsx';
 // import CategoryList from './components/category.jsx';
 // import Contact from './components/contact.jsx';
+// import Navbar from "./components/Navbar";
+// import ProductDetailsPage from "./pages/ProductDetailsPage";
+// import About from "./pages/About";
+// import Category from './components/category.jsx';
+
+// import CarouselCustomArrows from '../src/components/carousele.jsx';
+
 
 
 function App() {
@@ -29,9 +36,9 @@ function App() {
 
           
         </Routes>
-        {/* <NewArrival /> */}
       
-      {/* <Footer /> */}
+      
+     
     </div>
 
 

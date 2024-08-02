@@ -47,9 +47,14 @@ const logIn=async(req,res)=>{
     try{
         const {email,password}=req.body;
         const test=await db.User.findOne({where:{email}})
-        if(!test)return res.send('email not exist');
+        if(!test)
+            return res.send('email not exist');
+
         const testpassword=await bcrypt.compare(password,test.password)
-        if(!testpassword) return res.send('not valide')
+
+        if(!testpassword) 
+            return res.send('not valide')
+        
         else {
     const token=jwt.sign({userid:test.userid,email:test.email,firstName:test.firstName},'lifeislove')
     res.send(token)

@@ -19,7 +19,9 @@ async function getCartProducts(req, res) {
       include: [
         {
           model: db.Product,
-          attributes: ['name','description' , 'price', 'stock','categorie','userid','productid']
+          include:{
+            model:db.Image,
+          }
         },
         {
           model: db.User,
@@ -36,8 +38,6 @@ async function getCartProducts(req, res) {
     res.status(500).send({ error: 'An error occurred while fetching cart products' });
   }
 }
-
-
 
 const addCart=async(req,res)=>{
     let info={
@@ -75,30 +75,6 @@ const getCart = async (req, res) => {
     }
   };
 
-  
-const getCartbyp = async (req, res) => {
-    try {
-     
-      const cart = await Cart.findAll({
-        where: {
-            productid: req.params.productid 
-        },
-        
-      });
-  
-      res.status(200).send(cart);
-    } catch (error) {
-      console.error('Error', error);
-      
-    }
-  };
-
-
-
-
-
-
-
   const deleteCart = async (req, res) => {
     try {
       let cartId = req.params.id; 
@@ -122,5 +98,5 @@ const getCartbyp = async (req, res) => {
 
 
   module.exports={
-    getCart,deleteCart,addCart,getCartbyp,getCartProducts
+    getCart,deleteCart,addCart,getCartProducts
   }
