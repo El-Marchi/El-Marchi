@@ -1,10 +1,10 @@
 import React from 'react';
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaArrowRight, FaGooglePlay, FaQrcode } from 'react-icons/fa';
 import { IoLogoAppleAppstore } from 'react-icons/io5';
-import { useNavigate } from 'react-router-dom';
+
 
 const Footer = () => {
-  const navigate = useNavigate();
+
 
   return (
     <footer className="bg-custom-black text-text-secondary py-6 px-4">
