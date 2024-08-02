@@ -37,20 +37,21 @@ const Navbar = () => {
             <div className="text-black text-2xl font-bold font-inter leading-normal tracking-wide">Exclusive</div>
           </div>
           <div className="flex items-center gap-12">
-            <div className="flex-col items-center">
-              <div className="text-center text-black text-base font-normal font-poppins leading-normal cursor-pointer">Home</div>
-              <div className="w-12 h-px opacity-50 flex justify-center items-center">
-                <div className="w-12 h-px border border-black"></div>
-              </div>
+            <div className="relative group">
+              <div className="text-center text-black text-base font-normal font-poppins leading-normal cursor-pointer transition-colors duration-300 ">Home</div>
+              <div className="absolute bottom-0 left-0 w-full h-0.5 bg-red-600 transform scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></div>
             </div>
-            <div className="w-16 h-6 flex justify-center items-center">
-              <div className="text-center text-black text-base font-normal font-poppins leading-normal cursor-pointer">Contact</div>
+            <div className="relative group">
+              <div className="text-center text-black text-base font-normal font-poppins leading-normal cursor-pointer transition-colors duration-300 ">Contact</div>
+              <div className="absolute bottom-0 left-0 w-full h-0.5 bg-red-600 transform scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></div>
             </div>
-            <div className="w-12 h-6 flex justify-center items-center">
-              <div className="text-center text-black text-base font-normal font-poppins leading-normal cursor-pointer">About</div>
+            <div className="relative group">
+              <div className="text-center text-black text-base font-normal font-poppins leading-normal cursor-pointer transition-colors duration-300 ">About</div>
+              <div className="absolute bottom-0 left-0 w-full h-0.5 bg-red-600 transform scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></div>
             </div>
-            <div className="w-16 h-6 flex justify-center items-center">
-              <div className="text-center text-black text-base font-normal font-poppins leading-normal cursor-pointer">Sign Up</div>
+            <div className="relative group">
+              <div className="text-center text-black text-base font-normal font-poppins leading-normal cursor-pointer transition-colors duration-300 ">Sign Up</div>
+              <div className="absolute bottom-0 left-0 w-full h-0.5 bg-red-600 transform scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></div>
             </div>
           </div>
         </div>
@@ -60,23 +61,23 @@ const Navbar = () => {
             <FaSearch className="text-black" />
           </div>
           <div className="flex items-center gap-4">
-            <FaHeart className="text-black w-6 h-6 cursor-pointer" />
-            <div className="relative cursor-pointer">
-              <FaShoppingCart className="text-black w-6 h-6" />
-              <div className="w-4 h-4 absolute top-0 right-0 bg-red-500 rounded-full flex justify-center items-center">
+            <FaHeart className="text-black w-6 h-6 cursor-pointer transition-colors duration-300 hover:text-red-600" />
+            <div className="relative cursor-pointer group">
+              <FaShoppingCart className="text-black w-6 h-6 transition-colors duration-300 group-hover:text-red-600" />
+              <div className="w-4 h-4 absolute top-0 right-0 bg-red-500 rounded-full flex justify-center items-center transition-transform duration-300 group-hover:scale-110">
                 <div className="text-neutral-50 text-xs font-normal font-poppins leading-none">2</div>
               </div>
             </div>
-            <div className="relative cursor-pointer" onClick={toggleDropdown}>
-              <FaUser className="text-black w-6 h-6" />
+            <div className="relative cursor-pointer group" onClick={toggleDropdown}>
+              <FaUser className="text-black w-6 h-6 transition-colors duration-300 group-hover:text-red-600" />
               {isDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded shadow-lg z-10">
                   <div className="flex flex-col p-4">
-                    <button className="text-left text-black text-sm font-normal font-poppins leading-tight hover:bg-gray-100 p-2 rounded">Login</button>
-                    <button className="text-left text-black text-sm font-normal font-poppins leading-tight hover:bg-gray-100 p-2 rounded">Profile</button>
-                    <button className="text-left text-black text-sm font-normal font-poppins leading-tight hover:bg-gray-100 p-2 rounded">Logout</button>
-                    <button className="text-left text-black text-sm font-normal font-poppins leading-tight hover:bg-gray-100 p-2 rounded">Wishlist</button>
-                    <button className="text-left text-black text-sm font-normal font-poppins leading-tight hover:bg-gray-100 p-2 rounded">Cart</button>
+                    <button className="text-left text-black text-sm font-normal font-poppins leading-tight  hover:text-red-600 p-2 rounded transition-colors duration-300">Login</button>
+                    <button className="text-left text-black text-sm font-normal font-poppins leading-tight  hover:text-red-600 p-2 rounded transition-colors duration-300">Profile</button>
+                    <button className="text-left text-black text-sm font-normal font-poppins leading-tight  hover:text-red-600 p-2 rounded transition-colors duration-300">Logout</button>
+                    <button className="text-left text-black text-sm font-normal font-poppins leading-tight  hover:text-red-600 p-2 rounded transition-colors duration-300">Wishlist</button>
+                    <button className="text-left text-black text-sm font-normal font-poppins leading-tight  hover:text-red-600 p-2 rounded transition-colors duration-300">Cart</button>
                   </div>
                 </div>
               )}
