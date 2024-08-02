@@ -2,9 +2,12 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import Navbar from "./components/Navbar";
+import 'tailwindcss/tailwind.css'
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 import About from "./pages/About";
+import ContactForm from "./pages/ContactForm";
+
+
 
 
 function App() {
@@ -15,8 +18,7 @@ function App() {
   return (
     <Routes>
       
-      <Route path="/" element={<ProductDetailsPage />} />
-//helloo again
+      <Route path="/" element={< About/>} />
     </Routes>
   );
 }
