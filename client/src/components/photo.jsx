@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from "../images/JblBoombox2Hero020X111.webp"
+
 
 const Photo = () => {
   return (
@@ -28,7 +28,7 @@ const Photo = () => {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.1),transparent_70%)] rounded-full"></div>
         <div className="absolute inset-0 border border-gray-700 opacity-50 rounded-full"></div>
         <img
-          src={logo}
+          src=""
           alt="JBL Speaker"
           className="w-full h-full object-contain p-4 relative z-10"
         />

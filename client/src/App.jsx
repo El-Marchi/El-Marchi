@@ -4,6 +4,7 @@ import 'tailwindcss/tailwind.css';
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 import About from "./pages/About";
 import ContactForm from "./pages/ContactForm";
+import Homepage from "./components/Homepage.jsx";
 
 function App() {
   return (
@@ -11,7 +12,8 @@ function App() {
       {/* <Navbar /> */}
       <main className="flex-grow">
         <Routes>
-          <Route path="/" element={<About />} />
+          <Route path="/" element={<Homepage />} />
+          <Route path="/about" element={<About />} />
           <Route path="/product" element={<ProductDetailsPage />} />
           <Route path="/contact" element={<ContactForm />} />
         </Routes>
