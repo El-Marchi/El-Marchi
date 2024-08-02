@@ -3,6 +3,8 @@ import { Routes, Route } from "react-router-dom";
 import 'tailwindcss/tailwind.css';
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 import About from "./pages/About";
+import SignUp from "./components/SignUp";
+// import Login from "./components/Login";
 import ContactForm from "./pages/ContactForm";
 import AllProducts from "./comps/Allproducts";
 import AddProduct from "./comps/Addprod";
