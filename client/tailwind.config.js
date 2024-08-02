@@ -1,6 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  content: [
+    './src/**/*.{js,jsx,ts,tsx}', // Adjust the path according to your project structure
+  ],
   theme: {
     extend: {
       colors: {
@@ -10,16 +12,34 @@ module.exports = {
         'text-secondary': '#FAFAFA',
         'accent-1': '#F55E5E',
         'accent-2': '#00FF66',
-        'neutral-50': '#F9FAFB',
-        'neutral-100': '#F3F4F6',
-        'neutral-200': '#E5E7EB',
-        'neutral-300': '#D1D5DB',
-        'neutral-400': '#9CA3AF',
-        'neutral-500': '#6B7280',
-        'neutral-600': '#4B5563',
-        'neutral-700': '#374151',
-        'neutral-800': '#1F2937',
-        'neutral-900': '#111827',
+        'neutral': {
+          50: '#F9FAFB',
+          100: '#F3F4F6',
+          200: '#E5E7EB',
+          300: '#D1D5DB',
+          400: '#9CA3AF',
+          500: '#6B7280',
+          600: '#4B5563',
+          700: '#374151',
+          800: '#1F2937',
+          900: '#111827',
+        },
+        'custom-red': '#FF0000',
+        'custom-black': '#000000',
+        'custom-gray': '#F3F4F6',
+        'indigo': {
+          500: '#6366f1',
+          600: '#4f46e5',
+          700: '#4338ca',
+        },
+        'sky': {
+          100: '#e0f2fe', // Light blue background
+        },
+        'red': {
+          500: '#ef4444', // Button color
+          600: '#dc2626', // Button hover color
+        },
+        'input-bg': '#F5F5F5', // for form input backgrounds
       },
       fontFamily: {
         'poppins': ['Poppins', 'sans-serif'],
@@ -40,6 +60,7 @@ module.exports = {
         '72': '18rem',
         '80': '20rem',
         '96': '24rem',
+        '128': '32rem',
       },
       borderRadius: {
         'sm': '0.125rem',
@@ -58,14 +79,31 @@ module.exports = {
       gridTemplateColumns: {
         'auto-fit': 'repeat(auto-fit, minmax(250px, 1fr))',
       },
+      textColor: {
+        'body': '#666666', // for regular text
+        'heading': '#000000', // for headings
+      },
+      maxWidth: {
+        '7xl': '80rem',
+      },
     },
     screens: {
       'sm': '640px',
       'md': '768px',
-      'lg': '1024px',
+      'lg': {'max': '1200px'},
       'xl': '1280px',
       '2xl': '1536px',
+      'mq750': {'raw': 'screen and (max-width: 750px)'},
+      'mq450': {'raw': 'screen and (max-width: 450px)'},
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/typography'),
+    require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/line-clamp'),
+  ],
+  corePlugins: {
+    preflight: false,
+  },
 };

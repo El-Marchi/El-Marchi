@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { FaStar, FaHeart } from 'react-icons/fa';
+import { Link } from 'react-router-dom'; // Make sure to import Link
+import 'tailwindcss/tailwind.css'
 
 const ProductDetailsPage = () => {
   const [quantity, setQuantity] = useState(1);
@@ -20,38 +22,52 @@ const ProductDetailsPage = () => {
   const handleRating = (rate) => {
     setRating(rate);
   };
-console.log(rating);
+
   return (
     <div className="ProductDetailsPage container mx-auto p-4">
       {/* Roadmap */}
       <div className="Roadmap flex items-center gap-3 mb-4">
-        <div className="Account opacity-50 text-black text-sm font-normal font-['Poppins'] leading-tight">Account</div>
+        <Link 
+          to="/account" 
+          className="Account text-black text-sm font-normal font-['Poppins'] leading-tight 
+                     hover:text-red-500 transition-colors duration-300 
+                     hover:underline cursor-pointer"
+        >
+          Account
+        </Link>
         <div className="Line13 w-3.5 h-px origin-top-left rotate-[117.05deg] opacity-50 border border-black"></div>
-        <div className="Nothing opacity-50 text-black text-sm font-normal font-['Poppins'] leading-tight">Gaming</div>
+        <Link 
+          to="/gaming" 
+          className="Gaming text-black text-sm font-normal font-['Poppins'] leading-tight 
+                     hover:text-red-500 transition-colors duration-300 
+                     hover:underline cursor-pointer"
+        >
+          Gaming
+        </Link>
         <div className="Line16 w-3.5 h-px origin-top-left rotate-[117.05deg] opacity-50 border border-black"></div>
-        <div className="Nothing text-black text-sm font-normal font-['Poppins'] leading-tight">Havic HV G-92 Gamepad</div>
+        <div className="ProductName text-black text-sm font-normal font-['Poppins'] leading-tight">Havic HV G-92 Gamepad</div>
       </div>
 
       <div className="flex">
         {/* Smaller Images */}
         <div className="flex flex-col gap-4">
-          <div className="Frame895 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center">
+          <div className="Frame895 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center hover:shadow-lg transition-shadow duration-300">
             <img className="Image57 w-32 h-28" src="https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp" alt="Thumbnail 1" onClick={()=>setImage("https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp")} />
           </div>
-          <div className="Frame896 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center">
+          <div className="Frame896 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center hover:shadow-lg transition-shadow duration-300">
             <img className="Image58 w-28 h-24" src="https://cdn.pixabay.com/photo/2024/05/26/10/15/bird-8788491_1280.jpg" alt="Thumbnail 2" onClick={()=>setImage("https://cdn.pixabay.com/photo/2024/05/26/10/15/bird-8788491_1280.jpg")} />
           </div>
-          <div className="Frame897 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center">
+          <div className="Frame897 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center hover:shadow-lg transition-shadow duration-300">
             <img className="Image61 w-32 h-24" src="https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg" alt="Thumbnail 3" onClick={()=>setImage("https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg")} />
           </div>
-          <div className="Frame919 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center">
+          <div className="Frame919 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center hover:shadow-lg transition-shadow duration-300">
             <img className="Image59 w-32 h-28" src="https://gratisography.com/wp-content/uploads/2024/01/gratisography-cyber-kitty-800x525.jpg" alt="Thumbnail 4" onClick={()=>setImage("https://gratisography.com/wp-content/uploads/2024/01/gratisography-cyber-kitty-800x525.jpg")} />
           </div>
         </div>
 
         {/* Main Image */}
         <div className="Frame894 flex-1 bg-neutral-100 rounded flex justify-center items-center mx-4">
-          <img className="Image63 w-96 h-80" src={image} alt="Product" />
+          <img className="Image63 w-96 h-80 object-contain" src={image} alt="Product" />
         </div>
 
         {/* Product Details */}
@@ -108,12 +124,12 @@ console.log(rating);
           </div>
 
           {/* Buy Now, Add to Cart, and Add to Wishlist Buttons */}
-          <div className="flex items-center mt-4" >
-            <div className="Button px-12 py-2.5 bg-red-500 rounded text-neutral-50 text-base font-medium font-['Poppins'] leading-normal cursor-pointer">Buy Now</div>
-            <div className="Button px-12 py-2.5 bg-blue-500 rounded text-neutral-50 text-base font-medium font-['Poppins'] leading-normal cursor-pointer ml-4">Add to Cart</div>
-            <div className="Button px-4 py-2.5 bg-gray-500 rounded text-neutral-50 text-base font-medium font-['Poppins'] leading-normal cursor-pointer ml-4 flex items-center" style={{color:'black',height:'100px'}}>
-              <FaHeart style={{backgroundColor:'transparent'}} className="mr-2" /> Add to Wishlist
-            </div>
+          <div className="flex items-center mt-4">
+            <button className="Button px-12 py-2.5 bg-red-500 rounded text-neutral-50 text-base font-medium font-['Poppins'] leading-normal cursor-pointer">Buy Now</button>
+            <button className="Button px-12 py-2.5 bg-blue-500 rounded text-neutral-50 text-base font-medium font-['Poppins'] leading-normal cursor-pointer ml-4">Add to Cart</button>
+            <button className="Button px-4 py-2.5 bg-gray-200 rounded text-black text-base font-medium font-['Poppins'] leading-normal cursor-pointer ml-4 flex items-center">
+              <FaHeart className="mr-2" /> Add to Wishlist
+            </button>
           </div>
 
           {/* Delivery and Return Information */}
@@ -153,9 +169,9 @@ console.log(rating);
             'https://www.shutterstock.com/image-photo/japan-june-11-2020-presentation-260nw-1757485868.jpg'
           ].map((src, index) => (
             <div key={index} className="Frame897 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center relative group">
-              <img className="Image59 w-32 h-28" src={src} alt={`Related Item ${index + 1}`} />
-              <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity">
-                <button className="px-4 py-2 bg-red-500 text-white rounded">Add to Cart</button>
+              <img className="Image59 w-32 h-28 object-cover" src={src} alt={`Related Item ${index + 1}`} />
+              <div className="absolute bottom-0 left-0 w-full h-1/4 bg-gradient-to-t from-black to-transparent flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <button className="w-full py-2 bg-red-500 text-white text-sm rounded-b-lg shadow-md hover:bg-red-600 transition-colors duration-300">Add to Cart</button>
               </div>
             </div>
           ))}
