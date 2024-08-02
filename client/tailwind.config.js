@@ -86,6 +86,9 @@ module.exports = {
       maxWidth: {
         '7xl': '80rem',
       },
+      width: {
+        '280': '280px',
+      },
     },
     screens: {
       'sm': '640px',
