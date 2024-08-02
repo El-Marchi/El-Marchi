@@ -7,11 +7,14 @@ import SignUp from "./components/SignUp";
  import Login from "./components/Login";
  import Update from "./components/Update";
 import ContactForm from "./pages/ContactForm";
+import Homepage from "./components/Homepage.jsx";
+
 import AllProducts from "./comps/Allproducts";
 import AddProduct from "./comps/Addprod";
 import Errorpage from "./comps/Erorpage";
 import Cart from "./comps/Cart.jsx"
 //  import { Update } from '@mui/icons-material';
+import DashboardAdmin from './components/dashboardadmin.jsx';
 function App() {
   return (
     <div className="flex flex-col min-h-screen">
@@ -21,7 +24,13 @@ function App() {
           <Route path="/" element={<SignUp />} />
           {/* <Route path="/login" element={<Login />} /> */}
           <Route path="/update" element={<Update />} />
+          <Route path="/" element={<Homepage />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/product" element={<ProductDetailsPage />} />
           <Route path="/contact" element={<ContactForm />} />
+          <Route path="/Dashboard" element={<DashboardAdmin />} />
+          <Route path="/all-Products" element={<AllProducts />} />
+
         </Routes>
       </main>
       {/* <Footer /> */}
