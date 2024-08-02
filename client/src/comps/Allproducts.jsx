@@ -107,7 +107,7 @@ const AllProducts = () => {
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="text-red-500 text-base font-medium">${product.price}</div>
-                      <div className="text-gray-600 text-sm">({product.reviewsCount || 0})</div>
+                      <div className="text-gray-600 text-sm">{product.reviewsCount}</div>
                     </div>
                     {selectedProduct && selectedProduct.productid === product.productid && (
                       <div className="mt-2 text-sm text-gray-600">

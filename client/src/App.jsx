@@ -4,7 +4,8 @@ import 'tailwindcss/tailwind.css';
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 import About from "./pages/About";
 import SignUp from "./components/SignUp";
-// import Login from "./components/Login";
+ import Login from "./components/Login";
+ import Update from "./components/Update";
 import ContactForm from "./pages/ContactForm";
 import Homepage from "./components/Homepage.jsx";
 
