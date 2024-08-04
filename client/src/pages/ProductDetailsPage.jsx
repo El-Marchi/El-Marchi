@@ -1,13 +1,30 @@
 import React, { useState } from 'react';
 import { FaStar, FaHeart } from 'react-icons/fa';
 import { Link } from 'react-router-dom'; // Make sure to import Link
-import 'tailwindcss/tailwind.css'
+  import 'tailwindcss/tailwind.css'
+  import { useLocation } from 'react-router-dom';
 
 const ProductDetailsPage = () => {
   const [quantity, setQuantity] = useState(1);
-  const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(null);
-  const [image,setImage]=useState("https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp")
+  const location = useLocation();
+  const product = location.state.product;
+  const [image,setImage]=useState(product.images[0].imageurl)
+  console.log(product)
+  const[relatedProducts,setRelatedProducts]=useState([])
+  
+
+  
+
+ 
+  const calculateRating=()=>{
+    let sum=0;
+    product.ratings.forEach(rating=>{
+      sum+=rating.rating
+    })
+    return sum/product.ratings.length
+  }
+  const [rating, setRating] = useState(calculateRating());
 
   const handleIncrement = () => {
     setQuantity(prevQuantity => prevQuantity + 1);
@@ -22,6 +39,16 @@ const ProductDetailsPage = () => {
   const handleRating = (rate) => {
     setRating(rate);
   };
+  const handleAddToCart = () => {
+    console.log('Product added to cart');
+  };
+  const handleBuyNow = () => {
+    console.log('Product bought');
+  };
+  const handleAddToWishlist = () => {
+    console.log('Product added to wishlist');
+  };
+  
 
   return (
     <div className="ProductDetailsPage container mx-auto p-4">
@@ -42,27 +69,27 @@ const ProductDetailsPage = () => {
                      hover:text-red-500 transition-colors duration-300 
                      hover:underline cursor-pointer"
         >
-          Gaming
+          {product.categorie}
         </Link>
         <div className="Line16 w-3.5 h-px origin-top-left rotate-[117.05deg] opacity-50 border border-black"></div>
-        <div className="ProductName text-black text-sm font-normal font-['Poppins'] leading-tight">Havic HV G-92 Gamepad</div>
+        <div className="ProductName text-black text-sm font-normal font-['Poppins'] leading-tight">{product.name}</div>
       </div>
 
       <div className="flex">
         {/* Smaller Images */}
         <div className="flex flex-col gap-4">
-          <div className="Frame895 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center hover:shadow-lg transition-shadow duration-300">
-            <img className="Image57 w-32 h-28" src="https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp" alt="Thumbnail 1" onClick={()=>setImage("https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp")} />
-          </div>
-          <div className="Frame896 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center hover:shadow-lg transition-shadow duration-300">
-            <img className="Image58 w-28 h-24" src="https://cdn.pixabay.com/photo/2024/05/26/10/15/bird-8788491_1280.jpg" alt="Thumbnail 2" onClick={()=>setImage("https://cdn.pixabay.com/photo/2024/05/26/10/15/bird-8788491_1280.jpg")} />
-          </div>
-          <div className="Frame897 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center hover:shadow-lg transition-shadow duration-300">
-            <img className="Image61 w-32 h-24" src="https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg" alt="Thumbnail 3" onClick={()=>setImage("https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg")} />
-          </div>
-          <div className="Frame919 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center hover:shadow-lg transition-shadow duration-300">
-            <img className="Image59 w-32 h-28" src="https://gratisography.com/wp-content/uploads/2024/01/gratisography-cyber-kitty-800x525.jpg" alt="Thumbnail 4" onClick={()=>setImage("https://gratisography.com/wp-content/uploads/2024/01/gratisography-cyber-kitty-800x525.jpg")} />
-          </div>
+      {  product.images[1].imageurl&& <div className="Frame895 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center hover:shadow-lg transition-shadow duration-300">
+            <img className="Image57 w-32 h-28" src={product.images[1].imageurl} alt="Thumbnail 1" onClick={()=>setImage(product.images[1].imageurl)} />
+          </div>}
+      {  product.images[2].imageurl&& <div className="Frame896 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center hover:shadow-lg transition-shadow duration-300">
+            <img className="Image58 w-28 h-24" src={product.images[2].imageurl} alt="Thumbnail 2" onClick={()=>setImage(product.images[2].imageurl)} />
+          </div>}
+      {  product.images[3].imageurl&& <div className="Frame897 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center hover:shadow-lg transition-shadow duration-300">
+              <img className="Image61 w-32 h-24" src={product.images[3].imageurl} alt="Thumbnail 3" onClick={()=>setImage(product.images[3].imageurl)} />
+          </div>}
+      {  product.images[4].imageurl&& <div className="Frame919 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center hover:shadow-lg transition-shadow duration-300">
+              <img className="Image59 w-32 h-28" src={product.images[4].imageurl} alt="Thumbnail 4" onClick={()=>setImage(product.images[4].imageurl)} />
+          </div>}
         </div>
 
         {/* Main Image */}
@@ -72,7 +99,7 @@ const ProductDetailsPage = () => {
 
         {/* Product Details */}
         <div className="flex-1">
-          <div className="HavicHvG92Gamepad text-black text-2xl font-semibold font-['Inter'] leading-normal tracking-wide">Havic HV G-92 Gamepad</div>
+          <div className="HavicHvG92Gamepad text-black text-2xl font-semibold font-['Inter'] leading-normal tracking-wide">{product.name}</div>
           <div className="flex items-center gap-2 mt-2">
             <div className="FourStar flex items-center">
               {/* Rating Div */}
@@ -104,7 +131,7 @@ const ProductDetailsPage = () => {
           </div>
           <div className="19200 text-black text-2xl font-normal font-['Inter'] leading-normal tracking-wide mt-4">$192.00</div>
           <div className="Playstation5ControllerSkinHighQualityVinylWithAirChannelAdhesiveForEasyBubbleFreeInstallMessFreeRemovalPressureSensitive text-black text-sm font-normal font-['Poppins'] leading-tight mt-4">
-            PlayStation 5 Controller Skin High quality vinyl with air channel adhesive for easy bubble free install & mess free removal Pressure sensitive.
+            {product.description}
           </div>
           <div className="Underline w-full h-px mt-4 opacity-50">
             <div className="Line1 w-full h-px border border-black"></div>

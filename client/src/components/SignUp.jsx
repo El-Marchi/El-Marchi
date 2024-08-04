@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Navbar from './Navbar';
+
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const [role, setRole] = useState("")
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,7 +17,7 @@ const SignUp = () => {
         firstName,
         email,
         password,
-        role: "admin"
+        role 
       });
       localStorage.setItem("token", response.data.token);
       navigate("/");
@@ -28,7 +29,7 @@ const SignUp = () => {
 
   return (
     <div>
-      <Navbar />
+    
       <div className="flex h-screen">
         <div className="hidden md:block w-1/2 bg-sky-100">
           <img 
@@ -79,6 +80,48 @@ const SignUp = () => {
                   onChange={(e)=>setPassword(e.target.value)}
                 />
               </div>
+              {/* New role selection with black frame */}
+              <div className="border border-black p-4 rounded-md">
+                <p className="mb-2 text-sm font-medium text-gray-700">Select your role:</p>
+                <div className="flex space-x-4">
+                  <label className="inline-flex items-center">
+                    <input
+                      type="radio"
+                      name="role"
+                      value="buyer"
+                      checked={role === "buyer"}
+                      onChange={(e) => setRole(e.target.value)}
+                      className="form-radio h-4 w-4 text-red-600"
+                      required
+                    />
+                    <span className="ml-2">Buyer</span>
+                  </label>
+                  <label className="inline-flex items-center">
+                    <input
+                      type="radio"
+                      name="role"
+                      value="seller"
+                      checked={role === "seller"}
+                      onChange={(e) => setRole(e.target.value)}
+                      className="form-radio h-4 w-4 text-red-600"
+                      required
+                    />
+                    <span className="ml-2">Seller</span>
+                  </label>
+                  <label className="inline-flex items-center">
+                    <input
+                      type="radio"
+                      name="role"
+                      value="admin"
+                      checked={role === "admin"}
+                      onChange={(e) => setRole(e.target.value)}
+                      className="form-radio h-4 w-4 text-red-600"
+                      required
+                    />
+                    <span className="ml-2">Admin</span>
+                  </label>
+                </div>
+              </div>
               <div>
                 <button
                   type="submit"
@@ -99,7 +142,7 @@ const SignUp = () => {
             </div>
             
             <p className="mt-8 text-center text-sm text-gray-600">
-              Already have account? <a href="#" className="font-medium text-gray-900 hover:underline">Log in</a>
+              Already have account? <a href="/Login" className="font-medium text-gray-900 hover:underline">Log in</a>
             </p>
           </div>
         </div>

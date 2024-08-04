@@ -5,8 +5,12 @@ const Image = db.Image;
 
 const getAllProducts = async (req, res) => {
     try {
-       
-        const products = await Product.findAll({include:{model:Image}});
+        const products = await Product.findAll({
+            include: [
+                { model: Image },
+                { model: db.Rating }
+            ]
+        });
         res.status(200).json({ products });
     } catch (err) {
         console.error(err);
@@ -32,7 +36,7 @@ const getProductByCriteria = async (req, res) => {
 
     try {
       
-        const product = await Product.findOne({ where: queryConditions,include:{model:Image}});
+        const product = await Product.findOne({ where: queryConditions,include:{model:Image},include:{model:db.Rating}});
 
         if (!product) {
             return res.status(404).send("Product not found");
@@ -51,7 +55,7 @@ const getAllProductsByUserId = async (req, res) => {
 
     try {
         // Assuming Product is your Sequelize model
-        const products = await Product.findAll({ where: { userid: userId },include:{model:Image}});
+        const products = await Product.findAll({ where: { userid: userId },include:{model:Image},include:{model:db.Rating}});
 
         res.status(200).json({ products });
     } catch (err) {
@@ -196,12 +200,12 @@ const deleteImage = async (req, res) => {
 }
 const addImagebyProductId = async (req, res) => {
     const { productid } = req.params;
-    const { image } = req.body.imageurl;
+    const { imageurl } = req.body;
 
     try {
  
        await Image.create({
-            imageurl: image,
+            imageurl,
             productid
         });
         res.status(201).json({ message: 'Image added successfully' });

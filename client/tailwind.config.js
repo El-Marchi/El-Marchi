@@ -9,7 +9,7 @@ module.exports = {
         'primary': '#DB4444',
         'secondary': '#F5F5F5',
         'text-primary': '#000000',
-        'text-secondary': '#FAFAFA',
+        'text-secondary': '#FAFAFA', // Ensure this matches your design
         'accent-1': '#F55E5E',
         'accent-2': '#00FF66',
         'neutral': {
@@ -40,6 +40,13 @@ module.exports = {
           600: '#dc2626', // Button hover color
         },
         'input-bg': '#F5F5F5', // for form input backgrounds
+        'neutral-800': '#2D3748', // Add this line
+        'neutral-700': '#4A5568', // Add this line
+        'neutral-600': '#718096', // Add this line
+        'neutral-400': '#CBD5E0', // Add this line
+        'sky-100': '#EBF8FF', // Add this line
+        'indigo-500': '#667EEA', // Add this line
+        'indigo-600': '#5A67D8', // Add this line
       },
       fontFamily: {
         'poppins': ['Poppins', 'sans-serif'],

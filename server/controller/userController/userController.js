@@ -1,126 +1,126 @@
-const {db}=require('../../database/index')
+const { db } = require('../../database/index');
 
-const bcrypt=require('bcrypt');
-const jwt=require('jsonwebtoken')
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const secret = process.env.JWT_SECRET;
 
 const signUp = async (req, res) => {
     try {
-        const { firstName, lastName, email, role, password } = req.body;
-      
+        const { firstName,  email, role, password } = req.body;
+        console.log(firstName,email,role,password)
+
         const isPasswordValid = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[^_\s]{6,}$/.test(password);
+        const existingUser = await db.User.findOne({ where: { email } });
 
-        if (test) {
-            res.send('email already in use');
-            return;
-        } else if (!isPasswordValid) {
-            res.send('Password does not meet the criteria');
-            return;
-        } else {
-            var y = {
-                firstName,
-                lastName:'lastname',
-                email,
-                role,
-                password: await bcrypt.hash(password, 15),
-                address: 'Ariana'
-            };
-            const x = await db.User.create(y);
-
-            const token = await jwt.sign({ userid: x.userid, email: x.email, firstName: x.firstName }, 'loginuser');
-            res.send(token);
-
-            res.send('signUp successful');
-            return;
+        if (existingUser) {
+            return res.status(400).send({ message: 'Email already in use' });
         }
+
+        if (!isPasswordValid) {
+            return res.status(400).send({ message: 'Password does not meet the criteria' });
+        }
+
+        const newUser = await db.User.create({
+            firstName,
+            lastName:"lastName",
+            email,
+            role,
+            password: await bcrypt.hash(password, 10),
+            adress: 'Ariana',
+            status: 'active'
+        });
+
+        const token = jwt.sign({ userid: newUser.userid, email: newUser.email, firstName: newUser.firstName , role: newUser.role , adress: newUser.adress , status: newUser.status , lastName: newUser.lastName }, secret);
+        res.status(201).send({ token, message: 'Signup successful' });
     } catch (err) {
-        console.log(err);
-        res.send(err);
+        console.error(err);
+        res.status(500).send({ message: 'Server error', error: err.message });
     }
 };
 
-const logIn=async(req,res)=>{
- 
-
-    try{
-        const {email,password}=req.body;
-        const test=await db.User.findOne({where:{email}})
-        if(!test)
-            return res.send('email not exist');
-
-        const testpassword=await bcrypt.compare(password,test.password)
-
-        if(!testpassword) 
-            return res.send('not valide')
-        
-        else {
-    const token=jwt.sign({userid:test.userid,email:test.email,firstName:test.firstName},'lifeislove')
-    res.send(token)
-    
-        }
-       
-    }
-
-    catch (err){
-        return res.send('error',err);
-    }
-
-}
-
-const deleteuser = async (req,res) => {
+const logIn = async (req, res) => {
     try {
-      let id = req.params.id;
-  
-      await db.User.destroy({
-        where: {
-          userid: id
+        const { email, password } = req.body;
+        const user = await db.User.findOne({ where: { email } });
+
+        if (!user) {
+            return res.status(404).send({ message: 'Email not found' });
         }
-      });
-  
-      res.status(200).send('Deleted user item with ID:' + id);
-    } catch (error) {
-      console.error('Error deleting user item:', error);
-      res.status(500).send({ error: 'An error occurred while deleting user item' });
+
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+
+        if (!isPasswordValid) {
+            return res.status(401).send({ message: 'Invalid credentials' });
+        }
+
+        const token = jwt.sign({ userid: user.userid, email: user.email, firstName: user.firstName , role: user.role , adress: user.adress , status: user.status , lastName: user.lastName }, secret);
+        res.send({ token });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({ message: 'Server error', error: err.message });
     }
-  }
+};
 
-  const updateUser=async(req,res)=>{
-    let id=req.params.userid
-   
-    const up=await db.User.update(req.body,{where:{userid: id}})
-    res.status(200).send(up)
-}
+const deleteuser = async (req, res) => {
+    try {
+        let id = req.params.id;
 
-const updatepassword = async (req, res) => {
+        await db.User.destroy({
+            where: {
+                userid: id
+            }
+        });
 
-    const {email,password,newpassword}=req.body;
-     const user=await db.User.findOne({where:{email}})
-    if(!user)return res.send('email not exist');
-    const isPasswordValid = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[^_\s]{6,}$/.test(password);
-    if (!isPasswordValid) return res.send('Password does not meet the criteria');
-    const testpassword=await bcrypt.compare(password,user.password)
-    if(!testpassword) return res.send('not valide')
+        res.status(200).send('Deleted user item with ID:' + id);
+    } catch (error) {
+        console.error('Error deleting user item:', error);
+        res.status(500).send({ error: 'An error occurred while deleting user item' });
+    }
+};
 
+const updateUser = async (req, res) => {
+    try {
+        const id = req.params.userid;
+        const [updatedRows] = await db.User.update(req.body, { where: { userid: id } });
 
+        if (updatedRows === 0) {
+            return res.status(404).send({ message: 'User not found' });
+        }
 
-    //  else {
-    // const token=jwt.sign({userid:user.userid,email:user.email,firstName:user.firstName},'loginuser')
-    //      res.send(token)
-            
-    //     }
-                
- 
-   let id=req.params.userid
-    const up=await db.User.update({password:await bcrypt.hash(newpassword,15)},{where:{userid: id}})
-    res.send(up)
-}
-   
+        res.send({ message: 'User updated successfully' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({ message: 'Server error', error: err.message });
+    }
+};
 
+const updatePassword = async (req, res) => {
+    try {
+        const { email, currentPassword, newPassword } = req.body;
+        const user = await db.User.findOne({ where: { email } });
 
+        if (!user) {
+            return res.status(404).send({ message: 'User not found' });
+        }
 
+        const isPasswordValid = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[^_\s]{6,}$/.test(newPassword);
+        if (!isPasswordValid) {
+            return res.status(400).send({ message: 'New password does not meet the criteria' });
+        }
 
+        const isCurrentPasswordValid = await bcrypt.compare(currentPassword, user.password);
+        if (!isCurrentPasswordValid) {
+            return res.status(401).send({ message: 'Current password is incorrect' });
+        }
 
+        const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+        await db.User.update({ password: hashedNewPassword }, { where: { userid: user.userid } });
 
-module.exports={signUp,logIn,deleteuser,updateUser,updatepassword}
+        res.send({ message: 'Password updated successfully' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({ message: 'Server error', error: err.message });
+    }
+};
 
-
-
+module.exports = { signUp, logIn, deleteuser, updateUser, updatePassword };
