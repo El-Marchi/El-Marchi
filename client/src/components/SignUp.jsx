@@ -19,7 +19,7 @@ const SignUp = () => {
         password,
         role 
       });
-      await localStorage.setItem("token", response.data.token);
+      localStorage.setItem("token", response.data.token);
       navigate("/");
       console.log(response.data, "signup success");
     } catch (error) {

@@ -35,7 +35,6 @@ const ErrorPage = ({ className = "" }) => {
           </div>
         </div>
       </section>
-      <Footer /> {Footer}
     </div>
   );
 };

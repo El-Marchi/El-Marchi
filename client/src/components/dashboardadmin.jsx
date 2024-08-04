@@ -59,7 +59,7 @@ export const DashboardAdmin = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar />
+      
       <div className="flex flex-1">
         <Sidebar onLogout={handleLogout} />
         <main className="flex-1 p-8 overflow-auto bg-gray-100">

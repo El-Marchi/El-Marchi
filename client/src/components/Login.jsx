@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -12,16 +13,18 @@ const Login = () => {
     try {
       const response = await axios.post("http://localhost:5000/api/user/logIn", { email, password });
       console.log(response.data);
-      localStorage.setItem("token", response.data.token);
-      navigate("/update");
+      await localStorage.setItem("token", response.data.token);
+      navigate("/");
       console.log("Login successful");
       console.log(localStorage.getItem("token"));
     } catch (error) {
-      console.error("Login error:", error.response?.data || error.message);
+      console.log("Login error:", error);
     }
   };
 
   return (
+   
+      
     <div className="flex h-screen bg-white">
       <div className="w-1/2 bg-cover bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')" }}>
         {/* Hidden image for SEO */}
@@ -72,6 +75,8 @@ const Login = () => {
         </div>
       </div>
     </div>
+   
+   
   );
 };
 

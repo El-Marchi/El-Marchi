@@ -33,9 +33,44 @@ INSERT INTO `el_marchi`.`users` (`firstName`, `lastName`, `email`, `password`, `
 ('Ava', 'Thompson', 'ava.thompson@example.com', 'password123', 'user', '159 Sycamore St, Springfield', NOW(), NOW()),
 ('David', 'Garcia', 'david.garcia@example.com', 'password123', 'user', '753 Poplar Rd, Springfield', NOW(), NOW()),
 ('Sofia', 'Martinez', 'sofia.martinez@example.com', 'password123', 'user', '951 Willow Dr, Springfield', NOW(), NOW());
+('John', 'Doe', 'john.doe@example.com', 'password123', 'admin', '123 Main St, Springfield', NOW(), NOW()),
+('Jane', 'Smith', 'jane.smith@example.com', 'password123', 'user', '456 Elm St, Springfield', NOW(), NOW()),
+('Alice', 'Johnson', 'alice.johnson@example.com', 'password123', 'user', '789 Maple Ave, Springfield', NOW(), NOW()),
+('Bob', 'Brown', 'bob.brown@example.com', 'password123', 'user', '321 Oak St, Springfield', NOW(), NOW()),
+('Emma', 'Wilson', 'emma.wilson@example.com', 'password123', 'user', '654 Pine Rd, Springfield', NOW(), NOW()),
+('Michael', 'Taylor', 'michael.taylor@example.com', 'password123', 'user', '987 Cedar Ln, Springfield', NOW(), NOW()),
+('Olivia', 'Anderson', 'olivia.anderson@example.com', 'password123', 'user', '147 Birch Dr, Springfield', NOW(), NOW()),
+('William', 'Thomas', 'william.thomas@example.com', 'password123', 'user', '258 Walnut Ave, Springfield', NOW(), NOW()),
+('Sophia', 'Jackson', 'sophia.jackson@example.com', 'password123', 'user', '369 Cherry St, Springfield', NOW(), NOW()),
+('James', 'White', 'james.white@example.com', 'password123', 'user', '741 Ash Rd, Springfield', NOW(), NOW()),
+('Emily', 'Harris', 'emily.harris@example.com', 'password123', 'user', '852 Spruce Ln, Springfield', NOW(), NOW()),
+('Daniel', 'Martin', 'daniel.martin@example.com', 'password123', 'user', '963 Fir Ave, Springfield', NOW(), NOW()),
+('Ava', 'Thompson', 'ava.thompson@example.com', 'password123', 'user', '159 Sycamore St, Springfield', NOW(), NOW()),
+('David', 'Garcia', 'david.garcia@example.com', 'password123', 'user', '753 Poplar Rd, Springfield', NOW(), NOW()),
+('Sofia', 'Martinez', 'sofia.martinez@example.com', 'password123', 'user', '951 Willow Dr, Springfield', NOW(), NOW());
 
 -- Insert dummy data into `products` table
 INSERT INTO `el_marchi`.`products` (`name`, `description`, `price`, `stock`, `categorie`, `userid`, `createdAt`, `updatedAt`) VALUES
+('4K Ultra HD TV', 'A stunning 4K Ultra HD TV with vibrant colors and crisp details.', 799.99, 50, 'Electronics', 1, NOW(), NOW()),
+('Wireless Earbuds', 'Compact and comfortable wireless earbuds with noise-canceling features.', 129.99, 100, 'Accessories', 2, NOW(), NOW()),
+('Gaming Laptop', 'High-performance gaming laptop with the latest graphics card and processor.', 1499.99, 30, 'Computers', 1, NOW(), NOW()),
+('Smartphone', 'A sleek smartphone with an advanced camera system and fast performance.', 699.99, 75, 'Mobile Phones', 2, NOW(), NOW()),
+('Bluetooth Speaker', 'Portable Bluetooth speaker with high-quality sound and long battery life.', 89.99, 150, 'Audio', 3, NOW(), NOW()),
+('Smartwatch', 'A stylish smartwatch with health tracking and notification features.', 199.99, 60, 'Wearables', 3, NOW(), NOW()),
+('Electric Toothbrush', 'Electric toothbrush with multiple brushing modes and a built-in timer.', 49.99, 200, 'Health & Personal Care', 4, NOW(), NOW()),
+('Digital Camera', 'High-resolution digital camera with interchangeable lenses and advanced features.', 499.99, 40, 'Photography', 4, NOW(), NOW()),
+('Coffee Maker', 'Programmable coffee maker with multiple brew strengths and thermal carafe.', 79.99, 80, 'Kitchen Appliances', 5, NOW(), NOW()),
+('Fitness Tracker', 'Waterproof fitness tracker with heart rate monitoring and sleep tracking.', 59.99, 120, 'Wearables', 6, NOW(), NOW()),
+('Robot Vacuum', 'Smart robot vacuum with mapping technology and app control.', 299.99, 45, 'Home Appliances', 7, NOW(), NOW()),
+('Wireless Mouse', 'Ergonomic wireless mouse with customizable buttons and long battery life.', 39.99, 200, 'Computer Accessories', 8, NOW(), NOW()),
+('Air Purifier', 'HEPA air purifier for large rooms with air quality sensor.', 179.99, 60, 'Home Appliances', 9, NOW(), NOW()),
+('External SSD', 'Fast and portable external SSD with 1TB storage capacity.', 149.99, 100, 'Computer Accessories', 10, NOW(), NOW()),
+('Smart Thermostat', 'Wi-Fi enabled smart thermostat with energy-saving features.', 129.99, 75, 'Smart Home', 11, NOW(), NOW()),
+('Wireless Keyboard', 'Slim wireless keyboard with backlit keys and multi-device support.', 69.99, 150, 'Computer Accessories', 12, NOW(), NOW()),
+('Blender', 'High-powered blender for smoothies, soups, and more.', 89.99, 90, 'Kitchen Appliances', 13, NOW(), NOW()),
+('Portable Charger', '20000mAh portable charger with fast charging capabilities.', 49.99, 200, 'Mobile Accessories', 14, NOW(), NOW()),
+('Smart Light Bulbs', 'Color-changing smart light bulbs compatible with voice assistants.', 34.99, 300, 'Smart Home', 15, NOW(), NOW()),
+('Noise-Canceling Headphones', 'Over-ear noise-canceling headphones with premium sound quality.', 249.99, 50, 'Audio', 1, NOW(), NOW());
 ('4K Ultra HD TV', 'A stunning 4K Ultra HD TV with vibrant colors and crisp details.', 799.99, 50, 'Electronics', 1, NOW(), NOW()),
 ('Wireless Earbuds', 'Compact and comfortable wireless earbuds with noise-canceling features.', 129.99, 100, 'Accessories', 2, NOW(), NOW()),
 ('Gaming Laptop', 'High-performance gaming laptop with the latest graphics card and processor.', 1499.99, 30, 'Computers', 1, NOW(), NOW()),
@@ -198,9 +233,23 @@ INSERT INTO `el_marchi`.`ratings` (`rating`, `productid`, `userid`, `createdAt`,
 (4, 13, 13, NOW(), NOW()), (5, 14, 14, NOW(), NOW()), (3, 15, 15, NOW(), NOW()),
 (4, 16, 1, NOW(), NOW()), (5, 17, 2, NOW(), NOW()), (3, 18, 3, NOW(), NOW()),
 (4, 19, 4, NOW(), NOW()), (5, 20, 5, NOW(), NOW());
+(5, 1, 1, NOW(), NOW()), (4, 2, 2, NOW(), NOW()), (3, 3, 3, NOW(), NOW()),
+(5, 4, 4, NOW(), NOW()), (4, 5, 5, NOW(), NOW()), (5, 6, 6, NOW(), NOW()),
+(3, 7, 7, NOW(), NOW()), (4, 8, 8, NOW(), NOW()), (5, 9, 9, NOW(), NOW()),
+(4, 10, 10, NOW(), NOW()), (3, 11, 11, NOW(), NOW()), (5, 12, 12, NOW(), NOW()),
+(4, 13, 13, NOW(), NOW()), (5, 14, 14, NOW(), NOW()), (3, 15, 15, NOW(), NOW()),
+(4, 16, 1, NOW(), NOW()), (5, 17, 2, NOW(), NOW()), (3, 18, 3, NOW(), NOW()),
+(4, 19, 4, NOW(), NOW()), (5, 20, 5, NOW(), NOW());
 
 -- Insert dummy data into `wishlists` table
 INSERT INTO `el_marchi`.`wishlists` (`productid`, `userid`, `createdAt`, `updatedAt`) VALUES
+(1, 1, NOW(), NOW()), (2, 2, NOW(), NOW()), (3, 3, NOW(), NOW()),
+(4, 4, NOW(), NOW()), (5, 5, NOW(), NOW()), (6, 6, NOW(), NOW()),
+(7, 7, NOW(), NOW()), (8, 8, NOW(), NOW()), (9, 9, NOW(), NOW()),
+(10, 10, NOW(), NOW()), (11, 11, NOW(), NOW()), (12, 12, NOW(), NOW()),
+(13, 13, NOW(), NOW()), (14, 14, NOW(), NOW()), (15, 15, NOW(), NOW()),
+(16, 1, NOW(), NOW()), (17, 2, NOW(), NOW()), (18, 3, NOW(), NOW()),
+(19, 4, NOW(), NOW()), (20, 5, NOW(), NOW());
 (1, 1, NOW(), NOW()), (2, 2, NOW(), NOW()), (3, 3, NOW(), NOW()),
 (4, 4, NOW(), NOW()), (5, 5, NOW(), NOW()), (6, 6, NOW(), NOW()),
 (7, 7, NOW(), NOW()), (8, 8, NOW(), NOW()), (9, 9, NOW(), NOW()),
