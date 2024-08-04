@@ -1,4 +1,22 @@
 -- Insert dummy data into `users` table
+INSERT INTO `el_marchi`.`users` (`firstName`, `lastName`, `email`, `password`, `role`, `adress`, `createdAt`, `updatedAt`, `status`) VALUES
+('John', 'Doe', 'john.doe@example.com', 'password123', 'admin', '123 Main St, Springfield', NOW(), NOW(), 'active'),
+('Jane', 'Smith', 'jane.smith@example.com', 'password123', 'buyer', '456 Elm St, Springfield', NOW(), NOW(), 'inactive'),
+('Alice', 'Johnson', 'alice.johnson@example.com', 'password123', 'buyer', '789 Maple Ave, Springfield', NOW(), NOW(), 'active'),
+('Bob', 'Brown', 'bob.brown@example.com', 'password123', 'buyer', '321 Oak St, Springfield', NOW(), NOW(), 'inactive'),
+('Emma', 'Wilson', 'emma.wilson@example.com', 'password123', 'buyer', '654 Pine Rd, Springfield', NOW(), NOW(), 'active'),
+('Michael', 'Taylor', 'michael.taylor@example.com', 'password123', 'buyer', '987 Cedar Ln, Springfield', NOW(), NOW(), 'inactive'),
+('Olivia', 'Anderson', 'olivia.anderson@example.com', 'password123', 'buyer', '147 Birch Dr, Springfield', NOW(), NOW(), 'active'),
+('William', 'Thomas', 'william.thomas@example.com', 'password123', 'buyer', '258 Walnut Ave, Springfield', NOW(), NOW(), 'inactive'),
+('Sophia', 'Jackson', 'sophia.jackson@example.com', 'password123', 'buyer', '369 Cherry St, Springfield', NOW(), NOW(), 'active'),
+('James', 'White', 'james.white@example.com', 'password123', 'buyer', '741 Ash Rd, Springfield', NOW(), NOW(), 'inactive'),
+('Emily', 'Harris', 'emily.harris@example.com', 'password123', 'buyer', '852 Spruce Ln, Springfield', NOW(), NOW(), 'active'),
+('Daniel', 'Martin', 'daniel.martin@example.com', 'password123', 'buyer', '963 Fir Ave, Springfield', NOW(), NOW(), 'inactive'),
+('Ava', 'Thompson', 'ava.thompson@example.com', 'password123', 'buyer', '159 Sycamore St, Springfield', NOW(), NOW(), 'active'),
+('David', 'Garcia', 'david.garcia@example.com', 'password123', 'buyer', '753 Poplar Rd, Springfield', NOW(), NOW(), 'inactive'),
+('Sofia', 'Martinez', 'sofia.martinez@example.com', 'password123', 'buyer', '951 Willow Dr, Springfield', NOW(), NOW(), 'active');
+
+-- Insert dummy data into `products` table
 INSERT INTO `el_marchi`.`users` (`firstName`, `lastName`, `email`, `password`, `role`, `adress`, `createdAt`, `updatedAt`) VALUES
 ('John', 'Doe', 'john.doe@example.com', 'password123', 'admin', '123 Main St, Springfield', NOW(), NOW()),
 ('Jane', 'Smith', 'jane.smith@example.com', 'password123', 'user', '456 Elm St, Springfield', NOW(), NOW()),
@@ -42,25 +60,124 @@ INSERT INTO `el_marchi`.`products` (`name`, `description`, `price`, `stock`, `ca
 -- Insert dummy data into `images` table
 INSERT INTO `el_marchi`.`images` (`imageurl`, `productid`, `createdAt`, `updatedAt`) VALUES
 ('https://i.pinimg.com/236x/bf/46/83/bf4683927abe7fcff5943d36eadc38b1.jpg', 1, NOW(), NOW()),
+('https://picsum.photos/200/300?random=1', 1, NOW(), NOW()),
+('https://picsum.photos/200/300?random=2', 1, NOW(), NOW()),
+('https://picsum.photos/200/300?random=3', 1, NOW(), NOW()),
+('https://picsum.photos/200/300?random=4', 1, NOW(), NOW()),
+
 ('https://i.pinimg.com/474x/f8/e5/7d/f8e57da0d7212bcd9964e9f9d6c176f1.jpg', 2, NOW(), NOW()),
+('https://picsum.photos/200/300?random=5', 2, NOW(), NOW()),
+('https://picsum.photos/200/300?random=6', 2, NOW(), NOW()),
+('https://picsum.photos/200/300?random=7', 2, NOW(), NOW()),
+('https://picsum.photos/200/300?random=8', 2, NOW(), NOW()),
+
 ('https://i.pinimg.com/236x/b4/42/1d/b4421d62f0c1c2bf77cfee32e4ea2d76.jpg', 3, NOW(), NOW()),
+('https://picsum.photos/200/300?random=9', 3, NOW(), NOW()),
+('https://picsum.photos/200/300?random=10', 3, NOW(), NOW()),
+('https://picsum.photos/200/300?random=11', 3, NOW(), NOW()),
+('https://picsum.photos/200/300?random=12', 3, NOW(), NOW()),
+
 ('https://i.pinimg.com/474x/8a/ca/b5/8acab5f315461ddb9e0393dae2865cca.jpg', 4, NOW(), NOW()),
+('https://picsum.photos/200/300?random=13', 4, NOW(), NOW()),
+('https://picsum.photos/200/300?random=14', 4, NOW(), NOW()),
+('https://picsum.photos/200/300?random=15', 4, NOW(), NOW()),
+('https://picsum.photos/200/300?random=16', 4, NOW(), NOW()),
+
 ('https://i.pinimg.com/236x/4b/2d/03/4b2d03491b9441132ce4139c773643e0.jpg', 5, NOW(), NOW()),
-('https://i.pinimg.com/236x/54/5a/6c/545a6c8826535dca2d81c84d0d47d07c.jpg', 6, NOW(), NOW()),
-('https://i.pinimg.com/236x/2f/0d/05/2f0d050a3b4aa2c8fbadd453423c3da9.jpg', 7, NOW(), NOW()),
-('https://i.pinimg.com/236x/91/15/5f/91155fd0eacabb90941b03893966ba09.jpg', 8, NOW(), NOW()),
-('https://img.freepik.com/premium-photo/sleek-modern-coffee-maker-brewing-rich-aro-00346-00_883586-67272.jpg', 9, NOW(), NOW()),
-('https://img.freepik.com/premium-photo/fitness-tracker-displaying-realtime-data-hear-00113-02_1148322-8282.jpg', 10, NOW(), NOW()),
-('https://www.robolodge.com/wp-content/uploads/2024/05/robot-vacum-cleaner1.jpg', 11, NOW(), NOW()),
-('https://cdn-img.oraimo.com/fit-in/600x600/NG/album/of-m11n/of-m11n-1.jpg', 12, NOW(), NOW()),
-('https://img.freepik.com/premium-photo/smart-things-modern-concept-design-high-technology-air-purifier-living-quarters_933786-3953.jpg', 13, NOW(), NOW()),
-('https://m.media-amazon.com/images/I/81NOW0sfx2L._CR2,0,1276,720_SR684,386_.jpg', 14, NOW(), NOW()),
-('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnS30NdlCy1u3jwFxixKxmUqoOhAXxrERncg&s.jpg', 15, NOW(), NOW()),
-('https://miro.medium.com/v2/resize:fit:1400/0*t0RzsqO4F_X2zq06.jpg', 16, NOW(), NOW()),
-('https://png.pngtree.com/background/20231101/original/pngtree-electric-blender-innovation-a-modern-kitchen-appliance-on-a-blue-background-picture-image_5832879.jpg', 17, NOW(), NOW()),
-('https://c1.neweggimages.com/productimage/nb640/A4RES2305050825TX38.jpg', 18, NOW(), NOW()),
-('https://www.rollingstone.com/wp-content/uploads/2021/04/Philips-Hue.jpg', 19, NOW(), NOW()),
-('https://cdn.thewirecutter.com/wp-content/media/2023/09/noise-cancelling-headphone-2048px-0876.jpg', 20, NOW(), NOW());
+('https://picsum.photos/200/300?random=17', 5, NOW(), NOW()),
+('https://picsum.photos/200/300?random=18', 5, NOW(), NOW()),
+('https://picsum.photos/200/300?random=19', 5, NOW(), NOW()),
+('https://picsum.photos/200/300?random=20', 5, NOW(), NOW()),
+
+('https://i.pinimg.com/236x/bf/46/83/bf4683927abe7fcff5943d36eadc38b1.jpg', 6, NOW(), NOW()),
+('https://picsum.photos/200/300?random=21', 6, NOW(), NOW()),
+('https://picsum.photos/200/300?random=22', 6, NOW(), NOW()),
+('https://picsum.photos/200/300?random=23', 6, NOW(), NOW()),
+('https://picsum.photos/200/300?random=24', 6, NOW(), NOW()),
+
+('https://i.pinimg.com/474x/f8/e5/7d/f8e57da0d7212bcd9964e9f9d6c176f1.jpg', 7, NOW(), NOW()),
+('https://picsum.photos/200/300?random=25', 7, NOW(), NOW()),
+('https://picsum.photos/200/300?random=26', 7, NOW(), NOW()),
+('https://picsum.photos/200/300?random=27', 7, NOW(), NOW()),
+('https://picsum.photos/200/300?random=28', 7, NOW(), NOW()),
+
+('https://i.pinimg.com/236x/b4/42/1d/b4421d62f0c1c2bf77cfee32e4ea2d76.jpg', 8, NOW(), NOW()),
+('https://picsum.photos/200/300?random=29', 8, NOW(), NOW()),
+('https://picsum.photos/200/300?random=30', 8, NOW(), NOW()),
+('https://picsum.photos/200/300?random=31', 8, NOW(), NOW()),
+('https://picsum.photos/200/300?random=32', 8, NOW(), NOW()),
+
+('https://i.pinimg.com/474x/8a/ca/b5/8acab5f315461ddb9e0393dae2865cca.jpg', 9, NOW(), NOW()),
+('https://picsum.photos/200/300?random=33', 9, NOW(), NOW()),
+('https://picsum.photos/200/300?random=34', 9, NOW(), NOW()),
+('https://picsum.photos/200/300?random=35', 9, NOW(), NOW()),
+('https://picsum.photos/200/300?random=36', 9, NOW(), NOW()),
+
+('https://i.pinimg.com/236x/4b/2d/03/4b2d03491b9441132ce4139c773643e0.jpg', 10, NOW(), NOW()),
+('https://picsum.photos/200/300?random=37', 10, NOW(), NOW()),
+('https://picsum.photos/200/300?random=38', 10, NOW(), NOW()),
+('https://picsum.photos/200/300?random=39', 10, NOW(), NOW()),
+('https://picsum.photos/200/300?random=40', 10, NOW(), NOW()),
+
+('https://i.pinimg.com/236x/bf/46/83/bf4683927abe7fcff5943d36eadc38b1.jpg', 11, NOW(), NOW()),
+('https://picsum.photos/200/300?random=41', 11, NOW(), NOW()),
+('https://picsum.photos/200/300?random=42', 11, NOW(), NOW()),
+('https://picsum.photos/200/300?random=43', 11, NOW(), NOW()),
+('https://picsum.photos/200/300?random=44', 11, NOW(), NOW()),
+
+('https://i.pinimg.com/474x/f8/e5/7d/f8e57da0d7212bcd9964e9f9d6c176f1.jpg', 12, NOW(), NOW()),
+('https://picsum.photos/200/300?random=45', 12, NOW(), NOW()),
+('https://picsum.photos/200/300?random=46', 12, NOW(), NOW()),
+('https://picsum.photos/200/300?random=47', 12, NOW(), NOW()),
+('https://picsum.photos/200/300?random=48', 12, NOW(), NOW()),
+
+('https://i.pinimg.com/236x/b4/42/1d/b4421d62f0c1c2bf77cfee32e4ea2d76.jpg', 13, NOW(), NOW()),
+('https://picsum.photos/200/300?random=49', 13, NOW(), NOW()),
+('https://picsum.photos/200/300?random=50', 13, NOW(), NOW()),
+('https://picsum.photos/200/300?random=51', 13, NOW(), NOW()),
+('https://picsum.photos/200/300?random=52', 13, NOW(), NOW()),
+
+('https://i.pinimg.com/474x/8a/ca/b5/8acab5f315461ddb9e0393dae2865cca.jpg', 14, NOW(), NOW()),
+('https://picsum.photos/200/300?random=53', 14, NOW(), NOW()),
+('https://picsum.photos/200/300?random=54', 14, NOW(), NOW()),
+('https://picsum.photos/200/300?random=55', 14, NOW(), NOW()),
+('https://picsum.photos/200/300?random=56', 14, NOW(), NOW()),
+
+('https://i.pinimg.com/236x/4b/2d/03/4b2d03491b9441132ce4139c773643e0.jpg', 15, NOW(), NOW()),
+('https://picsum.photos/200/300?random=57', 15, NOW(), NOW()),
+('https://picsum.photos/200/300?random=58', 15, NOW(), NOW()),
+('https://picsum.photos/200/300?random=59', 15, NOW(), NOW()),
+('https://picsum.photos/200/300?random=60', 15, NOW(), NOW()),
+
+('https://i.pinimg.com/236x/bf/46/83/bf4683927abe7fcff5943d36eadc38b1.jpg', 16, NOW(), NOW()),
+('https://picsum.photos/200/300?random=61', 16, NOW(), NOW()),
+('https://picsum.photos/200/300?random=62', 16, NOW(), NOW()),
+('https://picsum.photos/200/300?random=63', 16, NOW(), NOW()),
+('https://picsum.photos/200/300?random=64', 16, NOW(), NOW()),
+
+('https://i.pinimg.com/474x/f8/e5/7d/f8e57da0d7212bcd9964e9f9d6c176f1.jpg', 17, NOW(), NOW()),
+('https://picsum.photos/200/300?random=65', 17, NOW(), NOW()),
+('https://picsum.photos/200/300?random=66', 17, NOW(), NOW()),
+('https://picsum.photos/200/300?random=67', 17, NOW(), NOW()),
+('https://picsum.photos/200/300?random=68', 17, NOW(), NOW()),
+
+('https://i.pinimg.com/236x/b4/42/1d/b4421d62f0c1c2bf77cfee32e4ea2d76.jpg', 18, NOW(), NOW()),
+('https://picsum.photos/200/300?random=69', 18, NOW(), NOW()),
+('https://picsum.photos/200/300?random=70', 18, NOW(), NOW()),
+('https://picsum.photos/200/300?random=71', 18, NOW(), NOW()),
+('https://picsum.photos/200/300?random=72', 18, NOW(), NOW()),
+
+('https://i.pinimg.com/474x/8a/ca/b5/8acab5f315461ddb9e0393dae2865cca.jpg', 19, NOW(), NOW()),
+('https://picsum.photos/200/300?random=73', 19, NOW(), NOW()),
+('https://picsum.photos/200/300?random=74', 19, NOW(), NOW()),
+('https://picsum.photos/200/300?random=75', 19, NOW(), NOW()),
+('https://picsum.photos/200/300?random=76', 19, NOW(), NOW()),
+
+('https://i.pinimg.com/236x/4b/2d/03/4b2d03491b9441132ce4139c773643e0.jpg', 20, NOW(), NOW()),
+('https://picsum.photos/200/300?random=77', 20, NOW(), NOW()),
+('https://picsum.photos/200/300?random=78', 20, NOW(), NOW()),
+('https://picsum.photos/200/300?random=79', 20, NOW(), NOW()),
+('https://picsum.photos/200/300?random=80', 20, NOW(), NOW());
 
 -- Insert dummy data into `carts` table
 INSERT INTO `el_marchi`.`carts` (`productid`, `userid`, `createdAt`, `updatedAt`) VALUES

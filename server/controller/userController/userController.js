@@ -26,10 +26,11 @@ const signUp = async (req, res) => {
             email,
             role,
             password: await bcrypt.hash(password, 10),
-            adress: 'Ariana'
+            adress: 'Ariana',
+            status: 'active'
         });
 
-        const token = jwt.sign({ userid: newUser.userid, email: newUser.email, firstName: newUser.firstName }, secret);
+        const token = jwt.sign({ userid: newUser.userid, email: newUser.email, firstName: newUser.firstName , role: newUser.role , adress: newUser.adress , status: newUser.status , lastName: newUser.lastName }, secret);
         res.status(201).send({ token, message: 'Signup successful' });
     } catch (err) {
         console.error(err);
@@ -52,7 +53,7 @@ const logIn = async (req, res) => {
             return res.status(401).send({ message: 'Invalid credentials' });
         }
 
-        const token = jwt.sign({ userid: user.userid, email: user.email, firstName: user.firstName }, secret);
+        const token = jwt.sign({ userid: user.userid, email: user.email, firstName: user.firstName , role: user.role , adress: user.adress , status: user.status , lastName: user.lastName }, secret);
         res.send({ token });
     } catch (err) {
         console.error(err);

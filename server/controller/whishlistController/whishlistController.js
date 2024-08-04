@@ -14,6 +14,7 @@ async function getWishlistProducts(req, res) {
           model: db.Product,
             include:{
               model:db.Image,
+              model:db.Rating
              
             }
         },
