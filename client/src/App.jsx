@@ -14,6 +14,8 @@ import AddProduct from "./comps/Addprod";
 import Errorpage from "./comps/Erorpage";
 import Cart from "./comps/Cart.jsx"
 import SallerDashboard from "./comps/SallerDashboard.jsx";
+import DashboardAdmin from './components/dashboardadmin.jsx';
+
 
 function App() {
   const [currentSellerId, setCurrentSellerId] = useState(null);
@@ -31,9 +33,14 @@ function App() {
         <Routes>
           <Route path="/" element={currentSellerId ? <SallerDashboard userid={currentSellerId} /> : <div>Loading...</div>} />
           <Route path="/product" element={<AddProduct />} />
+        <Route path="/" element={<Homepage />} />
+   
+          <Route path="/product" element={<ProductDetailsPage />} />
           <Route path="/contact" element={<ContactForm />} />
-          <Route path="/Dashboard" element={<DashboardAdmin />} />
+          <Route path="/admin_Dashboard" element={<DashboardAdmin />} />
           <Route path="/all-Products" element={<AllProducts />} />
+          <Route path="/UpdateUser" element={<Update />} />
+
         </Routes>
       </main>
       {/* <Footer /> */}
