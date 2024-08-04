@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route } from "react-router-dom";
 import 'tailwindcss/tailwind.css';
 import ProductDetailsPage from "./pages/ProductDetailsPage";
@@ -8,17 +8,18 @@ import Login from "./components/Login";
 import Update from "./components/Update";
 import ContactForm from "./pages/ContactForm";
 import Homepage from "./components/Homepage.jsx";
-
+import DashboardAdmin from './components/dashboardadmin.jsx'
 import AllProducts from "./comps/Allproducts";
 import AddProduct from "./comps/Addprod";
 import Errorpage from "./comps/Erorpage";
 import Cart from "./comps/Cart.jsx"
 import Wishlist from "./pages/Wishlist";
-import DashboardAdmin from './components/dashboardadmin.jsx';
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
 
 function App() {
+ 
+
   return (
     <div >
       <Navbar />

@@ -7,18 +7,16 @@ const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [role, setRole] = useState('');
   const navigate = useNavigate();
+  const[refresh,setRefresh]=useState(false);
 
-  const fetchUser = () => {
+  useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
       const decodedToken = jwtDecode(token);
       setRole(decodedToken.role);
+      console.log(decodedToken);
     }
-  }
-
-  useEffect(() => {
-    fetchUser();
-  }, []);
+  }, [refresh]);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -92,9 +90,13 @@ const Navbar = () => {
                     {!role && <button onClick={() => navigate('/Login')} className="text-left text-black text-sm font-normal font-poppins leading-tight hover:text-red-600 p-2 rounded transition-colors duration-300">Login</button>}
                     {role && <button onClick={() => navigate('/Update')} className="text-left text-black text-sm font-normal font-poppins leading-tight hover:text-red-600 p-2 rounded transition-colors duration-300">Profile</button>}
                     {role && <button onClick={() => {
-                      localStorage.clear();
-                      fetchUser();
-                      navigate('/Login');
+                      localStorage.clear()
+                      .then(()=>{
+                        window.location.reload();
+                      })
+                      .then(()=>{
+                        navigate('/Login');
+                      })
                     }} className="text-left text-black text-sm font-normal font-poppins leading-tight hover:text-red-600 p-2 rounded transition-colors duration-300">Logout</button>}
                     {role === 'admin' && <button onClick={() => navigate('/Dashboard')} className="text-left text-black text-sm font-normal font-poppins leading-tight hover:text-red-600 p-2 rounded transition-colors duration-300">Dashboard</button>}
                   </div>

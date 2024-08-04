@@ -78,17 +78,17 @@ const ProductDetailsPage = () => {
       <div className="flex">
         {/* Smaller Images */}
         <div className="flex flex-col gap-4">
-      {  product.images[1].imageurl&& <div className="Frame895 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center hover:shadow-lg transition-shadow duration-300">
-            <img className="Image57 w-32 h-28" src={product.images[1].imageurl} alt="Thumbnail 1" onClick={()=>setImage(product.images[1].imageurl)} />
+      {  product.images[0].imageurl&& <div className="Frame895 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center hover:shadow-lg transition-shadow duration-300">
+            <img className="Image57 w-32 h-28" src={product.images[0].imageurl} alt="Thumbnail 1" onClick={()=>setImage(product.images[0].imageurl)} />
           </div>}
-      {  product.images[2].imageurl&& <div className="Frame896 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center hover:shadow-lg transition-shadow duration-300">
-            <img className="Image58 w-28 h-24" src={product.images[2].imageurl} alt="Thumbnail 2" onClick={()=>setImage(product.images[2].imageurl)} />
+      {  product.images[1].imageurl&& <div className="Frame896 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center hover:shadow-lg transition-shadow duration-300">
+            <img className="Image58 w-28 h-24" src={product.images[1].imageurl} alt="Thumbnail 2" onClick={()=>setImage(product.images[1].imageurl)} />
           </div>}
-      {  product.images[3].imageurl&& <div className="Frame897 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center hover:shadow-lg transition-shadow duration-300">
-              <img className="Image61 w-32 h-24" src={product.images[3].imageurl} alt="Thumbnail 3" onClick={()=>setImage(product.images[3].imageurl)} />
+      {  product.images[2].imageurl&& <div className="Frame897 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center hover:shadow-lg transition-shadow duration-300">
+              <img className="Image61 w-32 h-24" src={product.images[2].imageurl} alt="Thumbnail 3" onClick={()=>setImage(product.images[2].imageurl)} />
           </div>}
-      {  product.images[4].imageurl&& <div className="Frame919 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center hover:shadow-lg transition-shadow duration-300">
-              <img className="Image59 w-32 h-28" src={product.images[4].imageurl} alt="Thumbnail 4" onClick={()=>setImage(product.images[4].imageurl)} />
+      {  product.images[3].imageurl&& <div className="Frame919 w-44 h-36 bg-neutral-100 rounded flex justify-center items-center hover:shadow-lg transition-shadow duration-300">
+              <img className="Image59 w-32 h-28" src={product.images[3].imageurl} alt="Thumbnail 4" onClick={()=>setImage(product.images[3].imageurl)} />
           </div>}
         </div>
 

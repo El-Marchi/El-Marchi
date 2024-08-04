@@ -1,7 +1,12 @@
-import React from 'react';
-import Navbar from '../components/Navbar';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
+
+
 
 const ProductCard = ({ product, isWishlist }) => {
+
+
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden h-[400px] relative group flex-shrink-0 w-[280px] transition-all duration-300 ease-in-out hover:scale-105">
       <div className="relative h-3/4">
@@ -67,6 +72,22 @@ const ProductCard = ({ product, isWishlist }) => {
 };
 
 const Wishlist = () => {
+  const [isWishlist, setIsWishlist] = useState([]);
+
+  const fetchWishlist = async (id) => {
+    const response = await axios.get(`http://localhost:5000/api/WhishList/${id}`);
+    setIsWishlist(response.data);
+    console.log(response.data);
+  }
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    console.log(token);
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      console.log(decodedToken);
+      fetchWishlist(decodedToken.userid);
+    }
+  }, []);
   const wishlistItems = [
     { id: 1, name: 'Gucci duffle bag', price: 960, originalPrice: 1160, image: 'https://media.gucci.com/style/DarkGray_Center_0_0_1200x1200/1611318903/6479939Y8KT-8990-001_Light.jpg', discount: 35 },
     { id: 2, name: 'RGB liquid CPU Cooler', price: 1960, image: 'https://m.media-amazon.com/images/I/71RVKzVJdVL._AC_SL1500_.jpg' },

@@ -80,7 +80,7 @@ const SignUp = () => {
                   onChange={(e)=>setPassword(e.target.value)}
                 />
               </div>
-              {/* New role selection with black frame */}
+              {/* Updated role selection with black frame */}
               <div className="border border-black p-4 rounded-md">
                 <p className="mb-2 text-sm font-medium text-gray-700">Select your role:</p>
                 <div className="flex space-x-4">
@@ -91,7 +91,8 @@ const SignUp = () => {
                       value="buyer"
                       checked={role === "buyer"}
                       onChange={(e) => setRole(e.target.value)}
-                      className="form-radio h-4 w-4 text-red-600"
+                      className="form-radio h-4 w-4 text-red-600 border-black"
+                      style={{border: '1px solid black'}}
                       required
                     />
                     <span className="ml-2">Buyer</span>
@@ -103,22 +104,11 @@ const SignUp = () => {
                       value="seller"
                       checked={role === "seller"}
                       onChange={(e) => setRole(e.target.value)}
-                      className="form-radio h-4 w-4 text-red-600"
+                      className="form-radio h-4 w-4 text-red-600 border-black"
+                      style={{border: '1px solid black'}}
                       required
                     />
                     <span className="ml-2">Seller</span>
-                  </label>
-                  <label className="inline-flex items-center">
-                    <input
-                      type="radio"
-                      name="role"
-                      value="admin"
-                      checked={role === "admin"}
-                      onChange={(e) => setRole(e.target.value)}
-                      className="form-radio h-4 w-4 text-red-600"
-                      required
-                    />
-                    <span className="ml-2">Admin</span>
                   </label>
                 </div>
               </div>
