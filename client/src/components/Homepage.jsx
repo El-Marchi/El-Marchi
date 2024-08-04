@@ -167,6 +167,20 @@ const BestSellingProductsSection = () => (
           rating: 4.5,
           reviews: 65
         },
+        {
+          name: 'Smart Home Hub',
+          image: 'https://images.unsplash.com/photo-1558089687-f282ffcbc126?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+          price: 199,
+          rating: 4.7,
+          reviews: 92
+        },
+        {
+          name: 'Portable Bluetooth Speaker',
+          image: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+          price: 89,
+          rating: 4.4,
+          reviews: 105
+        },
       ].map((product, i) => (
         <div key={i} className="border rounded-lg p-4 flex flex-col">
           <div className="h-48 mb-2 overflow-hidden rounded-lg">
@@ -209,12 +223,12 @@ const ExploreProductsSection = () => {
   }, []);
 
   const handleAddToCart = (product) => {
-    // Implement add to cart functionality here
+   
     console.log(`Added ${product.name} to cart`);
   };
 
   const handleImageClick = (product) => {
-    // Implement image click functionality here
+   
     console.log(`Clicked image of ${product.name}`);
   };
 

@@ -5,7 +5,7 @@ import OneProduct from './OneProduct.jsx';
 
 const AllProducts = () => {
   const [products, setProducts] = useState([]);
-  const [visibleProducts, setVisibleProducts] = useState(8);
+  // const [visibleProducts, setVisibleProducts] = useState(8);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   const fetchProducts = async () => {
@@ -21,9 +21,9 @@ const AllProducts = () => {
     fetchProducts();
   }, []);
 
-  const handleViewAll = () => {
-    setVisibleProducts(products.length);
-  };
+  // const handleViewAll = () => {
+  //   setVisibleProducts(products.length);
+  // };
 
   const handleImageClick = (product) => {
     setSelectedProduct(product);
@@ -73,7 +73,7 @@ const AllProducts = () => {
         <div className="flex justify-center">
           <div className="overflow-y-auto h-[calc(100vh-200px)] w-full max-w-6xl">
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-              {products.slice(0, visibleProducts).map((product) => (
+              {products.map((product) => (
                 <div key={product.productid} className="relative flex flex-col items-start bg-white rounded-lg shadow-lg overflow-hidden">
                   <div className="relative w-full h-64 bg-neutral-100 rounded">
                     <img 
@@ -128,15 +128,15 @@ const AllProducts = () => {
           </div>
         </div>
       </div>
-      <div className="mt-8">
-        <button 
+      {/* <div className="mt-8"> */}
+        {/* <button 
           className="bg-red-500 hover:bg-red-600 text-white font-medium py-3 px-8 rounded-full shadow-md transition duration-300 ease-in-out transform hover:scale-105"
           onClick={handleViewAll}
         >
           View All Products
-        </button>
+        </button> */}
       </div>
-    </div>
+    // </div>
   );
 };
 

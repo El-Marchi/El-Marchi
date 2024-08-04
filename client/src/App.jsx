@@ -26,8 +26,9 @@ function App() {
    
           <Route path="/product" element={<ProductDetailsPage />} />
           <Route path="/contact" element={<ContactForm />} />
-          <Route path="/Dashboard" element={<DashboardAdmin />} />
+          <Route path="/admin_Dashboard" element={<DashboardAdmin />} />
           <Route path="/all-Products" element={<AllProducts />} />
+          <Route path="/UpdateUser" element={<Update />} />
 
         </Routes>
       </main>
