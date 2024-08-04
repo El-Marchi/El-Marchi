@@ -40,7 +40,11 @@ module.exports=(sequelize,DataTypes)=>{
             allowNull:false
         },
             
-        adress:{
+            adress:{
+            type:DataTypes.STRING,
+            allowNull:false
+        },
+            status:{
         type:DataTypes.STRING,
         allowNull:false
     }

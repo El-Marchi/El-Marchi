@@ -1,40 +1,49 @@
-import React from 'react';
+
 import { Routes, Route } from "react-router-dom";
 import 'tailwindcss/tailwind.css';
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 import About from "./pages/About";
 import SignUp from "./components/SignUp";
- import Login from "./components/Login";
- import Update from "./components/Update";
+import Login from "./components/Login";
+import Update from "./components/Update";
 import ContactForm from "./pages/ContactForm";
 import Homepage from "./components/Homepage.jsx";
-
+import DashboardAdmin from './components/dashboardadmin.jsx'
 import AllProducts from "./comps/Allproducts";
 import AddProduct from "./comps/Addprod";
 import Errorpage from "./comps/Erorpage";
 import Cart from "./comps/Cart.jsx"
-//  import { Update } from '@mui/icons-material';
-import DashboardAdmin from './components/dashboardadmin.jsx';
-function App() {
-  return (
-    <div className="flex flex-col min-h-screen">
-      {/* <Navbar /> */}
-      <main className="flex-grow">
-        <Routes>
-          <Route path="/" element={<SignUp />} />
-          {/* <Route path="/login" element={<Login />} /> */}
-          <Route path="/update" element={<Update />} />
-          <Route path="/" element={<Homepage />} />
-          <Route path="/about" element={<About />} />
+import Wishlist from "./pages/Wishlist";
+import Footer from './components/Footer';
+import Navbar from './components/Navbar';
 
-          <Route path="/product" element={<ProductDetailsPage />} />
-          <Route path="/contact" element={<ContactForm />} />
+function App() {
+ 
+
+  return (
+    <div >
+      <Navbar />
+      <main >
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          
+          <Route path="/About" element={<About />} />
+          <Route path="/Product" element={<ProductDetailsPage />} />
+          <Route path="/Contact" element={<ContactForm />} />
           <Route path="/Dashboard" element={<DashboardAdmin />} />
-          <Route path="/all-Products" element={<AllProducts />} />
+          <Route path="/All-Products" element={<AllProducts />} />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/SignUp" element={<SignUp />} />
+          <Route path="/Update" element={<Update />} />
+          <Route path="/Wishlist" element={<Wishlist />} />
+          <Route path="/Cart" element={<Cart />} />
+          <Route path="/AddProduct" element={<AddProduct />} />
+          <Route path="/Product" element={<ProductDetailsPage />} />
+          <Route path="*" element={<Errorpage />} />
 
         </Routes>
       </main>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }

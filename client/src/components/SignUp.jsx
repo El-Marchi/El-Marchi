@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Navbar from './Navbar';
 
 
 const SignUp = () => {
@@ -20,8 +19,8 @@ const SignUp = () => {
         password,
         role 
       });
-      localStorage.setItem("token", response.data.token);
-      navigate("/update");
+      await localStorage.setItem("token", response.data.token);
+      navigate("/");
       console.log(response.data, "signup success");
     } catch (error) {
       console.log(error, "signup error");
@@ -30,7 +29,7 @@ const SignUp = () => {
 
   return (
     <div>
-      <Navbar />
+    
       <div className="flex h-screen">
         <div className="hidden md:block w-1/2 bg-sky-100">
           <img 
@@ -81,8 +80,8 @@ const SignUp = () => {
                   onChange={(e)=>setPassword(e.target.value)}
                 />
               </div>
-              {/* New role selection */}
-              <div>
+              {/* Updated role selection with black frame */}
+              <div className="border border-black p-4 rounded-md">
                 <p className="mb-2 text-sm font-medium text-gray-700">Select your role:</p>
                 <div className="flex space-x-4">
                   <label className="inline-flex items-center">
@@ -92,7 +91,8 @@ const SignUp = () => {
                       value="buyer"
                       checked={role === "buyer"}
                       onChange={(e) => setRole(e.target.value)}
-                      className="form-radio h-4 w-4 text-red-600"
+                      className="form-radio h-4 w-4 text-red-600 border-black"
+                      style={{border: '1px solid black'}}
                       required
                     />
                     <span className="ml-2">Buyer</span>
@@ -104,7 +104,8 @@ const SignUp = () => {
                       value="seller"
                       checked={role === "seller"}
                       onChange={(e) => setRole(e.target.value)}
-                      className="form-radio h-4 w-4 text-red-600"
+                      className="form-radio h-4 w-4 text-red-600 border-black"
+                      style={{border: '1px solid black'}}
                       required
                     />
                     <span className="ml-2">Seller</span>
@@ -131,7 +132,7 @@ const SignUp = () => {
             </div>
             
             <p className="mt-8 text-center text-sm text-gray-600">
-              Already have account? <a href="#" className="font-medium text-gray-900 hover:underline">Log in</a>
+              Already have account? <a href="/Login" className="font-medium text-gray-900 hover:underline">Log in</a>
             </p>
           </div>
         </div>
