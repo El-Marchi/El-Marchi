@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 const AllProducts = () => {
   const [products, setProducts] = useState([]);
-  const [visibleProducts, setVisibleProducts] = useState(8);
+  // const [visibleProducts, setVisibleProducts] = useState(8);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const navigate = useNavigate();
 
@@ -24,9 +24,9 @@ const AllProducts = () => {
   }, []);
 console.log(products)
 
-  const handleViewAll = () => {
-    setVisibleProducts(products.length);
-  };
+  // const handleViewAll = () => {
+  //   setVisibleProducts(products.length);
+  // };
 
   const handleImageClick = (product) => {
     setSelectedProduct(product);
@@ -76,7 +76,7 @@ console.log(products)
         <div className="flex justify-center">
           <div className="overflow-y-auto h-[calc(100vh-200px)] w-full max-w-6xl">
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-              {products.slice(0, visibleProducts).map((product) => (
+              {products.map((product) => (
                 <div key={product.productid} className="relative flex flex-col items-start bg-white rounded-lg shadow-lg overflow-hidden">
                   <div className="relative w-full h-64 bg-neutral-100 rounded">
                     <img 
@@ -110,7 +110,7 @@ console.log(products)
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="text-red-500 text-base font-medium">${product.price}</div>
-                      <div className="text-gray-600 text-sm">({product.reviewsCount || 0})</div>
+                      <div className="text-gray-600 text-sm">{product.reviewsCount}</div>
                     </div>
                     {selectedProduct && selectedProduct.productid === product.productid && (
                       <div className="mt-2 text-sm text-gray-600">
@@ -131,15 +131,15 @@ console.log(products)
           </div>
         </div>
       </div>
-      <div className="mt-8">
-        <button 
+      {/* <div className="mt-8"> */}
+        {/* <button 
           className="bg-red-500 hover:bg-red-600 text-white font-medium py-3 px-8 rounded-full shadow-md transition duration-300 ease-in-out transform hover:scale-105"
           onClick={handleViewAll}
         >
           View All Products
-        </button>
+        </button> */}
       </div>
-    </div>
+    // </div>
   );
 };
 

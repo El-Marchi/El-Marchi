@@ -39,15 +39,7 @@ const ProductDetailsPage = () => {
   const handleRating = (rate) => {
     setRating(rate);
   };
-  const handleAddToCart = () => {
-    console.log('Product added to cart');
-  };
-  const handleBuyNow = () => {
-    console.log('Product bought');
-  };
-  const handleAddToWishlist = () => {
-    console.log('Product added to wishlist');
-  };
+
   
 
   return (
