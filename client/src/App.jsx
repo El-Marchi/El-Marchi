@@ -6,8 +6,11 @@ import About from "./pages/About";
 import SignUp from "./components/SignUp";
 import Login from "./components/Login";
 import Update from "./components/Update";
+import Login from "./components/Login";
+import Update from "./components/Update";
 import ContactForm from "./pages/ContactForm";
 import Homepage from "./components/Homepage.jsx";
+import DashboardAdmin from './components/dashboardadmin.jsx'
 import DashboardAdmin from './components/dashboardadmin.jsx'
 import AllProducts from "./comps/Allproducts";
 import AddProduct from "./comps/Addprod";

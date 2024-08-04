@@ -4,8 +4,8 @@ const {signUp,logIn,deleteuser,updateUser,updatePassword}=require('../../control
 
 router.post('/signUp',signUp)
 router.post('/logIn',logIn)
-router.delete('/:id',deleteuser)
-router.put('/:userid',updateUser)
+router.delete('/delete/:userid',deleteuser)
+router.put('/update/:userid',updateUser)
 router.put('/updatePassword/:userid',updatePassword)
 
 

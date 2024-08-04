@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { FiPhone, FiMonitor, FiWatch, FiCamera, FiHeadphones } from 'react-icons/fi';
+import { FiPhone, FiMonitor, FiWatch, FiCamera, FiHeadphones, FiHeart } from 'react-icons/fi';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import Footer from './Footer';
 import Navbar from './Navbar';
-import Photo from './photo.jsx';
+import Photo from './photo.jsx'; 
 import { useNavigate } from 'react-router-dom';
 
-const HomePage = () => {
-  const [isNavOpen, setIsNavOpen] = useState(false);
 
+import axios from 'axios';
+
+const HomePage = () => {
+  
   return (
     <div className="e-commerce-homepage bg-white max-w-full overflow-x-hidden">
       <Navbar />
       <div className="flex flex-col md:flex-row">
-        <Navigation isOpen={isNavOpen} setIsOpen={setIsNavOpen} />
+        <Navigation />
         <div className="flex-1 p-4 overflow-x-hidden">
           <HeroCarousel />
           <CategoriesSection />
@@ -96,11 +98,13 @@ const HeroCarousel = () => {
 
 const CategoriesSection = () => {
   const categories = [
-    { name: 'Phones', icon: FiPhone },
-    { name: 'Computers', icon: FiMonitor },
-    { name: 'SmartWatch', icon: FiWatch },
-    { name: 'Camera', icon: FiCamera },
-    { name: 'HeadPhones', icon: FiHeadphones },
+    { name: 'Electronics', icon: FiMonitor },
+    { name: 'Accessories', icon: FiHeadphones },
+    { name: 'Mobile Phones', icon: FiPhone },
+    { name: 'Audio', icon: FiHeadphones },
+    { name: 'Wearables', icon: FiWatch },
+    { name: 'Health & Personal Care', icon: FiHeart },
+    { name: 'Photography', icon: FiCamera },
   ];
 
   return (
@@ -109,7 +113,7 @@ const CategoriesSection = () => {
         <div className="w-1 h-10 bg-red-500 mr-2"></div>
         <span className="text-red-500 font-semibold">Categories</span>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 md:gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-2 md:gap-4">
         {categories.map((category, i) => (
           <div 
             key={i} 
@@ -132,16 +136,66 @@ const BestSellingProductsSection = () => (
         View All
       </button>
     </div>
-    <div className="grid grid-cols-4 gap-4">
-      {['The north coat', 'Gucci duffle bag', 'RGB liquid CPU cooler', 'Small bookshelf'].map((product, i) => (
-        <div key={i} className="border rounded-lg p-4">
-          <div className="bg-gray-200 h-48 mb-2 rounded"></div>
-          <h3 className="font-semibold">{product}</h3>
-          <div className="flex justify-between items-center">
-            <span className="text-red-500">$260</span>
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      {[
+       
+      {
+        name: 'Fitness Tracker Pro',
+        image: 'https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1474&q=80',
+        price: 149,
+        rating: 4.6,
+        reviews: 78
+      },
+      {
+        name: 'Smartphone X1',
+        image: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80',
+        price: 799,
+        rating: 4.8,
+        reviews: 120
+      },
+        {
+          name: 'RGB liquid CPU cooler',
+          image: 'https://images.unsplash.com/photo-1587202372616-b43abea06c2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80',
+          price: 260,
+          rating: 4.5,
+          reviews: 65
+        },
+        {
+          name: 'Wireless headphones',
+          image: 'https://images.unsplash.com/photo-1546435770-a3e426bf472b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1465&q=80',
+          price: 260,
+          rating: 4.5,
+          reviews: 65
+        },
+        {
+          name: 'Smart Home Hub',
+          image: 'https://images.unsplash.com/photo-1558089687-f282ffcbc126?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+          price: 199,
+          rating: 4.7,
+          reviews: 92
+        },
+        {
+          name: 'Portable Bluetooth Speaker',
+          image: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+          price: 89,
+          rating: 4.4,
+          reviews: 105
+        },
+      ].map((product, i) => (
+        <div key={i} className="border rounded-lg p-4 flex flex-col">
+          <div className="h-48 mb-2 overflow-hidden rounded-lg">
+            <img 
+              src={product.image} 
+              alt={product.name} 
+              className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+            />
+          </div>
+          <h3 className="font-semibold flex-grow">{product.name}</h3>
+          <div className="flex justify-between items-center mt-2">
+            <span className="text-red-500 font-medium">${product.price}</span>
             <div className="flex items-center">
-              <span className="text-yellow-500">★★★★☆</span>
-              <span className="text-gray-500 text-sm">(65)</span>
+              <span className="text-yellow-500">{'★'.repeat(Math.floor(product.rating))}{'☆'.repeat(5 - Math.floor(product.rating))}</span>
+              <span className="text-gray-500 text-sm ml-1">({product.reviews})</span>
             </div>
           </div>
         </div>
@@ -150,36 +204,76 @@ const BestSellingProductsSection = () => (
   </section>
 );
 
-
 const ExploreProductsSection = () => {
   const navigate = useNavigate();
+  const [products, setProducts] = useState([]);
+  const [visibleProducts, setVisibleProducts] = useState(8);
 
-  const handleViewAllProducts = () => {
-    navigate('/all-products');
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/product/getall');
+      setProducts(response.data.products);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const handleAddToCart = (product) => {
+   
+    console.log(`Added ${product.name} to cart`);
+  };
+
+  const handleImageClick = (product) => {
+   
+    console.log(`Clicked image of ${product.name}`);
   };
 
   return (
     <section className="mb-8">
       <h2 className="text-2xl font-bold mb-4">Explore Our Products</h2>
       <div className="grid grid-cols-4 gap-4">
-        {[...Array(8)].map((_, i) => (
-          <div key={i} className="border rounded-lg p-4">
-            <div className="bg-gray-200 h-48 mb-2 rounded"></div>
-            <h3 className="font-semibold">Product Name</h3>
-            <div className="flex justify-between items-center">
-              <span className="text-red-500">$100</span>
-              <div className="flex items-center">
-                <span className="text-yellow-500">★★★★☆</span>
-                <span className="text-gray-500 text-sm">(65)</span>
+        {products.slice(0, visibleProducts).map((product) => (
+          <div key={product.productid} className="border rounded-lg p-4">
+            <div className="relative h-48 mb-2">
+              <img 
+                className="w-full h-full object-cover cursor-pointer rounded" 
+                src={product.images && product.images[0] ? product.images[0].imageurl : 'https://via.placeholder.com/150x150'} 
+                alt={product.name} 
+                onClick={() => handleImageClick(product)} 
+              />
+              <div className="absolute inset-0 flex items-end justify-center bg-black bg-opacity-50 transition-opacity duration-300 opacity-0 hover:opacity-100">
+                <button 
+                  onClick={() => handleAddToCart(product)} 
+                  className="text-white text-base font-medium font-['Poppins'] p-2 bg-black rounded-full hover:bg-gray-800 transition-colors mb-4">
+                  Add To Cart
+                </button>
               </div>
             </div>
+            <h3 className="font-semibold">{product.name}</h3>
+            <div className="flex justify-between items-center">
+              <span className="text-red-500">${product.price}</span>
+              <div className="flex items-center">
+                <span className="text-yellow-500">★★★★☆</span>
+                
+              </div>
+            </div>
+            <button 
+              onClick={() => handleAddToCart(product)}
+              className="mt-2 bg-red-500 text-white px-4 py-2 rounded w-full hover:bg-red-600 transition duration-300"
+            >
+              Add to Cart
+            </button>
           </div>
         ))}
       </div>
       <div className="text-center mt-4">
         <button 
-          onClick={handleViewAllProducts}
           className="bg-red-500 text-white px-4 py-2 rounded transition duration-300 ease-in-out hover:bg-red-600 hover:shadow-lg"
+          onClick={() => navigate('/all-products')}
         >
           View All Products
         </button>
@@ -190,28 +284,44 @@ const ExploreProductsSection = () => {
 
 const NewArrivalSection = () => (
   <section className="mb-8">
-    <h2 className="text-2xl font-bold mb-4">New Arrival</h2>
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div className="bg-black text-white p-4 rounded-lg">
-        <h3 className="text-xl font-bold mb-2">PlayStation 5</h3>
-        <p className="text-sm">Black and White version of the PS5 coming out on sale.</p>
-        <button className="mt-2 underline text-sm">Shop Now</button>
+    <h2 className="text-2xl font-bold mb-4 text-gray-800">New Arrival</h2>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="md:col-span-2 bg-gray-900 text-white p-6 rounded-lg shadow-md">
+        <div>
+          <h3 className="text-2xl font-bold mb-2">PlayStation 5</h3>
+          <p className="text-sm mb-4 text-gray-300">Black and White version of the PS5 coming out on sale.</p>
+          <button className="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700 transition duration-300">
+            Shop Now
+          </button>
+        </div>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div className="bg-gray-200 p-4 rounded-lg">
-          <h3 className="text-lg font-bold mb-2">Women's Collections</h3>
-          <p className="text-xs">Featured woman collections that give you another vibe.</p>
-          <button className="mt-2 underline text-sm">Shop Now</button>
+      <div className="space-y-4">
+        <div className="bg-gray-100 p-4 rounded-lg shadow-sm">
+          <div>
+            <h3 className="text-xl font-bold mb-1 text-gray-800">Women's Collections</h3>
+            <p className="text-xs mb-2 text-gray-600">Featured woman collections that give you another vibe.</p>
+            <button className="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700 transition duration-300">
+              Shop Now
+            </button>
+          </div>
         </div>
-        <div className="bg-gray-200 p-4 rounded-lg">
-          <h3 className="text-lg font-bold mb-2">Speakers</h3>
-          <p className="text-xs">Amazon wireless speakers</p>
-          <button className="mt-2 underline text-sm">Shop Now</button>
+        <div className="bg-gray-100 p-4 rounded-lg shadow-sm">
+          <div>
+            <h3 className="text-xl font-bold mb-1 text-gray-800">Speakers</h3>
+            <p className="text-xs mb-2 text-gray-600">Amazon wireless speakers</p>
+            <button className="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700 transition duration-300">
+              Shop Now
+            </button>
+          </div>
         </div>
-        <div className="bg-gray-200 p-4 rounded-lg col-span-full">
-          <h3 className="text-lg font-bold mb-2">Perfume</h3>
-          <p className="text-xs">GUCCI INTENSE OUD EDP</p>
-          <button className="mt-2 underline text-sm">Shop Now</button>
+        <div className="bg-gray-100 p-4 rounded-lg shadow-sm">
+          <div>
+            <h3 className="text-xl font-bold mb-1 text-gray-800">Perfume</h3>
+            <p className="text-xs mb-2 text-gray-600">GUCCI INTENSE OUD EDP</p>
+            <button className="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700 transition duration-300">
+              Shop Now
+            </button>
+          </div>
         </div>
       </div>
     </div>

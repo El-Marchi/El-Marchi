@@ -63,7 +63,7 @@ const logIn = async (req, res) => {
 
 const deleteuser = async (req, res) => {
     try {
-        let id = req.params.id;
+        let id = req.params.userid;
 
         await db.User.destroy({
             where: {
@@ -121,6 +121,8 @@ const updatePassword = async (req, res) => {
         console.error(err);
         res.status(500).send({ message: 'Server error', error: err.message });
     }
+
+   
 };
 
 module.exports = { signUp, logIn, deleteuser, updateUser, updatePassword };

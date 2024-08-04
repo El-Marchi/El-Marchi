@@ -2,7 +2,10 @@ import React from 'react';
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaArrowRight, FaGooglePlay, FaQrcode } from 'react-icons/fa';
 import { IoLogoAppleAppstore } from 'react-icons/io5';
 
+
 const Footer = () => {
+
+
   return (
     <footer className="bg-custom-black text-text-secondary py-6 px-4">
       <div className="container mx-auto">
@@ -65,14 +68,20 @@ const Footer = () => {
                 <FaQrcode className="text-3xl" />
               </div>
               <div className="flex flex-col justify-center space-y-1">
-                <a href="#" className="flex items-center space-x-1 bg-custom-black px-2 py-1 rounded-md hover:bg-neutral-800">
+                <div 
+                  onClick={() => window.open('https://play.google.com/store', '_blank')}
+                  className="flex items-center space-x-1 bg-custom-black px-2 py-1 rounded-md hover:bg-neutral-800 cursor-pointer transition duration-300"
+                >
                   <FaGooglePlay className="text-sm text-accent-2" />
                   <span className="text-xs">Google Play</span>
-                </a>
-                <a href="#" className="flex items-center space-x-1 bg-custom-black px-2 py-1 rounded-md hover:bg-neutral-800">
+                </div>
+                <div 
+                  onClick={() => window.open('https://www.apple.com/app-store/', '_blank')}
+                  className="flex items-center space-x-1 bg-custom-black px-2 py-1 rounded-md hover:bg-neutral-800 cursor-pointer transition duration-300"
+                >
                   <IoLogoAppleAppstore className="text-sm text-sky-100" />
                   <span className="text-xs">App Store</span>
-                </a>
+                </div>
               </div>
             </div>
           </div>
