@@ -4,7 +4,7 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import Footer from './Footer';
 import Navbar from './Navbar';
 import Photo from './photo.jsx'; 
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 
 
 
