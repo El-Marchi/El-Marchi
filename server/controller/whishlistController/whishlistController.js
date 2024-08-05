@@ -12,11 +12,10 @@ async function getWishlistProducts(req, res) {
       include: [
         {
           model: db.Product,
-            include:{
-              model:db.Image,
-              model:db.Rating
-             
-            }
+            include:[
+              { model: db.Image },
+              { model: db.Rating }
+          ]
         },
         {
           model: db.User,
@@ -34,12 +33,12 @@ console.log(wishlistItems)
 
 const addWishlist = async (req, res) => {
   try {
-    let info = {
-      userid: req.body.userid,
-      productid: req.body.productid,
-    };
+    const {userid,productid}=req.body
 
-    await db.Wishlist.create(info);
+     
+    
+
+    await db.Wishlist.create({userid,productid});
     res.status(200).send('Product added to wishlist');
   } catch (error) {
     console.error('Error adding product to wishlist:', error);

@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { FaHeart, FaEye,FaArrowRight,FaArrowLeft } from 'react-icons/fa';
+import { FaHeart, FaEye, FaArrowRight, FaArrowLeft } from 'react-icons/fa';
 import OneProduct from './OneProduct.jsx';
 import { useNavigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 
 const AllProducts = () => {
   const [products, setProducts] = useState([]);
-  // const [visibleProducts, setVisibleProducts] = useState(8);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [userRole, setUserRole] = useState('');
   const navigate = useNavigate();
 
   const fetchProducts = async () => {
@@ -20,13 +21,17 @@ const AllProducts = () => {
   };
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token);
+        setUserRole(decodedToken.role);
+      } catch (error) {
+        console.error('Error decoding token:', error);
+      }
+    }
     fetchProducts();
   }, []);
-console.log(products)
-
-  // const handleViewAll = () => {
-  //   setVisibleProducts(products.length);
-  // };
 
   const handleImageClick = (product) => {
     setSelectedProduct(product);
@@ -120,26 +125,18 @@ console.log(products)
                       </div>
                     )}
                   </div>
-                  <OneProduct 
+                {(userRole === "admin" ) && <OneProduct 
                     el={product} 
                     onUpdate={handleProductUpdate} 
                     onDelete={handleProductDelete}
-                  />
+                  />}
                 </div>
               ))}
             </div>
           </div>
         </div>
       </div>
-      {/* <div className="mt-8"> */}
-        {/* <button 
-          className="bg-red-500 hover:bg-red-600 text-white font-medium py-3 px-8 rounded-full shadow-md transition duration-300 ease-in-out transform hover:scale-105"
-          onClick={handleViewAll}
-        >
-          View All Products
-        </button> */}
-      </div>
-    // </div>
+    </div>
   );
 };
 

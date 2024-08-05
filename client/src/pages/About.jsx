@@ -55,9 +55,9 @@ const About = () => {
         <h2 className="text-3xl font-bold mb-8 text-center">Our Team</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
-            { name: "Tom Cruise", role: "Founder & Chairman", image: "https://example.com/tom-cruise.jpg" },
-            { name: "Emma Watson", role: "Managing Director", image: "https://example.com/emma-watson.jpg" },
-            { name: "Will Smith", role: "Product Designer", image: "https://example.com/will-smith.jpg" }
+            { name: "Tom Cruise", role: "Founder & Chairman", image: "https://play-lh.googleusercontent.com/ai7FC9zp1bG8zLcl97w9rNde_oZ5s086XP1ZkBFdwf72d_owIiUVJu1-XNp6eOO-AGg" },
+            { name: "Emma Watson", role: "Managing Director", image: "https://play-lh.googleusercontent.com/ai7FC9zp1bG8zLcl97w9rNde_oZ5s086XP1ZkBFdwf72d_owIiUVJu1-XNp6eOO-AGg" },
+            { name: "Will Smith", role: "Product Designer", image: "https://play-lh.googleusercontent.com/ai7FC9zp1bG8zLcl97w9rNde_oZ5s086XP1ZkBFdwf72d_owIiUVJu1-XNp6eOO-AGg"}
           ].map((member, index) => (
             <div key={index} className="bg-gray-100 rounded-lg overflow-hidden">
               <img src={member.image} alt={member.name} className="w-full h-80 object-cover" />

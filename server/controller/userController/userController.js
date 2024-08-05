@@ -124,5 +124,9 @@ const updatePassword = async (req, res) => {
 
    
 };
+const getAllUsers = async (req, res) => {
+    const users = await db.User.findAll();
+    res.send(users);
+};
 
-module.exports = { signUp, logIn, deleteuser, updateUser, updatePassword };
+module.exports = { signUp, logIn, deleteuser, updateUser, updatePassword, getAllUsers };

@@ -1,19 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { FaHeart, FaEye, FaArrowRight, FaArrowLeft, FaPlus } from 'react-icons/fa';
-import AddProductModal from '../comps/AddProductmodel.jsx';
+import { useNavigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 
-const SallerDashboard = ({ userid }) => {
+
+
+const SallerDashboard = () => {
   const [products, setProducts] = useState([]);
   const [visibleProducts, setVisibleProducts] = useState(8);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [stats, setStats] = useState({ totalProducts: 0, totalSales: 0, revenue: 0 });
+  const navigate = useNavigate();
+  const [userid, setUserid] = useState(null);
   const [isAddProductModalOpen, setIsAddProductModalOpen] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      setUserid(decodedToken.userid);
+      
+    }
+  }, []);
 
   const fetchUserProducts = async () => {
     try {
       const response = await axios.get(`http://localhost:5000/api/product/user/${userid}`);
       setProducts(response.data.products);
+      console.log(response.data.products,'products')
       setStats({
         totalProducts: response.data.products.length,
         totalSales: response.data.products.reduce((acc, product) => acc + (product.salesCount || 0), 0),
@@ -27,6 +42,7 @@ const SallerDashboard = ({ userid }) => {
   useEffect(() => {
     fetchUserProducts();
   }, [userid]);
+  console.log(products);
 
   const handleViewAll = () => {
     setVisibleProducts(products.length);
@@ -82,8 +98,8 @@ const SallerDashboard = ({ userid }) => {
             <div className="text-black text-3xl font-bold font-['Inter'] leading-tight tracking-wide">Manage Your Products</div>
           </div>
           <button 
-            onClick={handleAddNewProduct}
-            className="mt-4 lg:mt-0 bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-full shadow-md transition duration-300 ease-in-out flex items-center"
+            onClick={() => navigate('/AddProduct')}
+            className="mt-4 lg:mt-0 bg-green-5000 hover:bg-green-6000 text-white font-medium py-2 px-4 rounded-full shadow-md transition duration-300 ease-in-out flex items-center"
           >
             <FaPlus className="mr-2" /> Add New Product
           </button>
@@ -132,11 +148,11 @@ const SallerDashboard = ({ userid }) => {
         )}
       </div>
 
-      <AddProductModal 
+      {/* <AddProductModal 
         isOpen={isAddProductModalOpen}
         onClose={handleCloseModal}
         onSubmit={handleSubmitNewProduct}
-      />
+      /> */}
     </div>
   );
 };

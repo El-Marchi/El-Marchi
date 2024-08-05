@@ -1,83 +1,90 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaCloudUploadAlt } from 'react-icons/fa';
+import { jwtDecode } from 'jwt-decode';
 
 const AddProd = () => {
-  const [productId, setProductId] = useState("");
+  const [userid, setUserid] = useState('');
+  const [productId, setProductId] = useState('');
   const [product, setProduct] = useState({
     name: '',
     description: '',
     price: '',
     stock: '',
     categorie: '',
-    userid: '1'
+    userid: ''
   });
   const [url, setUrl] = useState('');
   const [showImageUpload, setShowImageUpload] = useState(false);
-  
-  console.log(url,'test');
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      setUserid(decodedToken.userid);
+      setProduct(prev => ({ ...prev, userid: decodedToken.userid }));
+    }
+  }, []);
+
   const convertBase64 = (file) => {
-      return new Promise((resolve, reject) => {
-        const fileReader = new FileReader();
-        fileReader.readAsDataURL(file);
-  
-        fileReader.onload = () => {
-          resolve(fileReader.result);
-        };
-  
-        fileReader.onerror = (error) => {
-          reject(error);
-        };
-      });
-    };
-  
-    const uploadSingleImage = async (base64) => {
-      try {
-        const res = await axios.post('http://localhost:5000/uploadImage', { image: base64 });
-        console.log(res.data,'test2');
-        setUrl(res.data); 
-        if (res.data) {
-          await axios.post(`http://localhost:5000/api/product/images/${productId}`, { imageurl: JSON.stringify(res.data) });
-        } else {
-          console.error('No URL received from image upload');
-        }
-      } catch (error) {
-        console.error('Error uploading image:', error);
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+
+  const uploadSingleImage = async (base64) => {
+    try {
+      const res = await axios.post('http://localhost:5000/uploadImage', { image: base64 });
+      setUrl(res.data);
+      if (res.data) {
+        await axios.post(`http://localhost:5000/api/product/images/${productId}`, { imageurl: res.data });
+      } else {
+        console.error('No URL received from image upload');
       }
-    };
-  
-    const uploadMultipleImages = async (images) => {
-      try {
-        const res = await axios.post('http://localhost:5000/uploadMultipleImages', { images });
-        setUrl(res.data);
-        if (res.data) {
-          await axios.post(`http://localhost:5000/api/product/images/${productId}`, { imageurl: JSON.stringify(res.data) });
-        } else {
-          console.error('No URL received from image upload');
-        }
-        console.log('Images uploaded successfully:', res.data);
-      } catch (error) {
-        console.error('Error uploading images:', error);
+    } catch (error) {
+      console.error('Error uploading image:', error);
+    }
+  };
+
+  const uploadMultipleImages = async (images) => {
+    try {
+      const res = await axios.post('http://localhost:5000/uploadMultipleImages', { images });
+      setUrl(res.data);
+      if (res.data) {
+        await axios.post(`http://localhost:5000/api/product/images/${productId}`, { imageurl: JSON.stringify(res.data) });
+      } else {
+        console.error('No URL received from image upload');
       }
-    };
-  
-    const uploadImage = async (event) => {
-      const files = event.target.files;
-      console.log(files.length);
-  
-      if (files.length === 1) {
-        const base64 = await convertBase64(files[0]);
-        uploadSingleImage(base64);
-        return;
-      }
-  
-      const base64s = [];
-      for (let i = 0; i < files.length; i++) {
-        const base = await convertBase64(files[i]);
-        base64s.push(base);
-      }
-      uploadMultipleImages(base64s);
-    };
+    } catch (error) {
+      console.error('Error uploading images:', error);
+    }
+  };
+
+  const uploadImage = async (event) => {
+    const files = event.target.files;
+
+    if (files.length === 1) {
+      const base64 = await convertBase64(files[0]);
+      uploadSingleImage(base64);
+      return;
+    }
+
+    const base64s = [];
+    for (let i = 0; i < files.length; i++) {
+      const base = await convertBase64(files[i]);
+      base64s.push(base);
+    }
+    uploadMultipleImages(base64s);
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -86,7 +93,7 @@ const AddProd = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Basic validation
     if (!product.name || !product.price || !product.stock) {
       alert('Please fill in all required fields (name, price, stock)');
@@ -97,7 +104,6 @@ const AddProd = () => {
       const response = await axios.post('http://localhost:5000/api/product/add', product);
       const newProductId = response.data.product.productid;
       setProductId(newProductId);
-      console.log('Product added successfully:', newProductId);
       setShowImageUpload(true);
     } catch (error) {
       console.error('Error adding product:', error.response ? error.response.data : error.message);
@@ -248,4 +254,4 @@ const AddProd = () => {
   );
 };
 
-export default AddProd
+export default AddProd;

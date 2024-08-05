@@ -9,7 +9,7 @@ import ContactForm from "./pages/ContactForm";
 import Homepage from "./components/Homepage.jsx";
 import DashboardAdmin from './components/dashboardadmin.jsx'
 import AllProducts from "./comps/Allproducts";
-import AddProduct from "./comps/Addprod";
+import Addprod from "./comps/Addprod";
 import Errorpage from "./comps/Erorpage";
 import Cart from "./comps/Cart.jsx"
 import SallerDashboard from "./comps/SallerDashboard.jsx";
@@ -17,7 +17,8 @@ import FilteredProducts from './components/filtredProducts.jsx';
 import Wishlist from "./pages/Wishlist";
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
-
+import SallerDashboard from "./comps/SallerDashboard.jsx";
+import Checkout from "./components/Checkout.jsx";
 function App() {
   // You might want to add state management for currentSellerId here
   const [currentSellerId, setCurrentSellerId] = useState(null);
