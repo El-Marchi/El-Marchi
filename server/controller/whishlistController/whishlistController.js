@@ -48,15 +48,15 @@ const addWishlist = async (req, res) => {
 
 const deleteWishlist = async (req, res) => {
   try {
-    let id = req.params.id;
+    const {Wishlistid} = req.params;
 
     await db.Wishlist.destroy({
       where: {
-        wishlistid: id
+        Wishlistid
       }
     });
 
-    res.status(200).send('Deleted wishlist item with ID: ' + id);
+    res.status(200).send('Deleted wishlist item');
   } catch (error) {
     console.error('Error deleting wishlist item:', error);
     res.status(500).send({ error: 'An error occurred while deleting wishlist item' });

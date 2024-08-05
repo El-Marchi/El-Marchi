@@ -2,7 +2,7 @@
 
 const { db } = require('../../database/index')
 
-const Cart=db.Cart
+
 
 async function getCartProducts(req, res) {
   try {
@@ -29,9 +29,6 @@ async function getCartProducts(req, res) {
         }
       ]
     });
-
-    
-
     res.send(cartItems);
   } catch (error) {
     console.error('Error fetching cart products:', error);
@@ -40,47 +37,24 @@ async function getCartProducts(req, res) {
 }
 
 const addCart=async(req,res)=>{
-    let info={
+  try {
+    const {userid,productid}=req.body
+    await db.Cart.create({userid,productid});
+    res.status(200).send('Product added to Cart');
+  }
+   catch (error) {
+    console.log('Error adding product to Cart:', error);
+    res.status(500).send({ error: 'An error occurred while adding product to Cart' });
+  }
+};
 
-        
-        userid:req.body.userid,
-        productid:req.body.productid,
-
-        
-    }
-
-    const cart=await Cart.create(info)
-    res.status(200).send(cart)
-
-
-}
-
-
-
-
-const getCart = async (req, res) => {
-    try {
-     
-      const cart = await Cart.findAll({
-        where: {
-            userid: req.params.userid 
-        },
-        
-      });
-  
-      res.status(200).send(cart);
-    } catch (error) {
-      console.error('Error', error);
-      
-    }
-  };
 
   const deleteCart = async (req, res) => {
     try {
       let cartId = req.params.id; 
   
      
-      await Cart.destroy({
+      await db.Cart.destroy({
         where: {
           cartid: cartId 
         }
@@ -98,5 +72,5 @@ const getCart = async (req, res) => {
 
 
   module.exports={
-    getCart,deleteCart,addCart,getCartProducts
+    deleteCart,addCart,getCartProducts
   }

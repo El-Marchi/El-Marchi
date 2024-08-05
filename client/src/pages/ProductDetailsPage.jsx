@@ -51,14 +51,28 @@ const ProductDetailsPage = () => {
   };
 
   const handleRating = (rate) => {
-    setRating(rate);
+    axios.post('http://localhost:5000/api/RatingRouter/addRating', { userid:userId,productid:product.productid,rating:5})
+    .then(response => {
+      console.log('Rating added');
+    })
+    .catch(error => {
+      console.error('Error adding Rating:', error);
+    })
   };
+
   const handleAddToCart = () => {
-    console.log('Product added to cart');
+    axios.post('http://localhost:5000/api/CartRouter/addCart', { userid:userId,productid:product.productid})
+    .then(response => {
+      console.log('Product added to Cart');
+    })
+    .catch(error => {
+      console.error('Error adding product to Cart:', error);
+    });
   };
   const handleBuyNow = () => {
-    console.log('Product bought');
+    navigate('/checkout',{state:{product:product}})
   };
+
   const handleAddToWishlist = () => {
         axios.post('http://localhost:5000/api/WhishList/addWishlist', { userid:userId,productid:product.productid})
       .then(response => {
@@ -172,9 +186,9 @@ const ProductDetailsPage = () => {
 
           {/* Buy Now, Add to Cart, and Add to Wishlist Buttons */}
           <div className="flex items-center mt-4">
-            <button className="Button px-12 py-2.5 bg-red-500 rounded text-neutral-50 text-base font-medium font-['Poppins'] leading-normal cursor-pointer" onClick={()=>navigate('/checkout')}>Buy Now</button>
-            <button className="Button px-12 py-2.5 bg-blue-500 rounded text-neutral-50 text-base font-medium font-['Poppins'] leading-normal cursor-pointer ml-4">Add to Cart</button>
-            <button className="Button px-4 py-2.5 bg-gray-200 rounded text-black text-base font-medium font-['Poppins'] leading-normal cursor-pointer ml-4 flex items-center" onClick={()=>handleAddToWishlist(product.productid)} >
+            <button className="Button px-12 py-2.5 bg-red-500 rounded text-neutral-50 text-base font-medium font-['Poppins'] leading-normal cursor-pointer" onClick={handleBuyNow}>Buy Now</button>
+            <button className="Button px-12 py-2.5 bg-blue-500 rounded text-neutral-50 text-base font-medium font-['Poppins'] leading-normal cursor-pointer ml-4" onClick={handleAddToCart}>Add to Cart</button>
+            <button className="Button px-4 py-2.5 bg-gray-200 rounded text-black text-base font-medium font-['Poppins'] leading-normal cursor-pointer ml-4 flex items-center" onClick={handleAddToWishlist} >
               <FaHeart className="mr-2" /> Add to Wishlist
             </button>
           </div>

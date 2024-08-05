@@ -13,16 +13,17 @@ const Wishlist = () => {
       setUserId(decodedToken.userid);
     }
   }, []);
+  const fetchWishlist = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/api/WhishList/${userId}`);
+      setWishlistItems(response.data);
+    } catch (error) {
+      console.error("Error in fetching wishlist", error);
+    }
+  };
 
   useEffect(() => {
-    const fetchWishlist = async () => {
-      try {
-        const response = await axios.get(`http://localhost:5000/api/WhishList/${userId}`);
-        setWishlistItems(response.data);
-      } catch (error) {
-        console.error("Error in fetching wishlist", error);
-      }
-    };
+    fetchWishlist();
 
     if (userId) {
       fetchWishlist();
@@ -40,13 +41,23 @@ const Wishlist = () => {
       console.error("Error adding product to wishlist", error);
     }
   };
+  const removeFromWishlist = async (joker) => {
+    try{
+      await axios.delete(`http://localhost:5000/api/WhishList/del/${joker}`);
+      fetchWishlist();
+    }catch(error){
+      console.error("Error removing product from wishlist", error);
+    }
+    
+  
+  };
 
   const justForYouItems = [
     {
       id: 1,
       name: "Stylish Watch",
       price: 199.99,
-      image: "https://example.com/watch-image.jpg",
+      image: "https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp",
       discount: 10,
       isNew: true,
       rating: 4.5,
@@ -56,7 +67,7 @@ const Wishlist = () => {
       id: 2,
       name: "Leather Bag",
       price: 149.99,
-      image: "https://example.com/bag-image.jpg",
+      image: "https://gratisography.com/wp-content/uploads/2024/01/gratisography-cyber-kitty-800x525.jpg",
       originalPrice: 179.99,
       rating: 4.2,
       reviewCount: 85
@@ -65,7 +76,7 @@ const Wishlist = () => {
       id: 3,
       name: "Sunglasses",
       price: 79.99,
-      image: "https://example.com/sunglasses-image.jpg",
+      image: "https://imgv3.fotor.com/images/cover-photo-image/AI-illustration-of-a-dragon-by-Fotor-AI-text-to-image-generator.jpg",
       isNew: true,
       rating: 4.8,
       reviewCount: 200
@@ -74,7 +85,7 @@ const Wishlist = () => {
       id: 4,
       name: "Running Shoes",
       price: 129.99,
-      image: "https://example.com/shoes-image.jpg",
+      image: "https://fps.cdnpk.net/home/cover/image-14-sm.webp?w=438&h=438",
       discount: 15,
       rating: 4.6,
       reviewCount: 150
@@ -88,13 +99,13 @@ const Wishlist = () => {
       <div className="bg-white rounded-lg shadow-md overflow-hidden h-[400px] relative group flex-shrink-0 w-[280px] transition-all duration-300 ease-in-out hover:scale-105">
         <div className="relative h-3/4">
           <img 
-            src={product.images[0].imageurl}
-            alt={product.name} 
+            src={product.Product.images[0].imageurl}
+            alt={product.Product.name} 
             className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-110"
           />
           {product.discount && (
             <span className="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 text-xs rounded">
-              -{product.discount}%
+              -{product.Product.discount}%
             </span>
           )}
           {product.isNew && (
@@ -102,7 +113,7 @@ const Wishlist = () => {
               NEW
             </span>
           )}
-          <button className="absolute top-2 right-2 bg-white p-1 rounded-full" onClick={() => addToWishlist(product.id)}>
+          <button className="absolute top-2 right-2 bg-white p-1 rounded-full" onClick={() => removeFromWishlist(product.wishlistid)}>
             {isWishlist ? (
               <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -116,15 +127,15 @@ const Wishlist = () => {
           </button>
         </div>
         <div className="p-4 h-1/4">
-          <h3 className="font-semibold text-lg mb-2 truncate">{product.name}</h3>
+          <h3 className="font-semibold text-lg mb-2 truncate">{product.Product.name}</h3>
           <div className="flex items-center justify-between">
             <div>
-              <span className="text-red-500 font-bold">${product.price}</span>
-              {product.originalPrice && (
-                <span className="text-gray-500 line-through ml-2">${product.originalPrice}</span>
+              <span className="text-red-500 font-bold">${product.Product.price}</span>
+              {product.Product.originalPrice && (
+                <span className="text-gray-500 line-through ml-2">${product.Product.originalPrice}</span>
               )}
             </div>
-            {product.rating && (
+            {product.Product.rating && (
               <div className="flex items-center">
                 <div className="flex text-yellow-400">
                   {[...Array(5)].map((_, i) => (
@@ -133,7 +144,7 @@ const Wishlist = () => {
                     </svg>
                   ))}
                 </div>
-                <span className="text-gray-500 text-sm ml-1">({product.reviewCount})</span>
+                <span className="text-gray-500 text-sm ml-1">({product.Product.reviewCount})</span>
               </div>
             )}
           </div>
@@ -159,7 +170,7 @@ const Wishlist = () => {
         </div>
         <div className="flex overflow-x-auto space-x-4 pb-4 -mx-4 px-4">
           {wishlistItems.map(item => (
-            <ProductCard key={item.productid} product={item.Product} isWishlist={true} />
+            <ProductCard key={item.productid} product={item} isWishlist={true} />
           ))}
         </div>
       </div>
@@ -174,11 +185,27 @@ const Wishlist = () => {
             See All
           </button>
         </div>
-        {/* <div className="flex overflow-x-auto space-x-4 pb-4 -mx-4 px-4">
-          {justForYouItems.map(item => (
-            <ProductCard key={item.prid} product={item} isWishlist={false} />
-          ))}
-        </div> */}
+        <div className="flex overflow-x-auto space-x-4 pb-4 -mx-4 px-4">
+          <img src={justForYouItems[0].image} alt={justForYouItems[0].name} style={{  border: "1px solid #ddd",
+  borderRadius: "4px",
+  padding: "5px",
+  width: "150px"}} />
+  <img src={justForYouItems[1].image} alt={justForYouItems[1].name} style={{  border: "1px solid #ddd",
+  borderRadius: "4px",
+  padding: "5px",
+  width: "150px"}} />
+  <img src={justForYouItems[2].image} alt={justForYouItems[2].name} style={{  border: "1px solid #ddd",
+  borderRadius: "4px",
+  padding: "5px",
+  width: "150px"}} />
+  <img src={justForYouItems[3].image} alt={justForYouItems[3].name} style={{  border: "1px solid #ddd",
+  borderRadius: "4px",
+  padding: "5px",
+  width: "150px"}} />
+
+           
+          
+        </div>
       </div>
     </div>
   );

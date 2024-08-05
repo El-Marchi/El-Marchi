@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { useState } from "react";
 import 'tailwindcss/tailwind.css';
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 import About from "./pages/About";
@@ -17,7 +18,7 @@ import FilteredProducts from './components/filtredProducts.jsx';
 import Wishlist from "./pages/Wishlist";
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
-import SallerDashboard from "./comps/SallerDashboard.jsx";
+
 import Checkout from "./components/Checkout.jsx";
 function App() {
   // You might want to add state management for currentSellerId here
@@ -40,9 +41,11 @@ function App() {
           <Route path="/update" element={<Update />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/add-product" element={<AddProduct />} />
+          <Route path="/add-product" element={<Addprod />} />
           <Route path="/category/:categoryName" element={<FilteredProducts />} />
           <Route path="*" element={<Errorpage />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/Myshop" element={<SallerDashboard />} />
         </Routes>
       </main>
       <Footer />

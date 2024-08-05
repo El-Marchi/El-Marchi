@@ -11,7 +11,7 @@ const whishListRouter=require('express').Router()
 
 whishListRouter.post('/addWishlist',addWishlist)
 whishListRouter.get('/:userid',getWishlistProducts)
-whishListRouter.delete('/:WishlistId',deleteWishlist)
+whishListRouter.delete('/del/:Wishlistid',deleteWishlist)
 
 
 module.exports={whishListRouter}
