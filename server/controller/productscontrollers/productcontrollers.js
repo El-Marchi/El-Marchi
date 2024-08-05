@@ -55,7 +55,10 @@ const getAllProductsByUserId = async (req, res) => {
 
     try {
         // Assuming Product is your Sequelize model
-        const products = await Product.findAll({ where: { userid: userId },include:{model:Image},include:{model:db.Rating}});
+        const products = await Product.findAll({ where: { userid: userId },include:[
+            { model: Image },
+            { model: db.Rating }
+        ]});
 
         res.status(200).json({ products });
     } catch (err) {

@@ -99,6 +99,7 @@ const Navbar = () => {
                       })
                     }} className="text-left text-black text-sm font-normal font-poppins leading-tight hover:text-red-600 p-2 rounded transition-colors duration-300">Logout</button>}
                     {role === 'admin' && <button onClick={() => navigate('/Dashboard')} className="text-left text-black text-sm font-normal font-poppins leading-tight hover:text-red-600 p-2 rounded transition-colors duration-300">Dashboard</button>}
+                    {role === 'seller' && <button onClick={() => navigate('/MyShop')} className="text-left text-black text-sm font-normal font-poppins leading-tight hover:text-red-600 p-2 rounded transition-colors duration-300">My Shop</button>}
                   </div>
                 </div>
               )}

@@ -1,17 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { FaStar, FaHeart } from 'react-icons/fa';
-import { Link } from 'react-router-dom'; // Make sure to import Link
+import { Link, useNavigate } from 'react-router-dom'; // Make sure to import Link
   import 'tailwindcss/tailwind.css'
   import { useLocation } from 'react-router-dom';
+  import axios from 'axios';
+  import { jwtDecode } from 'jwt-decode';
+  
 
 const ProductDetailsPage = () => {
   const [quantity, setQuantity] = useState(1);
   const [hover, setHover] = useState(null);
+  const [userId, setUserId] = useState(0);
   const location = useLocation();
   const product = location.state.product;
   const [image,setImage]=useState(product.images[0].imageurl)
   console.log(product)
-  const[relatedProducts,setRelatedProducts]=useState([])
+  const navigate = useNavigate()
+ 
+
+ useEffect(()=>{
+  const token = localStorage.getItem('token');
+  const decodedToken = jwtDecode(token);
+  const id = decodedToken.userid;
+  setUserId(id);
+  console.log(id);
+},[])
+
   
 
   
@@ -39,7 +53,21 @@ const ProductDetailsPage = () => {
   const handleRating = (rate) => {
     setRating(rate);
   };
-
+  const handleAddToCart = () => {
+    console.log('Product added to cart');
+  };
+  const handleBuyNow = () => {
+    console.log('Product bought');
+  };
+  const handleAddToWishlist = () => {
+        axios.post('http://localhost:5000/api/WhishList/addWishlist', { userid:userId,productid:product.productid})
+      .then(response => {
+        console.log('Product added to wishlist');
+      })
+      .catch(error => {
+        console.error('Error adding product to wishlist:', error);
+      });
+  };
   
 
   return (
@@ -144,9 +172,9 @@ const ProductDetailsPage = () => {
 
           {/* Buy Now, Add to Cart, and Add to Wishlist Buttons */}
           <div className="flex items-center mt-4">
-            <button className="Button px-12 py-2.5 bg-red-500 rounded text-neutral-50 text-base font-medium font-['Poppins'] leading-normal cursor-pointer">Buy Now</button>
+            <button className="Button px-12 py-2.5 bg-red-500 rounded text-neutral-50 text-base font-medium font-['Poppins'] leading-normal cursor-pointer" onClick={()=>navigate('/checkout')}>Buy Now</button>
             <button className="Button px-12 py-2.5 bg-blue-500 rounded text-neutral-50 text-base font-medium font-['Poppins'] leading-normal cursor-pointer ml-4">Add to Cart</button>
-            <button className="Button px-4 py-2.5 bg-gray-200 rounded text-black text-base font-medium font-['Poppins'] leading-normal cursor-pointer ml-4 flex items-center">
+            <button className="Button px-4 py-2.5 bg-gray-200 rounded text-black text-base font-medium font-['Poppins'] leading-normal cursor-pointer ml-4 flex items-center" onClick={()=>handleAddToWishlist(product.productid)} >
               <FaHeart className="mr-2" /> Add to Wishlist
             </button>
           </div>

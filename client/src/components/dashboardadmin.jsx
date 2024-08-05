@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FiUsers, FiBarChart2, FiSettings, FiLogOut } from 'react-icons/fi';
-import Footer from './Footer';
-import Navbar from './Navbar';
+import {jwtDecode} from 'jwt-decode';
+
 
 export const DashboardAdmin = () => {
   const [users, setUsers] = useState([]);
@@ -11,39 +11,40 @@ export const DashboardAdmin = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    if (!token) {
-      navigate('/login');
-      return;
+    if (!token) {  
     }
 
-    fetchUsers(token);
-  }, [navigate]);
+    fetchUsers();
+  }, []);
 
-  const fetchUsers = async (token) => {
+  const fetchUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/user/all', {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      // Filter to only include admin users
-      setUsers(response.data.filter(user => user.role === 'admin'));
+      const response = await axios.get('http://localhost:5000/api/user/getAllUsers');
+      
+      setUsers(response.data.filter(user => user.role !== 'admin'));
+      
     } catch (error) {
       console.error("Error fetching users:", error);
     }
   };
+  console.log(users)
 
   const handleEditUser = (userId) => {
-    navigate(`/update-user/${userId}`);
+    navigate(`/Update`,{state:{userId}});
   };
 
-  const handleDeleteUser = async (id) => {
-    if (window.confirm('Are you sure you want to delete this user?')) {
+  const handleDeleteUser = async (id, currentStatus) => {
+    const newStatus = currentStatus === 'inactive' ? 'active' : 'inactive';
+    const action = newStatus === 'active' ? 'unblock' : 'block';
+    
+    if (window.confirm(`Are you sure you want to ${action} this user?`)) {
       try {
-        await axios.delete(`http://localhost:5000/api/user/${id}`, {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+        await axios.put(`http://localhost:5000/api/user/update/${id}`, {
+          status: newStatus   
         });
-        setUsers(users.filter(u => u._id !== id));
+        fetchUsers();
       } catch (error) {
-        console.error("Error deleting user:", error);
+        console.error(`Error ${action}ing user:`, error);
       }
     }
   };
@@ -53,9 +54,7 @@ export const DashboardAdmin = () => {
     navigate('/login');
   };
 
-  if (!currentAdmin) {
-    return <div>Loading...</div>;
-  }
+
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -71,7 +70,7 @@ export const DashboardAdmin = () => {
           />
         </main>
       </div>
-      <Footer />
+      
     </div>
   );
 };
@@ -113,12 +112,14 @@ const UserTable = ({ users, onEdit, onDelete }) => (
         <tr>
           <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">User</th>
           <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Email</th>
+          <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Role</th>
           <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
+          <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Status</th>
         </tr>
       </thead>
       <tbody>
         {users.map(user => (
-          <tr key={user._id}>
+          <tr key={user.userid}>
             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
               <div className="flex items-center">
                 <div className="flex-shrink-0 w-10 h-10">
@@ -131,10 +132,23 @@ const UserTable = ({ users, onEdit, onDelete }) => (
             </td>
             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
               <p className="text-gray-900 whitespace-no-wrap">{user.email}</p>
+
+              
             </td>
             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-              <button onClick={() => onEdit(user._id)} className="text-blue-600 hover:text-blue-900 mr-2">Edit</button>
-              <button onClick={() => onDelete(user._id)} className="text-red-600 hover:text-red-900">Delete</button>
+              <p className="text-gray-900 whitespace-no-wrap">{user.role}</p>
+            </td>
+            <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+              <button onClick={() => onEdit(user.userid)} className="text-blue-600 hover:text-blue-900 mr-2">Edit</button>
+              <button 
+                onClick={() => onDelete(user.userid, user.status)} 
+                className={`text-${user.status === 'inactive' ? 'green' : 'red'}-600 hover:text-${user.status === 'inactive' ? 'green' : 'red'}-900`}
+              >
+                {user.status === 'inactive' ? 'Unblock' : 'Block'}
+              </button>
+            </td>
+            <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+              <p className="text-gray-900 whitespace-no-wrap">{user.status}</p>
             </td>
           </tr>
         ))}
