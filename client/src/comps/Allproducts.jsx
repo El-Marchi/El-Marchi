@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { FaHeart, FaEye,FaArrowRight,FaArrowLeft } from 'react-icons/fa';
 import OneProduct from './OneProduct.jsx';
+import { useNavigate } from 'react-router-dom';
 
 const AllProducts = () => {
   const [products, setProducts] = useState([]);
   // const [visibleProducts, setVisibleProducts] = useState(8);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const navigate = useNavigate();
 
   const fetchProducts = async () => {
     try {
@@ -20,6 +22,7 @@ const AllProducts = () => {
   useEffect(() => {
     fetchProducts();
   }, []);
+console.log(products)
 
   // const handleViewAll = () => {
   //   setVisibleProducts(products.length);
@@ -94,7 +97,7 @@ const AllProducts = () => {
                         <FaHeart className="text-black" />
                       </div>
                       <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md">
-                        <FaEye className="text-black" />
+                        <FaEye onClick={()=>navigate('/Product',{state:{product:product}})} className="text-black" />
                       </div>
                     </div>
                   </div>

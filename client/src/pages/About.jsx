@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar';
 const About = () => {
   return (
     <div>
-      <Navbar/>
+      
     <div className="container mx-auto px-4 py-8">
       {/* Breadcrumb */}
       <nav className="flex items-center space-x-2 mb-8 text-sm">

@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import { Routes, Route } from "react-router-dom";
 import 'tailwindcss/tailwind.css';
 import ProductDetailsPage from "./pages/ProductDetailsPage";
@@ -15,37 +14,37 @@ import Errorpage from "./comps/Erorpage";
 import Cart from "./comps/Cart.jsx"
 import SallerDashboard from "./comps/SallerDashboard.jsx";
 import FilteredProducts from './components/filtredProducts.jsx';
-
+import Wishlist from "./pages/Wishlist";
+import Footer from './components/Footer';
+import Navbar from './components/Navbar';
 
 function App() {
+  // You might want to add state management for currentSellerId here
   const [currentSellerId, setCurrentSellerId] = useState(null);
 
-  useEffect(() => {
-    // Here you would typically fetch the current user's ID from your authentication system
-    // For now, let's set a dummy ID
-    setCurrentSellerId(1); // Replace with actual logic to get the seller's ID
-  }, []);
-
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* <Navbar /> */}
-      <main className="flex-grow">
+    <div>
+      <Navbar />
+      <main>
         <Routes>
-          <Route path="/" element={currentSellerId ? <SallerDashboard userid={currentSellerId} /> : <div>Loading...</div>} />
-          <Route path="/product" element={<AddProduct />} />
-       
-   
+          <Route path="/" element={<Homepage />} />
+          <Route path="/seller-dashboard" element={currentSellerId ? <SallerDashboard userid={currentSellerId} /> : <div>Loading...</div>} />
+          <Route path="/about" element={<About />} />
           <Route path="/product" element={<ProductDetailsPage />} />
           <Route path="/contact" element={<ContactForm />} />
-          <Route path="/admin_Dashboard" element={<DashboardAdmin />} />
-          <Route path="/all-Products" element={<AllProducts />} />
-          <Route path="/UpdateUser" element={<Update />} />
-          <Route path="/home" element={<Homepage />} />
+          <Route path="/admin-dashboard" element={<DashboardAdmin />} />
+          <Route path="/all-products" element={<AllProducts />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/update" element={<Update />} />
+          <Route path="/wishlist" element={<Wishlist />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/add-product" element={<AddProduct />} />
           <Route path="/category/:categoryName" element={<FilteredProducts />} />
-
+          <Route path="*" element={<Errorpage />} />
         </Routes>
       </main>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }

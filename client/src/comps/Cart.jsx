@@ -1,9 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Footer from '../components/Footer.jsx';
 import { FaTrash, FaMinus, FaPlus } from 'react-icons/fa';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+
+
 
 const Cart = ({ className = '' }) => {
+  const [cartItems, setCartItems] = useState([]);
+
+  var x = ''
+  var y = {}
+  if (localStorage.getItem('lolo')) {
+    x=JSON.stringify(localStorage.getItem('lolo'))
+    y = jwtDecode(x)
+    setRole(y.role)
+    console.log(y.role)
+  }
+
+  const fetchCartItems = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/cart/${y.userid}`);
+      setCartItems(response.data.items);
+     
+    } catch (error) {
+      console.error('Error fetching cart items:', error);
+    }
+  };
+ 
+
+  useEffect(() => {
+    fetchCartItems();
+  }, []);
+
+
   return (
     <div className={`cart ${className} min-h-screen bg-gray-100`}>
       <div className="container mx-auto px-4 py-8">
@@ -139,7 +169,7 @@ const Cart = ({ className = '' }) => {
         </div>
       </div>
 
-      <Footer />
+    
     </div>
   );
 };

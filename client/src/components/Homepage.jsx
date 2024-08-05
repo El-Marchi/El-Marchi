@@ -29,7 +29,7 @@ const HomePage = () => {
 
   return (
     <div className="e-commerce-homepage bg-white max-w-full overflow-x-hidden">
-      <Navbar />
+     
       <div className="flex flex-col md:flex-row">
         <Navigation />
         <div className="flex-1 p-4 overflow-x-hidden">
@@ -51,7 +51,7 @@ const HomePage = () => {
           <ServiceFeatures />
         </div>
       </div>
-      <Footer className="py-1" />
+      
     </div>
   );
 };
