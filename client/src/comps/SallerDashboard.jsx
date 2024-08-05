@@ -56,6 +56,11 @@ const SallerDashboard = () => {
     setIsAddProductModalOpen(true);
   };
 
+  const deleteProduct = async (productid) => {
+    await axios.delete(`http://localhost:5000/api/product/delete/${productid}`);
+    await fetchUserProducts();
+  };
+
   const handleCloseModal = () => {
     setIsAddProductModalOpen(false);
     fetchUserProducts(); 
@@ -98,7 +103,7 @@ const SallerDashboard = () => {
             <div className="text-black text-3xl font-bold font-['Inter'] leading-tight tracking-wide">Manage Your Products</div>
           </div>
           <button 
-            onClick={() => navigate('/AddProduct')}
+            onClick={() => navigate('/add-product')}
             className="mt-4 lg:mt-0 bg-green-5000 hover:bg-green-6000 text-white font-medium py-2 px-4 rounded-full shadow-md transition duration-300 ease-in-out flex items-center"
           >
             <FaPlus className="mr-2" /> Add New Product
@@ -123,6 +128,12 @@ const SallerDashboard = () => {
                   className="text-blue-500 hover:text-blue-700"
                 >
                   {selectedProduct && selectedProduct.productid === product.productid ? 'Hide Details' : 'Show Details'}
+                </button>
+                <button 
+                  onClick={() => deleteProduct(product.productid)}
+                  className="text-red-500 hover:text-red-700"
+                >
+                  Delete
                 </button>
                 {selectedProduct && selectedProduct.productid === product.productid && (
                   <div className="mt-2 text-sm text-gray-600">

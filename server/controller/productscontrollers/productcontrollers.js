@@ -49,12 +49,12 @@ const getProductByCriteria = async (req, res) => {
     }
 };
 
-// get all products by user ID
+
 const getAllProductsByUserId = async (req, res) => {
     const userId = req.params.userid;
 
     try {
-        // Assuming Product is your Sequelize model
+        
         const products = await Product.findAll({ where: { userid: userId },include:[
             { model: Image },
             { model: db.Rating }
@@ -66,7 +66,7 @@ const getAllProductsByUserId = async (req, res) => {
         res.status(500).json({ message: 'Error fetching products for user' });
     }
 };
-// Create a new product
+
 const createProduct = async (req, res) => {
     const { name, description, price, stock, categorie, userid } = req.body;
 

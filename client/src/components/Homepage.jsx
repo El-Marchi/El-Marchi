@@ -4,13 +4,29 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import Footer from './Footer';
 import Navbar from './Navbar';
 import Photo from './photo.jsx'; 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
+
 
 
 import axios from 'axios';
 
 const HomePage = () => {
-  
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/product/getall');
+      setProducts(response.data.products);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
+
   return (
     <div className="e-commerce-homepage bg-white max-w-full overflow-x-hidden">
      
@@ -18,12 +34,21 @@ const HomePage = () => {
         <Navigation />
         <div className="flex-1 p-4 overflow-x-hidden">
           <HeroCarousel />
-          <CategoriesSection />
-          <BestSellingProductsSection />
-          <Photo />
-          <ExploreProductsSection />
-          <NewArrivalSection />
-          <ServiceFeaturesSection />
+          <Categories setSelectedCategory={setSelectedCategory} />
+          {selectedCategory ? (
+            <FilteredProducts 
+              category={selectedCategory} 
+              products={products.filter(product => product.categorie === selectedCategory)}
+            />
+          ) : (
+            <>
+              <BestSelling />
+              <Photo />
+              <ExploreProducts products={products} />
+              <NewArrival />
+            </>
+          )}
+          <ServiceFeatures />
         </div>
       </div>
       
@@ -65,7 +90,7 @@ const HeroCarousel = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
-    }, 5000);
+    }, 2000);
     return () => clearInterval(timer);
   }, []);
 
@@ -96,7 +121,8 @@ const HeroCarousel = () => {
   );
 };
 
-const CategoriesSection = () => {
+const Categories = ({  }) => {
+  const navigate = useNavigate();
   const categories = [
     { name: 'Electronics', icon: FiMonitor },
     { name: 'Accessories', icon: FiHeadphones },
@@ -106,6 +132,11 @@ const CategoriesSection = () => {
     { name: 'Health & Personal Care', icon: FiHeart },
     { name: 'Photography', icon: FiCamera },
   ];
+
+  const handleCategoryClick = (categoryName) => {
+    navigate(`/category/${categoryName.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-')}`);
+   
+  };
 
   return (
     <section className="my-8 border border-gray-200 rounded-lg p-4 md:p-6">
@@ -117,7 +148,8 @@ const CategoriesSection = () => {
         {categories.map((category, i) => (
           <div 
             key={i} 
-            className="p-2 md:p-4 text-center rounded-lg transition duration-300 flex flex-col items-center justify-center border border-gray-200 hover:border-red-500 hover:bg-red-50 group"
+            className="p-2 md:p-4 text-center rounded-lg transition duration-300 flex flex-col items-center justify-center border border-gray-200 hover:border-red-500 hover:bg-red-50 group cursor-pointer"
+            onClick={() => handleCategoryClick(category.name)}
           >
             <category.icon className="w-6 h-6 md:w-10 md:h-10 mb-1 md:mb-2 text-gray-600 group-hover:text-red-500 transition duration-300" />
             <span className="text-xs md:text-sm font-medium group-hover:text-red-500 transition duration-300">{category.name}</span>
@@ -128,7 +160,7 @@ const CategoriesSection = () => {
   );
 };
 
-const BestSellingProductsSection = () => (
+const BestSelling = () => (
   <section className="mb-8">
     <div className="flex justify-between items-center mb-4">
       <h2 className="text-2xl font-bold">Best Selling Products</h2>
@@ -204,23 +236,9 @@ const BestSellingProductsSection = () => (
   </section>
 );
 
-const ExploreProductsSection = () => {
+const ExploreProducts = ({ products }) => {
   const navigate = useNavigate();
-  const [products, setProducts] = useState([]);
   const [visibleProducts, setVisibleProducts] = useState(8);
-
-  const fetchProducts = async () => {
-    try {
-      const response = await axios.get('http://localhost:5000/api/product/getall');
-      setProducts(response.data.products);
-    } catch (error) {
-      console.error('Error fetching products:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
 
   const handleAddToCart = (product) => {
    
@@ -282,7 +300,7 @@ const ExploreProductsSection = () => {
   );
 };
 
-const NewArrivalSection = () => (
+const NewArrival = () => (
   <section className="mb-8">
     <h2 className="text-2xl font-bold mb-4 text-gray-800">New Arrival</h2>
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -328,7 +346,7 @@ const NewArrivalSection = () => (
   </section>
 );
 
-const ServiceFeaturesSection = () => (
+const ServiceFeatures = () => (
   <section className="grid grid-cols-1 md:grid-cols-3 gap-8 py-8 border-t">
     {[
       { icon: '🚚', title: 'FREE AND FAST DELIVERY', description: 'Free delivery for all orders over $140' },
@@ -343,5 +361,39 @@ const ServiceFeaturesSection = () => (
     ))}
   </section>
 );
+
+const FilteredProducts = ({ category, products }) => {
+  return (
+    <section className="mb-8">
+      <h2 className="text-2xl font-bold mb-4">{category} Products</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {products.map((product) => (
+          <div key={product.productid} className="border rounded-lg p-4">
+            <div className="h-48 mb-2 overflow-hidden rounded-lg">
+              <img 
+                src={product.images && product.images[0] ? product.images[0].imageurl : 'https://via.placeholder.com/150x150'} 
+                alt={product.name} 
+                className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+              />
+            </div>
+            <h3 className="font-semibold">{product.name}</h3>
+            <div className="flex justify-between items-center mt-2">
+              <span className="text-red-500 font-medium">${product.price}</span>
+              <div className="flex items-center">
+                <span className="text-yellow-500">{'★'.repeat(Math.floor(product.rating || 0))}{'☆'.repeat(5 - Math.floor(product.rating || 0))}</span>
+                <span className="text-gray-500 text-sm ml-1">({product.reviews || 0})</span>
+              </div>
+            </div>
+            <button 
+              className="mt-2 bg-red-500 text-white px-4 py-2 rounded w-full hover:bg-red-600 transition duration-300"
+            >
+              Add to Cart
+            </button>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+};
 
 export default HomePage;

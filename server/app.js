@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const {whishListRouter} = require('./Router/whislistRouter/whishlistRouter.js')
-const{CartRouter}=require('./Router/whislistRouter/CartRouter.js')
+const{cartRouter}=require('./Router/whislistRouter/CartRouter.js')
 const{RatingRouter}=require('./Router/ratingRoot.js')
 const routerproduct=require('./Router/productrouter/productrouters.js')
 const uploadImage = require("./uploadImage.js");
@@ -25,7 +25,7 @@ app.use((req, res, next) => {
 app.use("/api/WhishList",whishListRouter)
 app.use('/api/user',userRouter)
 
-app.use("api/CartRouter",CartRouter)
+app.use("api/CartRouter",cartRouter)
 app.use("api/RatingRouter",RatingRouter)
 app.use("/api/product", routerproduct)
 app.use(mailerRouter)

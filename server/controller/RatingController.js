@@ -3,13 +3,13 @@ const { db } = require('../database/index');
 
 const addRating = async (req, res) => {
     try {
-      let info = {
-        userid: req.body.userid,
-        productid: req.body.productid,
-        rating:req.body
-      };
+      const {
+        userid,
+        productid,
+        rating
+      }=req.body
   
-      await db.Rating.create(info);
+      await db.Rating.create({userid,productid,rating});
       res.status(200).send('rating added ');
     } catch (error) {
       console.error('Error adding product to rating:', error);
@@ -20,7 +20,7 @@ const addRating = async (req, res) => {
   const getRatingbyP = async (req, res) => {
     try {
      
-      const rating = await db.rating.findAll({
+      const rating = await db.Rating.findAll({
         where: {
             productid: req.params.productid 
         },
